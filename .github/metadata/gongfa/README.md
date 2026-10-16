@@ -6,8 +6,46 @@
 - [registry.json](registry.json)是功法条目唯一可编辑数据源；`entry_status`区分已登记与待评候选，候选不等于正式登记。历史来源候选仍保存在不可变快照，不因快照存在自动入登记。
 - 2026-10-07两批共登记79条：仓内来源62条（首批41条、续收21条）＋指定项目页面17条；两批初评分别覆盖58条与21条。拼好码于2026-10-11按用户指令由地阶中级暂定调整为天阶高级暂定，历史值与理由见文件末尾审计。
 - 截至2026-10-14，3条备忘录与3条早期Solve候选素材均未写入登记JSON或生成总表；定向语义复核将P15暂列为能力/学习框架，确认Solve候选A为6来源跨域合成且暂不作为单一方法候选；B可保留为来源绑定的待审候选但未进入机器登记；C收窄为审计既有检索结果集的单一`OperatorSpec`候选，不包括检索构造或执行。B/C写入机器登记均需另行确认。同日另冻结机器学习来源包中的漂移检测、分布外检查和置信度升级3条`OperatorSpec`，仅供来源追溯与人工复核；首轮对照官方stable文档发现原引用对完整操作契约仅有相邻支持，来源版本、许可与效果未验证，不进入登记或总表。另冻结此前仅由本地全量导出定位的2条同名Solve记录，供与既有候选逐项比较，未决定合并或登记。详细范围与未决事项见[候选方法整理稿及交叉核对](../../docs/gongfa/methodology-toolbox.md#philosophy-methodology-toolbox-候选方法整理稿)。
+- 2026-10-15续审P19“最小模型—迁移—边界回填”：有限类比研究支持关系结构映射及对推论结构支持、目标域事实和任务相关性的分别核验；不支持该完整操作序列的来源归属或软件工程效果。编辑稿已澄清映射与验证边界，候选仍源自仓内备忘录，未分配ID、未写登记/总表或赋级。快照见[source-selected-candidate-minimal-model-transfer-boundaries-20261015.txt](source-selected-candidate-minimal-model-transfer-boundaries-20261015.txt)；本次不是556→410全量语义去重。
+- 2026-10-15续审Solve计算机科学pack entries[0..4]：CS2023官方课程页与报告仅支持算法策略主题，不证明Agent泛化操作或效果。抽象是视角、问题分解是流程中间产物；归约和动态规划保留窄边界待审；分治与已登记方法重叠，不重复登记。未改registry或总表，有限快照见[source-selected-computer-science-entries-0-to-4-20261015.txt](source-selected-computer-science-entries-0-to-4-20261015.txt)，不代表556→410全量去重。
+- 2026-10-15续审Solve计算机科学pack entries[5..9]：CS2023支持贪心、回溯、分支定界和算法复杂度课程主题，不支持Agent完整操作合同；NIST形式化方法词条仅支持广义定义。贪心需局部选择性质/近似界；回溯和分支定界需明确状态、撤销/剪枝正确性与预算；复杂度需分开渐近分析和token/latency/成本测量；形式化方法与已登记轻量形式化高度相关。未新增登记、候选或评级；快照见[source-selected-computer-science-entries-5-to-9-20261015.txt](source-selected-computer-science-entries-5-to-9-20261015.txt)，不代表556→410全量去重。
+- 2026-10-15完成Solve计算机科学pack entries[10..15]有限复核：STRIPS支持动作前置条件/效果和目标模型，但不证明通用Agent执行；invariant/interface/dependency graph沿用已有历史候选，不复制或升级；memoization与缓存误用约束分开，derived搜索循环只作编辑草图。未改功法登记/候选/总表或评级；快照见[source-selected-computer-science-entries-10-to-15-20261015.txt](source-selected-computer-science-entries-10-to-15-20261015.txt)，不代表全量语义去重。
+- 2026-10-15续审Solve算法pack entries[1..6]：MIT讲义支持有限的近似比、随机算法、DAG拓扑序及在线竞争分析命题；随机重启/尾部置信、通用图建模、运行时并行安全和Agent质量映射仍缺合同。区分MethodSpec、OperatorSpec、MentalModelSpec与derived组合，不新增登记/候选/评级；快照见[source-selected-algorithms-entries-1-to-6-20261015.txt](source-selected-algorithms-entries-1-to-6-20261015.txt)，不代表556→410全量语义去重。
+- 2026-10-15续审Solve机器学习pack entries[0..4]：官方文档支持传统估计器的测试集隔离、k-fold验证和按训练样本数的学习曲线；Agent hidden eval、task-fold评测、reasoning/context/tool-call资源曲线及预算正则化映射仍属未验证跨域类比。与已有实验设计、性能测量等记录相邻，不新增登记、候选ID或评级。有限快照见[source-selected-machine-learning-entries-0-to-4-20261015.txt](source-selected-machine-learning-entries-0-to-4-20261015.txt)，只覆盖五条，不代表556→410全量语义去重。
+- 2026-10-15续审Solve机器学习pack entries[5..8]：官方文档支持传统模型的数据泄漏边界、超参数组合搜索/嵌套交叉验证、分类概率校准及单特征置换敏感度；Agent隐藏评测、配置搜索、confidence/escalation及上下文/工具输出扰动仍属未验证迁移。置换分数变化不等于因果效应，概率校准也不等于动作阈值。与实验设计、指标优化、置信度升级和因果特征消融相邻但不自动合并；不新增登记、候选ID或评级。有限快照见[source-selected-machine-learning-entries-5-to-8-20261015.txt](source-selected-machine-learning-entries-5-to-8-20261015.txt)，仅覆盖四条，不代表556→410全量语义去重。
 - 两批入库初评的原始分布为黄7、玄47、地25、天0；这是修订前历史记录，不代表当前分布，也不是效果实测。
 - 另于2026-10-14冻结Solve机器学习包中的`因果特征消融`来源记录，供因果语义与来源支持复核；两条`source_refs`目前仅有相邻支持，消融结果不自动构成因果证据，不进入登记或总表。
+- 同日冻结`主动学习`来源记录：与通用“信息价值”相关但不完全等同；成本敏感的VOI可成为主动学习的查询策略。原引用未支持完整标签选择循环，补充综述不属于原引用，需新来源修订。本轮不进入登记或总表、不赋级，详见有限选区快照。
+- 同日冻结`摊销分析`来源记录：MIT讲义支持操作序列成本上界方法，CS2023将其列为`KA Core`；原CS2023引用URL失效，“平均代价”还须与统计平均区分。只供人工审查，不进入登记或总表、不赋级。
+- 另冻结`programming-principles-101` pack中5条近标题记录，与历史候选A017/A032/A071/A097/A099作有限语义对照；操作化表达不自动构成独立功法，pack原文与许可未独立核验，不进入登记或总表。
+- 另对照该pack最前面的7条原则记录（2.1–2.7）与历史候选A004–A010；七条均高度重叠，Solve步骤属操作化增量，来源、独立身份与效果未验证，不进入登记或总表。
+- 另冻结该pack 3.2–3.10中的8条记录（跳过已审的3.7），与历史A012–A016、A018–A020对照：简洁/KISS与重复最少化/DRY高度重叠；变化适应、影响局部化、对称性、声明式表达、变动率各自边界不同或相邻。来源和独立身份仍未核验，不进入登记或总表。
+- 另冻结该pack的3.12–3.21九条操作化记录（跳过另行审阅的3.14）：单一引用点与DRY/重复最少化高度重叠，分治对应已登记条目；抽象、封装、打包和职责分离按边界区分，但来源及独立身份未核，不进入登记或总表。
+- 另冻结该pack的3.23–3.27五条操作化记录：3.25效率性与已登记性能测量原则高度重叠；易变性、互操作性、可靠性、可测试性是相关设计准则的流程化表达，身份、来源和效果仍未核验，不进入登记或总表。
+- 另冻结该pack的3.28、3.30–3.33五条记录：3.30简单性与已审3.3高度重叠；3.32对称原理与3.8对称性强重复；3.31存在编号/标题与定义偏移。其余记录与胶水原则、SLAP等相邻，暂不新增登记。
+- 另冻结该pack的3.34–3.39五条记录：3.35清晰原理与历史候选定义有偏移；3.35/3.39同名但对象不同；3.36安全原理仍须独立风险审查，不因Solve步骤化而登记。
+- 另冻结3.40–3.44五条：3.41分离原则与3.18高度重复；3.42简单原则与3.3、3.30形成重复簇；组合、规模控制及透明性分别与胶水、模块边界和故障可控方法相邻，不据此新增登记。
+- 另冻结3.45–3.49五条：3.47最小意外原则与已登记条目重叠；健壮性、修复与失败控制相邻；表达性和沉默原则按知识表达、输出通道边界处理，不作为登记证据。
+- 另冻结3.50–3.54五条：3.52与性能测量原则高度重叠；生成、经济核算、多样性和可扩展性分别保留机械派生、总成本、真实变体与已证实扩展轴边界，不新增登记。
+- 另冻结3.56–3.60五条：3.57与高内聚/单一职责重叠；3.55 UNIX哲学是未映射的历史复合候选，不等于Solve记录或已定义方法。
+- 另冻结3.61–3.64及4.1五条：软件杠杆（3.61）此前已在近标题快照对照；shell、非交互和过滤器方法保留安全边界；4.1内聚审计与高内聚条目重叠。本批只新增4条记录的直接对照。
+- 另冻结4.2–4.6五条：耦合、可逆性、技术负债与已有登记重叠；正交性保留变化轴边界，代码坏味作为诊断信号，不作自动重构授权。
+- 另冻结entries[72..76]五条：契约设计与现有不变式/接口契约重叠；童子军规则受任务范围约束；内部测试指真实内部使用，橡皮鸭叙述不是证据；布鲁克斯法则须按任务依赖与并行性评估。
+- 另冻结entries[77..81]五条：康威定律作为组织/架构假设；破窗与熵增只作类比，不证明因果；80-10-10此前已审，本次不重复计数；约书亚树命名与概念工程/变量索引相邻。
+- 另冻结entries[82..84]三条：第二系统此前已审；重新造轮与胶水原则重叠；牦牛剃毛保留为问题栈/停止条件候选，不能中止必要硬依赖。
+- 另复核软件工程Solve pack entries[0..4]：架构权衡已在历史快照，设计理由与现有登记重叠；需求工程过宽，可追踪性需限定范围，验证与确认的精确定义仍待来源核对。仅冻结四条新字段投影，均不新增登记/评级；SWEBOK/NIST页面只支持主题范围，不证明精确步骤、许可或效果。详见[有限快照](source-selected-software-engineering-entries-0-to-4-20261014.txt)。
+- 续审软件工程Solve pack entries[5..9]：CS2023 Software Engineering Version Gamma（2023年8月）补充支持迭代/快速反馈、代码评审、配置管理与版本控制、按新需求识别待改区域，以及重构对既有用户影响最小的目标；这些是课程主题/学习目标，不证明完整操作、许可或效果。该Gamma PDF是补充来源，不等于Solve原`ref:cs2023`固定来源；前批快照保留原样，当前更新见后续批次快照。详见[entries 5–9有限审阅](source-selected-software-engineering-entries-5-to-9-20261014.txt)。
+- 另审软件工程Solve pack entries[10..15]：Gamma支持CI、组件边界/API原则及可靠性telemetry等主题，但不证明全部操作；风险驱动测试和事故复盘仍缺精确流程来源，接口隔离仍是待审候选，可观测性与可观测性设计需先判断身份/阶段关系。只冻结entries[10]、[11]、[13]、[15]投影，不新增登记/初评/评级；entries[12]、[14]沿用旧快照。详见[有限审阅与来源补充](source-selected-software-engineering-entries-10-to-15-20261014.txt)。
+- 另审软件工程Solve pack entry[16]：它是引用需求、追踪、增量开发、评审、配置管理和可观测性的`derived`组合；与已登记总体交付流程重心不同，但来源只有不可独立复核的conversation映射，且阶段合同、风险/验证证据、失败恢复仍不完整。不新增登记、初评或评级。详见[entry 16有限对照](source-selected-software-engineering-entry-16-20261014.txt)。
+- 另审编程Solve pack entries[0..4]：快反馈与既有总体流程/小步候选相邻，假设驱动调试与溯因排错高度重叠；二分调试是同ID历史候选，旧“优先候选”不是登记；Python 3.12.15文档只支持断点/单步等工具能力，不证明完整操作契约，Agent trace仍受来源和数据边界限制。仅限前五条，不新增登记、初评或评级；详见[有限语义复核](source-selected-programming-entries-0-to-4-20261014.txt)。
+- 续审编程Solve pack entries[5..9]：性能剖析是既有性能测量方法内的工具操作；最小复现与模糊测试沿用历史候选意见；静态分析及并发检测缺少可独立复核的来源。本轮只冻结entries[5]、[8]、[9]投影，entries[6]、[7]不重复复制或升级；不新增登记、初评或评级。详见[有限复核](source-selected-programming-entries-5-to-9-20261014.txt)。
+- 再续审编程Solve pack entries[10..14]：小变更和读—执行—观察—修改并入现有交付/反馈循环；性质测试、差分测试沿用历史候选意见；插桩与tracing作为观测链相邻阶段，来源和身份边界仍待补足。本轮仅冻结entries[10]、[11]、[14]投影，不新增登记、初评或评级。详见[有限复核](source-selected-programming-entries-10-to-14-20261014.txt)。
+- 继续审编程Solve pack末三条entries[15..17]：依赖最小化与胶水/依赖审查相邻但来源未支持具体方法合同；资源预算/停止语义属于横切约束，仍缺运行时方法来源；派生调试循环组合此前已审条目，不因此自动产生新身份。本轮不新增登记或评级。详见[有限复核](source-selected-programming-entries-15-to-17-20261014.txt)。
+- 首审问题求解方法论Solve pack entries[0..4]：任务定框并入问题界定闭环；问题空间与解空间边界相关但不相同；手段—目的和启发式搜索沿用历史候选意见；表征变换与Projection转换相邻。原文获取有限，不新增登记或评级。详见[有限语义复核](source-selected-problem-solving-methodology-entries-0-to-4-20261014.txt)。
+- 续审问题求解方法论Solve pack entries[5..8]：构造性见证与元认知监控沿用历史候选；回看评估作为检查阶段但未证明独立流程；派生通用循环不按固定顺序登记。Newell–Simon与Pólya来源不支持线性阶段解释，NIH/National Academies页面返回403；不新增候选、登记或评级。详见[有限语义复核](source-selected-problem-solving-methodology-entries-5-to-8-20261014.txt)。
+- 首审信息与知识科学Solve pack entries[0..3]：区分信息需求、检索式扩展、来源血缘与既有结果集评测；DCAT/PROV-DM/FAIR支持元数据与追溯结构，不等于来源权威或许可批准；TREC的检索Recall与回答引用支持度precision/recall不可混用。沿用候选C窄边界，不新增登记或评级。详见[有限语义复核](source-selected-information-knowledge-science-entries-0-to-3-20261014.txt)。
+- 续审信息与知识科学Solve pack entries[4..5]：区分FAIR数据可复用原则与社会公平，NIST/DCAT不支持差别影响审计，NIH页面返回403；派生检索循环缺组合、反馈和停止合同，仅作编辑性草图。与前批合计覆盖该6条pack，但不代表556→410全量语义去重；不新增候选、登记或评级。详见[有限语义复核](source-selected-information-knowledge-science-entries-4-to-5-20261014.txt)。
+- 该pack的85条编号/标题结构交叉表显示85/85唯一映射到HTML历史候选且去章节号后标题一致；这是字段交叉核对，不是语义去重、来源独立证明或登记输入。当前85条记录均有直接语义对照（含此前单独审阅的信息隐藏3.14；本批7.7此前已审），但记录数不代表85个独立概念，也不代表556→410全量去重。
 - 完整可复用正文从[统一功法文集](../../docs/gongfa/README.md)进入；文集不等于独立功法记录。
 - [本体主文](../../docs/gongfa/cultivation-ontology-taxonomy.md#功法本体与品级)解释类型与语义；等级是分组，不是类型继承。
 - 来源声明、编者摘要与真实效果证据不同；缺失字段明确列在`missing_fields`，不编造成立条件或效果。
@@ -39,8 +77,46 @@ gongfa/
 ├── source-methodology-931f79be.txt          # 指定页面原始HTML快照（惰性文本）
 ├── source-selected-candidates-20261013.txt   # 3项备忘录与3项早期Solve候选的冻结选区及来源指纹
 ├── source-selected-candidates-20261014.txt   # 机器学习包3条OperatorSpec的有限评审选区，不进入总表
+├── source-selected-machine-learning-entries-0-to-4-20261015.txt # 机器学习pack前五条有限来源与语义复核，不进入总表
+├── source-selected-machine-learning-entries-5-to-8-20261015.txt # 机器学习pack后四条有限来源与语义复核，不进入总表
 ├── source-selected-candidate-causal-feature-ablation-20261014.txt # 因果特征消融来源记录的有限评审选区
-└── source-selected-title-matches-20261014.txt # 两条同名命中来源的有限冻结选区
+├── source-selected-candidate-active-learning-20261014.txt # 主动学习来源记录的有限评审选区
+├── source-selected-candidate-amortized-analysis-20261014.txt # 摊销分析来源记录的有限评审选区
+├── source-selected-candidate-minimal-model-transfer-boundaries-20261015.txt # P19与类比研究的有限来源对照，不新增登记或效果证据
+├── source-selected-computer-science-entries-0-to-4-20261015.txt # Solve计算机科学pack前五条有限语义与来源复核
+├── source-selected-computer-science-entries-5-to-9-20261015.txt # Solve计算机科学pack entries[5..9]有限语义与来源复核
+├── source-selected-computer-science-entries-10-to-15-20261015.txt # Solve计算机科学pack末六条有限语义与来源复核
+├── source-selected-algorithms-entries-1-to-6-20261015.txt # Solve算法pack六条source/derived条目的有限语义与来源复核
+├── source-selected-title-matches-20261014.txt # 两条同名命中来源的有限冻结选区
+├── source-selected-near-title-matches-20261014.txt # 五条编程原则近标题命中的有限冻结选区
+├── source-selected-principle-operations-20261014.txt # 七条编程原则操作化对照及完整Solve记录
+├── source-selected-principle-operations-3-2-to-3-10-20261014.txt # 八条编程原则语义对照及完整Solve记录
+├── source-selected-principle-operations-3-12-to-3-21-20261014.txt # 九条编程原则语义对照及Solve字段投影
+├── source-selected-principle-operations-3-23-to-3-27-20261014.txt # 五条编程原则语义对照及Solve字段投影
+├── source-selected-principle-operations-3-28-to-3-33-20261014.txt # 五条编程原则语义对照及Solve字段投影
+├── source-selected-principle-operations-3-34-to-3-39-20261014.txt # 五条编程原则语义对照及Solve字段投影
+├── source-selected-principle-operations-3-40-to-3-44-20261014.txt # 五条编程原则语义对照及Solve字段投影
+├── source-selected-principle-operations-3-45-to-3-49-20261014.txt # 五条编程原则语义对照及Solve字段投影
+├── source-selected-principle-operations-3-50-to-3-54-20261014.txt # 五条编程原则语义对照及Solve字段投影
+├── source-selected-principle-operations-3-56-to-3-60-20261014.txt # 五条编程原则语义对照及Solve字段投影
+├── source-selected-principle-operations-3-61-to-3-64-and-4-1-20261014.txt # 五条编程原则语义对照及Solve字段投影
+├── source-selected-principle-operations-4-2-to-4-6-20261014.txt # 五条编程原则语义对照及Solve字段投影
+├── source-selected-principle-operations-entries-72-to-76-20261014.txt # 五条编程原则语义对照及Solve字段投影
+├── source-selected-principle-operations-entries-77-to-81-20261014.txt # 五条编程原则语义对照及Solve字段投影
+├── source-selected-principle-operations-entries-82-to-84-20261014.txt # 三条编程原则语义对照及Solve字段投影
+├── source-selected-problem-solving-methodology-entries-0-to-4-20261014.txt # 问题求解方法论pack前五条有限语义复核及来源摘录
+├── source-selected-problem-solving-methodology-entries-5-to-8-20261014.txt # 问题求解方法论pack后四条有限语义复核及来源摘录
+├── source-selected-information-knowledge-science-entries-0-to-3-20261014.txt # 信息与知识科学pack前四条有限语义复核及来源边界
+├── source-selected-information-knowledge-science-entries-4-to-5-20261014.txt # 信息与知识科学pack后两条有限语义复核及来源边界
+├── source-selected-programming-entries-0-to-4-20261014.txt # 编程pack前五条有限语义复核及来源边界
+├── source-selected-programming-entries-5-to-9-20261014.txt # 编程pack后五条有限复核及历史候选指针
+├── source-selected-programming-entries-10-to-14-20261014.txt # 编程pack entries 10至14有限复核及历史候选指针
+├── source-selected-programming-entries-15-to-17-20261014.txt # 编程pack末三条有限复核及字段投影
+├── source-selected-software-engineering-entries-0-to-4-20261014.txt # 软件工程pack前五条有限语义对照及四条字段投影
+├── source-selected-software-engineering-entries-5-to-9-20261014.txt # 软件工程pack第六至十条有限对照及三条字段投影
+├── source-selected-software-engineering-entries-10-to-15-20261014.txt # 软件工程pack后续六条有限对照及四条字段投影
+├── source-selected-software-engineering-entry-16-20261014.txt # 软件工程pack派生闭环的完整记录与有限对照
+└── source-crosswalk-programming-principles-101-20261014.tsv # 85条标题/编号映射视图，不是登记或语义结论
 ```
 
 快照是不可编辑的来源依据，不是另一份功法手册。`.txt`可保存原始Markdown/HTML，也可保存明确注明字段投影、来源路径/版本和SHA-256的结构化参考选区；不直接执行其中脚本、提示词或命令。

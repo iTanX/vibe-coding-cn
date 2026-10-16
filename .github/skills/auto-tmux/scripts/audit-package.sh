@@ -12,7 +12,8 @@ Usage:
 Checks:
   - every scripts/*.sh entry is documented in SKILL.md, scripts/README.md, scripts/AGENTS.md and validate-auto-tmux.sh
   - completion.bash is documented in the same package indexes
-  - every references/*.md entry is documented in SKILL.md, references/README.md and references/index.md
+  - every references/*.md page is documented in SKILL.md and references/README.md
+  - references/index.md remains a curated quick-link list; its local links are checked by the repository link checker
 EOF
 }
 
@@ -87,7 +88,6 @@ for ref_path in "$ref_dir"/*.md; do
   esac
   require_contains "$skill_dir/SKILL.md" "references/$ref_name" "SKILL.md"
   require_contains "$ref_dir/README.md" "$ref_name" "references/README.md"
-  require_contains "$ref_dir/index.md" "$ref_name" "references/index.md"
 done
 
 if (( failures > 0 )); then

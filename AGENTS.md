@@ -206,7 +206,7 @@ git push origin HEAD
 - `.github/scripts/check-metadata.py` - metadata 路径与锚点检查脚本，供 `make check-metadata` 与 CI 使用
 - `.github/metadata/faqi.json` / `faqi.schema.json` - 法器总分类登记及字段契约；复用本体类型、固定来源审查、依赖图对象和用户确认纳入的依赖类别，原资源事实仍归资源YAML；当前暂定品级按Vibe Coding重要性分组，正式效能评级仍须独立效果证据。
 - `.github/tools/faqi-catalog.md` - 法器品级、名称与详细解释的三列只读浏览表；解释合并重要性范围和分级依据，完整登记仍归`.github/metadata/faqi.json`，资源原事实归资源YAML。
-- `.github/scripts/sync-faqi-catalog.py` / `test-faqi-catalog.py` - 离线总表生成、检查及行为契约；核来源、图SHA、对象映射和品级边界，保留真实命令/结果；不执行被审程序或联网补证。
+- `.github/scripts/sync-faqi-catalog.py` / `test-faqi-catalog.py` - 离线总表生成、检查及行为契约；核来源、图SHA、对象映射和品级边界，保留真实命令/结果；不执行被审程序或联网补证；文件级许可线索仅作支持证据，不代表批准。
 - `.github/metadata/gongfa/registry.json` - 活跃功法登记、等级、规则、来源、内容版本、人工初评及正式评级历史的唯一可编辑数据源；类型语义仍归本体主文；新范围追加批次
 - `.github/metadata/gongfa/catalog.md` / `catalog.xlsx` - 功法总表的生成视图；Markdown列品级、名称与详细解释；品级使用“天阶高级”等完整名称，不缩写。登记摘要/问题/机制及条件/限制/预期结果，候选原文/用途/理由，Solve机制/适用范围/前提/边界；完整原始数据仍归JSON；Excel保留完整字段；不手改、不自动注册/去重/评级
 - `.github/metadata/gongfa/catalog-sources.json` - 仅索引仓内不可变候选快照的路径/SHA/范围；历史材料不是第二可编辑登记，不依赖个人目录或临时工件
@@ -266,7 +266,9 @@ git push origin HEAD
 ### 分支职责
 
 - `main` 是默认主线，开发更新和贡献 PR 统一以 `main` 为目标；远端长期保留 `main`、`minimal`。
-- `minimal` 保留现有内容，不作为贡献集成分支；`main` 保留签名、CODEOWNER、最后推送审批和必需 CI 保护。
+- `minimal` 保留现有内容，不作为贡献集成分支；`main` 保留签名和必需 CI 保护。
+- 按用户明确要求，Ruleset 与经典分支保护均不要求审批：数量为 0，Code Owner、最近推送及额外审批均关闭。
+  `CODEOWNERS` 仅提供自愿审查入口，不作为合并前置条件；不得擅自恢复必需审批。
 - 按用户授权收敛远端分支前，先迁移开放 PR 的目标、保存全部精确 SHA 与已验证恢复 bundle，并用 ref lease 防止误删并行更新。
 - 远端清理不删除本地分支或 worktree；尚未整合的历史只备份，不自动合入主线。临时任务分支在交付后按同一规则清理。
 - 不将 squash 后的非祖先 HEAD 自动判为未整合；须核对已合并 PR 的精确 HEAD 与主线中的 merge commit。
@@ -275,7 +277,9 @@ git push origin HEAD
 
 - 用户已明确要求：本仓修改完成并完成必要验证后，自动提交、推送并合并，不再停在“本地未推送”，不重复询问发布许可；用户后续暂停、仅本地或先看方案等明确要求优先。
 - 只选择性提交本任务范围，不夹带并行或无关改动；不自动切分支、改写历史、强推或删除交付引用。
-- 受保护主线走精确PR/HEAD流程；如审批或检查未通过，保留实际失败并按用户自动交付指令逐次留痕处理流程例外，完整恢复原保护，不伪造批准、成功checks或独立审核；凭据、权限和数据边界不因自动交付扩大。
+- 受保护主线走精确 PR/HEAD 流程；核对必需 CI 和其他保留的保护，不额外要求审批或伪造批准、成功 checks、独立审核。
+  流程例外须按用户授权留痕；临时调整的保护按约定恢复，但不得恢复用户已明确移除的必需审批。
+  凭据、权限和数据边界不因自动交付扩大。
 
 ### Commit 规范
 遵循简化 Conventional Commits：

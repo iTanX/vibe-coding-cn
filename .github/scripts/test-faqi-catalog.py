@@ -138,9 +138,75 @@ class FaqiCatalogTest(unittest.TestCase):
         self.assertEqual("restricted_service_pending", decisions["network-payment-services-bybit-81d32c91"])
         self.assertEqual("related_local_source", decisions["repo-rules-scaffolds-tmux-9f36981a"])
         aliases = {a["path"]: a for a in data["references"]}
-        for path in (".github/skills/auto-tmux/assets/tmux-src", ".github/skills/auto-tmux/assets/oh-my-tmux"):
-            self.assertEqual("empty-placeholder", aliases[path]["state"])
-            self.assertIsNone(aliases[path]["related_object_id"])
+        self.assertEqual(("symlink", "../../../tools/external/tmux", "faqi-tmux"), (
+            aliases[".github/skills/auto-tmux/assets/tmux-src"]["state"],
+            aliases[".github/skills/auto-tmux/assets/tmux-src"]["target"],
+            aliases[".github/skills/auto-tmux/assets/tmux-src"]["related_object_id"],
+        ))
+        self.assertEqual(("symlink", "../../../tools/external/.tmux", "faqi-oh-my-tmux"), (
+            aliases[".github/skills/auto-tmux/assets/oh-my-tmux"]["state"],
+            aliases[".github/skills/auto-tmux/assets/oh-my-tmux"]["target"],
+            aliases[".github/skills/auto-tmux/assets/oh-my-tmux"]["related_object_id"],
+        ))
+
+    def test_license_evidence_sources_are_support_only(self):
+        data = json.loads((ROOT / ".github/metadata/faqi.json").read_text(encoding="utf-8"))
+        implementation = next(source for source in data["sources"] if source["id"] == "S18")
+        relative_path = Path(".github/tools/external/.tmux/LICENSE.MIT")
+        body = (ROOT / relative_path).read_bytes()
+        line_count = len(body.decode("utf-8").splitlines(keepends=True))
+        license_source_id = "S_TEST_LICENSE"
+        self.assertNotIn(license_source_id, {source["id"] for source in data["sources"]})
+        license_source = {
+            "id": license_source_id, "purpose": "support", "path": relative_path.as_posix(),
+            "repository": implementation["repository"], "revision": implementation["revision"],
+            "sha256": hashlib.sha256(body).hexdigest(), "lines": [1, line_count + 1],
+            "selection_sha256": hashlib.sha256(body).hexdigest(),
+        }
+        data["sources"].append(license_source)
+        skill_object = next(
+            item for item in data["objects"] if item["id"] == "faqi-oh-my-tmux"
+        )
+        skill_object["support"].append(license_source_id)
+        local_entry = next(
+            item
+            for item in data["local_entries"]
+            if item["path"] == ".github/tools/external/.tmux"
+        )
+        local_entry["sources"].append(license_source_id)
+        result = self.invoke("license-document-as-support", "--input", self.input_copy("license-support", data), "--check")
+        self.assertEqual(0, result.returncode, result.stderr.decode())
+        self.assertFalse(data["limits"]["license_approved"], "记录许可证原文不等于项目批准")
+
+        license_source["purpose"] = "implementation"
+        result = self.invoke("license-document-as-implementation", "--input", self.input_copy("license-implementation", data), "--check")
+        self.assertNotEqual(0, result.returncode)
+        self.assertIn("来源不是公开代码、配置或说明", result.stderr.decode())
+
+        support_only_sources = ("S57", "S58", "S61", "S62", "S63", "S64")
+        for source_id in ("S57", "S58", "S59", "S60", "S61", "S62", "S63", "S64"):
+            data = json.loads((ROOT / ".github/metadata/faqi.json").read_text(encoding="utf-8"))
+            source = next(item for item in data["sources"] if item["id"] == source_id)
+            self.assertEqual("support", source["purpose"])
+            if source_id not in support_only_sources:
+                continue
+            source["purpose"] = "implementation"
+            result = self.invoke(
+                f"{source_id.lower()}-notice-as-implementation",
+                "--input", self.input_copy(f"{source_id.lower()}-implementation", data), "--check",
+            )
+            self.assertNotEqual(0, result.returncode)
+            self.assertIn("来源不是公开代码、配置或说明", result.stderr.decode())
+
+        data = json.loads((ROOT / ".github/metadata/faqi.json").read_text(encoding="utf-8"))
+        unsupported_image = next(item for item in data["sources"] if item["id"] == "S64")
+        unsupported_image["path"] = ".github/tools/external/tmux/logo/icons/128x128/tmux.png"
+        result = self.invoke(
+            "unsupported-image-as-notice-source",
+            "--input", self.input_copy("unsupported-image", data), "--check",
+        )
+        self.assertNotEqual(0, result.returncode)
+        self.assertIn("来源不是公开代码、配置或说明", result.stderr.decode())
 
     def test_rejects_unsupported_identity_and_source_claims_without_writing(self):
         original = json.loads((ROOT / ".github/metadata/faqi.json").read_text(encoding="utf-8"))
@@ -200,8 +266,10 @@ class FaqiCatalogTest(unittest.TestCase):
         cases.append(("selection-drift", changed))
         changed = copy.deepcopy(original); changed["objects"][0]["name"] = "程序\n```\n<script>"
         cases.append(("control-character-injection", changed))
-        changed = copy.deepcopy(original); changed["references"][2]["state"] = "symlink"
-        cases.append(("placeholder-as-link", changed))
+        changed = copy.deepcopy(original); changed["references"][2]["state"] = "empty-placeholder"
+        changed["references"][2]["target"] = None
+        changed["references"][2]["related_object_id"] = None
+        cases.append(("symlink-as-placeholder", changed))
         for label, data in cases:
             with self.subTest(label=label):
                 view = ARTIFACTS / (label + ".md")
@@ -270,16 +338,30 @@ class FaqiCatalogTest(unittest.TestCase):
         body = b'RAW_BASE="https://raw.githubusercontent.com/tukuaiai/vibe-coding-cn/develop/.github/tools/config/.codex"\nprintf "fixture only\\n"\n'
         program = root / ".github/tools/config/.codex/install.sh"
         program.write_bytes(body)
-        (root / ".gitmodules").write_bytes(b"")
+        reference_path = root / ".github/skills/auto-tmux/assets/oh-my-tmux"
+        reference_path.parent.mkdir(parents=True)
+        reference_path.write_bytes(b"")
+        gitmodules = b'[submodule "tmux"]\n\tpath = .github/tools/external/.tmux\n\turl = https://github.com/example/tmux.git\n'
+        (root / ".gitmodules").write_bytes(gitmodules)
         for index, command in enumerate((
             ["git", "init", "--quiet", str(root)],
-            ["git", "-C", str(root), "add", ".gitmodules", ".github/tools/config/.codex/install.sh"],
+            ["git", "-C", str(root), "add", ".gitmodules", ".github/tools/config/.codex/install.sh", ".github/skills/auto-tmux/assets/oh-my-tmux"],
             ["git", "-C", str(root), "-c", "user.name=tradecatlabs", "-c", "user.email=288998340+tradecatlabs@users.noreply.github.com", "commit", "--quiet", "--no-gpg-sign", "-m", "test: isolated source fixture"],
         )):
             result = subprocess.run(command, capture_output=True, timeout=20, env={**os.environ, "GIT_AUTHOR_DATE": "2026-10-09T00:00:00+00:00", "GIT_COMMITTER_DATE": "2026-10-09T00:00:00+00:00"})
             (ARTIFACTS / f"fixture-git-{index}.json").write_text(json.dumps({"command": command, "exit_code": result.returncode, "stdout": result.stdout.decode(), "stderr": result.stderr.decode()}, ensure_ascii=False), encoding="utf-8")
             self.assertEqual(0, result.returncode, result.stderr.decode())
         revision = subprocess.check_output(["git", "-C", str(root), "rev-parse", "HEAD"], timeout=20).decode().strip()
+        historical_placeholder = ARTIFACTS / "historical-empty-reference-placeholder"
+        reference_path.rename(historical_placeholder)
+        self.assertEqual(b"", historical_placeholder.read_bytes())
+        reference_path.symlink_to("../../../tools/external/.tmux")
+        for command in (
+            ["git", "-C", str(root), "add", ".github/skills/auto-tmux/assets/oh-my-tmux"],
+            ["git", "-C", str(root), "-c", "user.name=tradecatlabs", "-c", "user.email=288998340+tradecatlabs@users.noreply.github.com", "commit", "--quiet", "--no-gpg-sign", "-m", "test: restore registered submodule link"],
+        ):
+            result = subprocess.run(command, capture_output=True, timeout=20, env={**os.environ, "GIT_AUTHOR_DATE": "2026-10-09T00:00:00+00:00", "GIT_COMMITTER_DATE": "2026-10-09T00:00:00+00:00"})
+            self.assertEqual(0, result.returncode, result.stderr.decode())
         data = json.loads((ROOT / ".github/metadata/faqi.json").read_text(encoding="utf-8"))
         data["source_revision"] = revision
         source = {"id": "S01", "purpose": "implementation", "path": ".github/tools/config/.codex/install.sh", "repository": ".", "revision": revision, "sha256": hashlib.sha256(body).hexdigest(), "lines": [1, 3], "selection_sha256": hashlib.sha256(body).hexdigest()}
@@ -305,10 +387,33 @@ class FaqiCatalogTest(unittest.TestCase):
             (root / source["path"]).write_bytes(raw); source["sha256"] = hashlib.sha256(raw).hexdigest()
         data["local_exclusions"] = []
         data["external_reviews"] = [{"decision": "software_candidate", "rationale": "隔离资源宽表夹具，不作语义初审", "resource_ids": ids}]
-        data["resource_notes"] = {}; data["local_resource_links"] = {}; data["references"] = []; data["relations"] = []
+        data["resource_notes"] = {}; data["local_resource_links"] = {}
+        data["references"] = [{
+            "path": ".github/skills/auto-tmux/assets/oh-my-tmux",
+            "state": "symlink",
+            "target": "../../../tools/external/.tmux",
+            "related_object_id": None,
+            "boundary": "仅验证历史零字节占位入口可被明确替换为当前相对软链接；隔离夹具不证明目标仓库内容。"
+        }]
+        data["relations"] = []
         view = ARTIFACTS / "budget-view.md"
         result = self.invoke("wide-resource-compact-view", "--root", root, "--input", self.input_copy("wide-table", data), "--view", view, "--write", memory_limit=192 * 1024 * 1024)
         self.assertEqual(0, result.returncode, result.stderr.decode())
+        registered_link = ARTIFACTS / "registered-reference-link"
+        reference_path.rename(registered_link)
+        reference_path.symlink_to("../../../tools/external/unregistered")
+        bad_reference = copy.deepcopy(data)
+        bad_reference["references"][0]["target"] = "../../../tools/external/unregistered"
+        forbidden_reference_view = ARTIFACTS / "unregistered-reference-view.md"
+        result = self.invoke("reject-unregistered-reference-target", "--root", root,
+                             "--input", self.input_copy("unregistered-reference", bad_reference),
+                             "--view", forbidden_reference_view, "--write")
+        self.assertNotEqual(0, result.returncode)
+        self.assertIn("已登记submodule", result.stderr.decode())
+        self.assertFalse(forbidden_reference_view.exists())
+        unregistered_link = ARTIFACTS / "unregistered-reference-link"
+        reference_path.rename(unregistered_link)
+        registered_link.rename(reference_path)
         rendered = view.read_bytes()
         self.assertLess(len(rendered), 64 * 1024)
         self.assertNotIn(b"x" * 4096, rendered)

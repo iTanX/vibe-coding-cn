@@ -8,6 +8,7 @@
 | [getting_started.md](./getting_started.md) | 术语、最短路径和工作姿势 |
 | [api.md](./api.md) | tmux / oh-my-tmux 常用命令与配置速查 |
 | [automation.md](./automation.md) | `auto-tmux.sh` / `swarm-brief.sh` 脚本子命令、安全模型和 AI 蜂群协作流程 |
+| [codex-pilot-mode.md](./codex-pilot-mode.md) | 主 Codex 控制持久 worker Codex 的激活提示词与操作协议 |
 | [safety-policy.md](./safety-policy.md) | 发送、广播、清理、归档和敏感信息处理的安全策略 |
 | [session-safety.md](./session-safety.md) | 本地 session、远程 SSH 和多 Agent 协作的分层安全边界 |
 | [jsonl-schema.md](./jsonl-schema.md) | JSONL/manifest 机器可读输出字段约定 |

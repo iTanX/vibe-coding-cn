@@ -7,6 +7,7 @@ import hashlib
 import html
 import json
 import os
+import posixpath
 from pathlib import Path, PurePosixPath
 import re
 import subprocess
@@ -180,8 +181,20 @@ def validate(root, input_path):
     for source in sources.values():
         path = safe_path(root, source["path"])
         require(source["path"].startswith((".github/tools/", ".github/skills/")), "实现/说明来源不属于批准工具范围")
-        require(path.suffix in {".py", ".sh", ".c", ".lua", ".html", ".md", ".toml", ".conf"} or path.name == "README",
-                "来源不是公开代码、配置或说明")
+        license_document = re.fullmatch(r"(?:LICENSE(?:\.[A-Za-z0-9._-]+)?|COPYING(?:\.[A-Za-z0-9._-]+)?)", path.name, re.IGNORECASE)
+        source_type_allowed = (
+            path.suffix in {".py", ".sh", ".c", ".lua", ".html", ".md", ".toml", ".conf"}
+            or path.name == "README"
+            or (
+                source["purpose"] == "support"
+                and (
+                    license_document is not None
+                    or path.suffix in {".awk", ".1", ".eps"}
+                    or path.name == "README.ja"
+                )
+            )
+        )
+        require(source_type_allowed, "来源不是公开代码、配置或说明")
         repository = root if source["repository"] == "." else safe_path(root, source["repository"])
         require(path.is_relative_to(repository), "来源文件不属于声明仓库")
         relative = path.relative_to(repository).as_posix()
@@ -332,9 +345,21 @@ def validate(root, input_path):
                     "空占位文件被伪称来源链接")
             bindings[path] = digest(b"")
         else:
-            require(path.is_symlink() and os.readlink(path) == reference["target"] and original.decode("utf-8") == reference["target"], "软链接状态或目标漂移")
-            require(reference["related_object_id"] is None or reference["related_object_id"] in objects, "引用入口关联未知对象")
-            # 符号链接绑定的是路径，不是目录内容或另一件软件身份。
+            target = reference["target"]
+            require(isinstance(target, str) and target, "引用软链接缺少目标")
+            target_path = PurePosixPath(target)
+            target_repository = posixpath.normpath(posixpath.join(PurePosixPath(reference["path"]).parent.as_posix(), target))
+            require(not target_path.is_absolute() and chr(92) not in target and target_path.as_posix() == target and
+                    target_repository in module_urls,
+                    "引用软链接必须使用规范相对路径并指向已登记submodule")
+            require(path.is_symlink() and os.readlink(path) == target and original in {target.encode("utf-8"), b""},
+                    "软链接状态、当前目标或固定历史基线漂移")
+            related_object_id = reference["related_object_id"]
+            require(related_object_id is None or related_object_id in objects, "引用入口关联未知对象")
+            if related_object_id is not None:
+                implementation = sources[objects[related_object_id]["implementation"]]
+                require(implementation["repository"] == target_repository, "引用软链接目标与关联法器来源错配")
+            # source_revision保留旧Git状态；当前软链接由登记目标、规范仓内路径和submodule来源共同约束。
     return data, sources, objects, resources, decisions, bindings
 
 

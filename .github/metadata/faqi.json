@@ -1,7 +1,7 @@
 {
   "format_version": 2,
   "kind": "faqi-master-classification-register",
-  "reviewed_at": "2026-10-11T15:45:18+00:00",
+  "reviewed_at": "2026-10-15T10:55:05Z",
   "source_revision": "0a7fdf4ca54d2bb327dcdfc13e816da57ee9c4c2",
   "ontology": {
     "path": ".github/docs/gongfa/cultivation-ontology-taxonomy.md",
@@ -179,7 +179,7 @@
         "graph_node": "3.2 命令/终端 / tmux复用支路",
         "identity_status": "runtime_observed",
         "version": "3.4",
-        "evidence": "tmux -V 输出 tmux 3.4；本次隔离 session smoke 不能证明二进制来自已登记 faqi-tmux 的固定源码修订。",
+        "evidence": "2026-10-15T00:45:37Z观察：PATH入口与realpath均为/usr/bin/tmux；dpkg确认由tmux 3.4-1ubuntu0.1（amd64）提供，二进制SHA-256为034b15c64035f783d43862f2775eb4828f61571ca62c8199796000b97d556ecd。关联的faqi-tmux固定submodule为615c27c11789948df2db09e113e882f82dfb3e1c，其configure.ac声明next-3.7；本机运行实例与该固定来源并非同一版本，烟测不验证submodule实现或效果。",
         "resource_ids": [],
         "related_object_id": "faqi-tmux",
         "grade_id": null,
@@ -716,6 +716,296 @@
         120
       ],
       "selection_sha256": "4b4eb47d3545b5bcba80384c1aa81cee4d973d006736ea7a664f69ef9b759e70"
+    },
+    {
+      "id": "S37",
+      "purpose": "support",
+      "path": ".github/tools/external/.tmux/.tmux.conf",
+      "repository": ".github/tools/external/.tmux",
+      "revision": "87dcd13a28aeb5f18baee630e24b3f5765ae3a4f",
+      "sha256": "6807d44735b7b11e64c4488a0c3fdcbd2809cc73efedcc349d098e80a690aeeb",
+      "lines": [1, 8],
+      "selection_sha256": "e9e4b5dd6be906cfd6c4e4fe0a1063332cad79bf10898087c7c88eee87fb11aa"
+    },
+    {
+      "id": "S38",
+      "purpose": "support",
+      "path": ".github/tools/external/.tmux/LICENSE.MIT",
+      "repository": ".github/tools/external/.tmux",
+      "revision": "87dcd13a28aeb5f18baee630e24b3f5765ae3a4f",
+      "sha256": "f4c34427d3e29630cece9bca418eda48ac298867630cd6698d73e0f04642d1d0",
+      "lines": [1, 19],
+      "selection_sha256": "f4c34427d3e29630cece9bca418eda48ac298867630cd6698d73e0f04642d1d0"
+    },
+    {
+      "id": "S39",
+      "purpose": "support",
+      "path": ".github/tools/external/.tmux/LICENSE.WTFPLv2",
+      "repository": ".github/tools/external/.tmux",
+      "revision": "87dcd13a28aeb5f18baee630e24b3f5765ae3a4f",
+      "sha256": "ee820ff0db4ce628569e0975ac27dc926052a9f85d102b101edb104311ef4d90",
+      "lines": [1, 14],
+      "selection_sha256": "ee820ff0db4ce628569e0975ac27dc926052a9f85d102b101edb104311ef4d90"
+    },
+    {
+      "id": "S40",
+      "purpose": "support",
+      "path": ".github/tools/external/tmux/tmux.c",
+      "repository": ".github/tools/external/tmux",
+      "revision": "615c27c11789948df2db09e113e882f82dfb3e1c",
+      "sha256": "58a9bef0d1d424fd2e2a79c6d998dab96aab81ee771b7c2653928451f3bf11a8",
+      "lines": [1, 18],
+      "selection_sha256": "26f34506da997905b214b2878416c618a92298533aca335c60c509e5e0993904"
+    },
+    {
+      "id": "S41",
+      "purpose": "support",
+      "path": ".github/tools/external/tmux/COPYING",
+      "repository": ".github/tools/external/tmux",
+      "revision": "615c27c11789948df2db09e113e882f82dfb3e1c",
+      "sha256": "c031bd37f464c534277814f6aa38686fa023d094261d57fd2545ad592bb53ccd",
+      "lines": [1, 19],
+      "selection_sha256": "c031bd37f464c534277814f6aa38686fa023d094261d57fd2545ad592bb53ccd"
+    },
+    {
+      "id": "S42",
+      "purpose": "support",
+      "path": ".github/tools/external/Skill_Seekers-development/LICENSE",
+      "repository": ".github/tools/external/Skill_Seekers-development",
+      "revision": "26638b248279a3b001b651475e0f28975f5ff069",
+      "sha256": "d131d0e96700cd78f8b3fa7ed79a47b019a0653066500faff376233246b6504d",
+      "lines": [1, 22],
+      "selection_sha256": "d131d0e96700cd78f8b3fa7ed79a47b019a0653066500faff376233246b6504d"
+    },
+    {
+      "id": "S43",
+      "purpose": "support",
+      "path": ".github/tools/external/claude-official-skills/skills/skill-creator/LICENSE.txt",
+      "repository": ".github/tools/external/claude-official-skills",
+      "revision": "1ed29a03dc852d30fa6ef2ca53a67dc2c2c2c563",
+      "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+      "lines": [1, 203],
+      "selection_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "S44",
+      "purpose": "support",
+      "path": ".github/tools/external/Skill_Seekers-development/pyproject.toml",
+      "repository": ".github/tools/external/Skill_Seekers-development",
+      "revision": "26638b248279a3b001b651475e0f28975f5ff069",
+      "sha256": "40820d20d8f56c1dc24c8f432141fa438d54473acbfecfa716fc9d188cbc8294",
+      "lines": [45, 69],
+      "selection_sha256": "e892c55c18d3d786696bf226eef30e4651216b0b71b89f35aa957f486ce0210f"
+    },
+    {
+      "id": "S45",
+      "purpose": "support",
+      "path": ".github/tools/external/Skill_Seekers-development/src/skill_seekers/cli/main.py",
+      "repository": ".github/tools/external/Skill_Seekers-development",
+      "revision": "26638b248279a3b001b651475e0f28975f5ff069",
+      "sha256": "8c02660dacd304f51fe8c4a9685d3f6d5324a7eef7779b6baa7325827bf01985",
+      "lines": [41, 66],
+      "selection_sha256": "67527b228def54d21c5adc56b822ae446b51e24d18b4ca82b4a66669ca184d17"
+    },
+    {
+      "id": "S46",
+      "purpose": "support",
+      "path": ".github/tools/external/Skill_Seekers-development/src/skill_seekers/cli/agent_client.py",
+      "repository": ".github/tools/external/Skill_Seekers-development",
+      "revision": "26638b248279a3b001b651475e0f28975f5ff069",
+      "sha256": "2fff7e6de630b6c8871db3419661195125c6128ac71d4d76f04e7561f7bdac17",
+      "lines": [35, 91],
+      "selection_sha256": "8273620e89e199a39cd5b2afd65dcfe4483d6b463ab3435f2dceb59270ec5a59"
+    },
+    {
+      "id": "S47",
+      "purpose": "support",
+      "path": ".github/tools/external/Skill_Seekers-development/src/skill_seekers/cli/agent_client.py",
+      "repository": ".github/tools/external/Skill_Seekers-development",
+      "revision": "26638b248279a3b001b651475e0f28975f5ff069",
+      "sha256": "2fff7e6de630b6c8871db3419661195125c6128ac71d4d76f04e7561f7bdac17",
+      "lines": [175, 200],
+      "selection_sha256": "e1dffcec8fd29c41210478f2516c1a970fa0082d0c5666b8f2f47657e7226608"
+    },
+    {
+      "id": "S48",
+      "purpose": "support",
+      "path": ".github/tools/external/Skill_Seekers-development/src/skill_seekers/cli/agent_client.py",
+      "repository": ".github/tools/external/Skill_Seekers-development",
+      "revision": "26638b248279a3b001b651475e0f28975f5ff069",
+      "sha256": "2fff7e6de630b6c8871db3419661195125c6128ac71d4d76f04e7561f7bdac17",
+      "lines": [286, 415],
+      "selection_sha256": "24bbde0e597053cc6a0430fb83f870b0007bc5d1fac7916645caa6687d65c153"
+    },
+    {
+      "id": "S49",
+      "purpose": "support",
+      "path": ".github/tools/external/Skill_Seekers-development/src/skill_seekers/cli/install_skill.py",
+      "repository": ".github/tools/external/Skill_Seekers-development",
+      "revision": "26638b248279a3b001b651475e0f28975f5ff069",
+      "sha256": "146be443d3b73b1e5c706b105fd0780831275baa6d0d61424b3c10d03dfa79aa",
+      "lines": [83, 156],
+      "selection_sha256": "5d2fde106240cae8b78d502c274a07a764ff5a2f4e745f3f5a977af08dae7cf5"
+    },
+    {
+      "id": "S50",
+      "purpose": "support",
+      "path": ".github/tools/external/Skill_Seekers-development/src/skill_seekers/cli/upload_skill.py",
+      "repository": ".github/tools/external/Skill_Seekers-development",
+      "revision": "26638b248279a3b001b651475e0f28975f5ff069",
+      "sha256": "2967da60c32c2495ea993f9122c6472d76ab86d3bcae878831fbeb07c55b0d1e",
+      "lines": [33, 89],
+      "selection_sha256": "1893b3f3bfc12dc0ef7ff0b2f2e94d1c72e216bd9d229037f8a8d70b7a18b2f5"
+    },
+    {
+      "id": "S51",
+      "purpose": "support",
+      "path": ".github/tools/external/claude-official-skills/skills/skill-creator/SKILL.md",
+      "repository": ".github/tools/external/claude-official-skills",
+      "revision": "1ed29a03dc852d30fa6ef2ca53a67dc2c2c2c563",
+      "sha256": "d57b6e3a44535b9c0ef454dad5c86f5df78185fc80a65c7092885b4b5e10f81b",
+      "lines": [263, 275],
+      "selection_sha256": "a8130ff1f013777e2c076569f5567924a4a0f3b23df7134ab4b0b99dd1aa86e9"
+    },
+    {
+      "id": "S52",
+      "purpose": "support",
+      "path": ".github/tools/external/tmux/README",
+      "repository": ".github/tools/external/tmux",
+      "revision": "615c27c11789948df2db09e113e882f82dfb3e1c",
+      "sha256": "9fb75e6c7f10c25b73e41b8214336d0dc2acfbe4c99984514ccaf7327192d53e",
+      "lines": [84, 88],
+      "selection_sha256": "68980459b47c2af6f48f099a70fa4472b3b6e5066006f7fdf5f63f675dc1f02d"
+    },
+    {
+      "id": "S53",
+      "purpose": "support",
+      "path": ".github/tools/external/tmux/compat/explicit_bzero.c",
+      "repository": ".github/tools/external/tmux",
+      "revision": "615c27c11789948df2db09e113e882f82dfb3e1c",
+      "sha256": "7e30bc63946093cd6ed7cb4ce01d2f8c6e329ab173a20df250da60bb0a3c757b",
+      "lines": [1, 6],
+      "selection_sha256": "02fedc95bf0da5dffe09623d9cb71bc7ebbb8bfd31f5e4fb5a23b135d7f36d0e"
+    },
+    {
+      "id": "S54",
+      "purpose": "support",
+      "path": ".github/tools/external/tmux/compat/getopt_long.c",
+      "repository": ".github/tools/external/tmux",
+      "revision": "615c27c11789948df2db09e113e882f82dfb3e1c",
+      "sha256": "0486066fe70fb5a81d79971842f171e3bdcb570dbcab22ce51c1394235b8d21f",
+      "lines": [1, 98],
+      "selection_sha256": "32af441d6bffc37dbac1c14d03edf334137d91c95fa06c335479fd9c80d7fcb4"
+    },
+    {
+      "id": "S55",
+      "purpose": "support",
+      "path": ".github/tools/external/tmux/xmalloc.c",
+      "repository": ".github/tools/external/tmux",
+      "revision": "615c27c11789948df2db09e113e882f82dfb3e1c",
+      "sha256": "8ed468e9903b8abf18d5d5b76d99f030713fc479d02dc107ec3dbaa3a01c702b",
+      "lines": [1, 15],
+      "selection_sha256": "f28a22fd0a1176583b24e17d8536acaba14afb635f4b253aa9653770cb1449ba"
+    },
+    {
+      "id": "S56",
+      "purpose": "support",
+      "path": ".github/tools/external/tmux/logo/LICENSE",
+      "repository": ".github/tools/external/tmux",
+      "revision": "615c27c11789948df2db09e113e882f82dfb3e1c",
+      "sha256": "5fdf604dee98da6f827ea924cf5ae19a9da31555d3814143f2cc6f8e7ee05752",
+      "lines": [1, 14],
+      "selection_sha256": "5fdf604dee98da6f827ea924cf5ae19a9da31555d3814143f2cc6f8e7ee05752"
+    },
+    {
+      "id": "S57",
+      "purpose": "support",
+      "path": ".github/tools/external/tmux/mdoc2man.awk",
+      "repository": ".github/tools/external/tmux",
+      "revision": "615c27c11789948df2db09e113e882f82dfb3e1c",
+      "sha256": "602f3d31ffec414850e697b73f1885e967698ac0cbe8f09efd14800e55abe7ea",
+      "lines": [1, 23],
+      "selection_sha256": "1d4514630b480519684226c19c6ead79afcc30d0a5857601aa2e40b3831f7b92"
+    },
+    {
+      "id": "S58",
+      "purpose": "support",
+      "path": ".github/tools/external/tmux/tmux.1",
+      "repository": ".github/tools/external/tmux",
+      "revision": "615c27c11789948df2db09e113e882f82dfb3e1c",
+      "sha256": "f2966da7a8267abc9aaa216a7a7b46d4d914d60114058dc046c4ff1c75ac9422",
+      "lines": [1, 15],
+      "selection_sha256": "04972c3c428ff5c92813b5cc03ee0aca9fb4d67f9efcadc6b08ba9ae9ad1a6db"
+    },
+    {
+      "id": "S59",
+      "purpose": "support",
+      "path": ".github/tools/external/tmux/example_tmux.conf",
+      "repository": ".github/tools/external/tmux",
+      "revision": "615c27c11789948df2db09e113e882f82dfb3e1c",
+      "sha256": "0ab7c28342180d485434c3d8e286508a1e1c87ac9a2c8f2dc78bcf477a2de437",
+      "lines": [1, 5],
+      "selection_sha256": "c29f86d0a16523c1ec7df3be70be2c1b0c7c60aa5da95abb23ff3239289beb78"
+    },
+    {
+      "id": "S60",
+      "purpose": "support",
+      "path": ".github/tools/external/tmux/tools/24-bit-color.sh",
+      "repository": ".github/tools/external/tmux",
+      "revision": "615c27c11789948df2db09e113e882f82dfb3e1c",
+      "sha256": "cee34d321461577c2455573ec58537833f5968cebe7df8d53aabf08b0e0d9ccf",
+      "lines": [1, 15],
+      "selection_sha256": "d78c7405e325b792164f733359cfb3339460776aaee44586bddb7d221c15f354"
+    },
+    {
+      "id": "S61",
+      "purpose": "support",
+      "path": ".github/tools/external/tmux/README.ja",
+      "repository": ".github/tools/external/tmux",
+      "revision": "615c27c11789948df2db09e113e882f82dfb3e1c",
+      "sha256": "c341a10636227e426a759da4b80b754258ef31f1554a9ac369a79c5afeeadeb6",
+      "lines": [59, 60],
+      "selection_sha256": "63f1ffb13bd10f6b3a2052d09b4d9c336c41c45262363e035e25a362ffd5c73a"
+    },
+    {
+      "id": "S62",
+      "purpose": "support",
+      "path": ".github/tools/external/tmux/logo/tmux-logo-1-color.eps",
+      "repository": ".github/tools/external/tmux",
+      "revision": "615c27c11789948df2db09e113e882f82dfb3e1c",
+      "sha256": "f4da0cd411ea21140efbb3ebd5fc9a76c87183c8eceb7902e6f08d061c17235b",
+      "lines": [1, 20],
+      "selection_sha256": "2c23a57c4e1dfdf7fdf3d45d0d4cb092413835ab36eb320a3cc25d80b393f0d4"
+    },
+    {
+      "id": "S63",
+      "purpose": "support",
+      "path": ".github/tools/external/tmux/logo/tmux-logo.eps",
+      "repository": ".github/tools/external/tmux",
+      "revision": "615c27c11789948df2db09e113e882f82dfb3e1c",
+      "sha256": "13ecb5c04f2b40f5dca7dc7e9be3986de3d7641c6494cc3f139669a3e90dd144",
+      "lines": [1, 20],
+      "selection_sha256": "2c23a57c4e1dfdf7fdf3d45d0d4cb092413835ab36eb320a3cc25d80b393f0d4"
+    },
+    {
+      "id": "S64",
+      "purpose": "support",
+      "path": ".github/tools/external/tmux/logo/tmux-logomark.eps",
+      "repository": ".github/tools/external/tmux",
+      "revision": "615c27c11789948df2db09e113e882f82dfb3e1c",
+      "sha256": "f5afbd939a1675b5b1293cd642273d8b0b9555b906683970b5e7a34f802674fd",
+      "lines": [1, 20],
+      "selection_sha256": "ecbd0ccba3e5665b62c06509dd78ed90525ad60737c63c29d089fb8b54e23b5b"
+    },
+    {
+      "id": "S65",
+      "purpose": "support",
+      "path": ".github/tools/external/.tmux/.logo/LICENSE",
+      "repository": ".github/tools/external/.tmux",
+      "revision": "87dcd13a28aeb5f18baee630e24b3f5765ae3a4f",
+      "sha256": "6ae92da1ac8fc251f218491c42048d258d50d57bc685beb871fb09adf0bcea3e",
+      "lines": [1, 17],
+      "selection_sha256": "6ae92da1ac8fc251f218491c42048d258d50d57bc685beb871fb09adf0bcea3e"
     }
   ],
   "objects": [
@@ -792,7 +1082,15 @@
       "implementation": "S16",
       "support": [
         "S14",
-        "S15"
+        "S15",
+        "S42",
+        "S44",
+        "S45",
+        "S46",
+        "S47",
+        "S48",
+        "S49",
+        "S50"
       ],
       "boundary": "指固定submodule修订的软件实现；多个CLI入口及可选MCP模块不机械复制产品身份。3.5.1仅为pyproject源码声明，不是已核发布或运行版。",
       "declared_version": "3.5.1（仅源码声明）"
@@ -804,9 +1102,13 @@
       "implementation": "S18",
       "support": [
         "S17",
-        "S19"
+        "S19",
+        "S37",
+        "S38",
+        "S39",
+        "S65"
       ],
-      "boundary": "配置文件含run、cut|sh调用链及可执行shell指令，按实际程序内容归software-artifact，不能仅因.conf后缀归纯规约；不是tmux本身。",
+      "boundary": "配置文件含run、cut|sh调用链及可执行shell指令，按实际程序内容归software-artifact，不能仅因.conf后缀归纯规约；不是tmux本身。仓内.logo许可证另由S65绑定；其指向可变tmux/master路径，具体SVG来源关系与许可覆盖范围未核，不能据此批准仓库整体再分发。",
       "declared_version": null
     },
     {
@@ -815,7 +1117,22 @@
       "type_id": "software-artifact",
       "implementation": "S21",
       "support": [
-        "S20"
+        "S20",
+        "S40",
+        "S41",
+        "S52",
+        "S53",
+        "S54",
+        "S55",
+        "S56",
+        "S57",
+        "S58",
+        "S59",
+        "S60",
+        "S61",
+        "S62",
+        "S63",
+        "S64"
       ],
       "boundary": "指固定源码修订的程序内容，不是物理终端、pane、socket地址或一次会话。Git describe的邻近tag不作为已核发布版本。",
       "declared_version": null
@@ -826,7 +1143,9 @@
       "type_id": "software-artifact",
       "implementation": "S23",
       "support": [
-        "S22"
+        "S22",
+        "S43",
+        "S51"
       ],
       "boundary": "只纳入skill-creator下生成目录/模板的独立Python程序，不把官方Skill集合、自然语言方法、模板或其他全部辅助脚本称作同一程序。",
       "declared_version": null
@@ -901,7 +1220,6 @@
       ],
       "boundary": "Skill方法/规约、执行脚本、被依赖程序及运行入口分别指认。",
       "pending": [
-        "两个assets入口在source_revision 0a7fdf4ca54d2bb327dcdfc13e816da57ee9c4c2处为零字节普通文件，与README/AGENTS声明的软链接不一致；references登记绑定该修订与空字节状态。为保留固定来源修订和原始摘要，本轮未替换；链接及上游源码可达性仍未解决。若修复，须追加可追溯来源修订并保留旧状态，不得静默改写。",
         "蜂群附属脚本不逐一登记，不启动蜂群，也不将蜂群状态/日志算软件。",
         "2026-10-13：将本工作分支内26个.sh入口的Git执行模式从100644改为100755；auto-tmux doctor、26个脚本bash -n及两个help入口通过。完整技能validator与tmux smoke未运行，运行效果仍待验证。"
       ]
@@ -914,11 +1232,22 @@
       "sources": [
         "S14",
         "S15",
-        "S16"
+        "S16",
+        "S42",
+        "S44",
+        "S45",
+        "S46",
+        "S47",
+        "S48",
+        "S49",
+        "S50"
       ],
       "boundary": "源码内容与仓库载体、接口规范、抓取过程、输入资料和生成Skill分开。",
       "pending": [
-        "CLI与MCP各实现的完整对应关系、许可/可用性与外部I/O权限未作完整审查。"
+        "2026-10-14：S45–S50绑定固定CLI路由、AgentClient与install/upload静态选区。CLI映射包含create/enhance/package/upload/install/install-agent等；AgentClient的auto模式按环境密钥选择API或本地代理，API路径将prompt发送给provider，本地subprocess.run未显式限制env；Claude预设含--dangerously-skip-permissions，Codex含--full-auto和--skip-git-repo-check。install将auto_upload设为默认true（可用--no-upload），upload路径调用目标adaptor并可从环境变量取key。仅静态审阅，未运行、联网、上传或读取凭据；完整MCP链路、数据范围/来源授权、子进程权限、环境隔离、外部与本地写入及恢复路径仍待审。",
+        "仓库LICENSE标注MIT，但版权行保留[Your Name/Username]占位符；权利主体与授权未核，不作许可证批准依据。",
+        "固定pyproject将PyMuPDF>=1.24.14列为核心依赖；2026-10-14本地Python 3.12.3环境未安装PyMuPDF（pip另有~umpy无效发行警告），运行/doctor/PDF路径未验证。这是环境观察，不等于上游实现缺陷。",
+        "2026-10-15：在Python 3.12.3环境运行python3 -m pip show PyMuPDF仍显示未安装；未安装依赖、未运行Skill Seekers。运行验证仍为false；此项只是目标环境依赖存在性检查，不是程序测试。"
       ]
     },
     {
@@ -929,7 +1258,10 @@
       "sources": [
         "S17",
         "S18",
-        "S19"
+        "S19",
+        "S37",
+        "S38",
+        "S39"
       ],
       "boundary": "配置数据与嵌入程序按实际所指区分；本条纳入可执行配置程序，未安装或source配置。",
       "pending": [
@@ -943,10 +1275,29 @@
       ],
       "sources": [
         "S20",
-        "S21"
+        "S21",
+        "S40",
+        "S41",
+        "S52",
+        "S53",
+        "S54",
+        "S55",
+        "S56",
+        "S57",
+        "S58",
+        "S59",
+        "S60",
+        "S61",
+        "S62",
+        "S63",
+        "S64"
       ],
       "boundary": "tmux程序与配置、操控封装、终端会话和显示记录分开。",
-      "pending": []
+      "pending": [
+        "S40仅绑定tmux.c文件头许可选区；S41明确COPYING仅供信息参考、许可依文件头。2026-10-15第一轮固定pin许可清点见S52–S56；此轮未覆盖全部313文件、非C/H/Y资产、所有上游来源及再分发兼容性，limits.license_approved仍为false。",
+        "2026-10-15：pin 615c27c11789948df2db09e113e882f82dfb3e1c有313个tracked文件、无嵌套gitlink。对196个C/H/Y文件作固定字面扫描：182个含ISC式授权句、13个含BSD式再分发句（compat/daemon-darwin.c与compat/getopt_long.c同时含两种），另有xmalloc.c（S55）/xmalloc.h（sha256 8d0a589c43e16549174b0ffb0b59a8581af00d99eb912205bfb4f293502bbeae）的Tatu Ylonen特殊使用与命名条件、compat/explicit_bzero.c的Public domain声明；BSD式文件为compat/bitstring.h、compat/daemon-darwin.c、compat/daemon.c、compat/getline.c、compat/getopt_long.c、compat/memmem.c、compat/queue.h、compat/strcasestr.c、compat/strsep.c、compat/tree.h、compat/unvis.c、compat/vis.c、compat/vis.h。README (S52)、COPYING (S41) 与 README.ja（sha256 c341a10636227e426a759da4b80b754258ef31f1554a9ac369a79c5afeeadeb6）列举的ISC例外不同；README.ja还列出SYNCING（sha256 5243f70e3adbb2f7554e99889d3ea9b5b719d50108ac127db1392ced65e7c61c），本轮未见该文件头许可声明；FAQ/TODO未跟踪。logo/LICENSE由S56单独绑定。getopt_long.c（S54）自述来源于OpenSSH commit b5b405fee7f3e79d44e2d2971a4b6b4cc53f112e，本轮未独立比对上游。该清点是有限静态检索而非法律兼容性意见；正式许可批准、完整文件级/第三方依赖审查仍未完成。",
+        "2026-10-15第二轮固定pin非C/H/Y许可线索见S57–S64：仅审117个非C/H/Y tracked文件中的8个选区。mdoc2man.awk与tmux.1含逐文件版权、permission及免责声明；example_tmux.conf由作者声明Public domain；tools/24-bit-color.sh标注来源为iTerm2的master并称“presumably covered”于其LICENSE，未冻结或核对上游修订/条款；README.ja:59将本文件、CHANGES、FAQ、SYNCING、TODO列为ISC许可对象，与英文COPYING/README的列举不同；三个EPS文件头各自声明Apple 2000–2004 Copyright/All Rights Reserved，未证实logo/LICENSE是否覆盖。未审其余非C/H/Y文件、其他二进制资产及第三方依赖；不构成完整文件/权利/再分发兼容性审查，limits.license_approved仍为false。"
+      ]
     },
     {
       "path": ".github/tools/external/claude-official-skills",
@@ -955,12 +1306,16 @@
       ],
       "sources": [
         "S22",
-        "S23"
+        "S23",
+        "S43",
+        "S51"
       ],
       "boundary": "集合入口不等于法器身份；指令内容与脚本实现分别判断。",
       "pending": [
-        "README明确部分文档Skill仅source-available，不能把整个集合称为同一开源许可证；本次不批准再分发/商用许可。",
-        "其余辅助脚本未逐模块展开。"
+        "README明确部分文档Skill仅source-available，不能把整个集合称为同一开源许可证；skill-creator/LICENSE.txt提供Apache 2.0文本，但其附录版权字段为通用占位符，不能单独证明权利主体或完成全量许可审查。",
+        "本次不批准再分发/商用许可。",
+        "S51绑定skill-creator/SKILL.md步骤3和调用形式，证实该文档要求执行S23；它不验证S23实际输入校验或路径限制，且本次未执行脚本。",
+        "2026-10-14：固定pin 1ed29a03dc852d30fa6ef2ca53a67dc2c2c2c563的S23（init_skill.py:194-303）静态复核：CLI提示skill_name应为小写kebab-case，但main未校验；函数直接拼接Path(path).resolve()/skill_name且未检查目标仍在指定父目录内，若调用方传入含../或绝对路径的名称，输出可越出预期目录。目录/模板创建中途失败只返回错误，不回滚部分输出。风险取决于调用方输入控制；未运行脚本、未创建测试文件，不作可利用性或运行安全结论。其余辅助脚本仍未逐模块展开。"
       ]
     },
     {
@@ -1401,17 +1756,17 @@
     },
     {
       "path": ".github/skills/auto-tmux/assets/oh-my-tmux",
-      "state": "empty-placeholder",
-      "target": null,
-      "related_object_id": null,
-      "boundary": "实际Git模式100644、0字节；README称软链接，但此路径不能提供上游来源到达证据。"
+      "state": "symlink",
+      "target": "../../../tools/external/.tmux",
+      "related_object_id": "faqi-oh-my-tmux",
+      "boundary": "当前仓内相对软链接指向已登记的oh-my-tmux submodule；source_revision保留原零字节历史基线，链接状态不代表运行、许可或效果验证。"
     },
     {
       "path": ".github/skills/auto-tmux/assets/tmux-src",
-      "state": "empty-placeholder",
-      "target": null,
-      "related_object_id": null,
-      "boundary": "实际Git模式100644、0字节；独立tmux源码已按真实submodule审，不把占位文件算副本。"
+      "state": "symlink",
+      "target": "../../../tools/external/tmux",
+      "related_object_id": "faqi-tmux",
+      "boundary": "当前仓内相对软链接指向已登记的tmux submodule；source_revision保留原零字节历史基线，链接状态不代表运行、许可或效果验证。"
     }
   ]
 }

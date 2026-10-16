@@ -61,7 +61,7 @@
 
 ## 法器体系
 
-法器总表整理 Vibe Coding 流程中使用或依赖的工具、可调用入口和依赖类别；固定来源实现、当前运行实例、候选对象与抽象类别分别记录。
+法器总表整理 Vibe Coding 流程中使用或依赖的工具、可调用入口和依赖类别；固定来源实现、当前运行实例、候选对象与抽象类别分别记录。文件级许可线索仅作支持证据，不等于许可批准或再分发授权。
 
 - [法器体系说明](.github/docs/gongfa/faqi-system.md)：分类边界、重要性分级和选用方式。
 - [法器重要性总表](.github/tools/faqi-catalog.md)：30 项的品级、名称、说明与记录状态。
@@ -289,8 +289,9 @@ pip install -r .github/tools/prompts-library/scripts/requirements.txt
 ### 配置与 CI
 
 - 默认分支：`main`，开发更新和贡献 PR 统一以 `main` 为目标。
-- 远端长期保留 `main`、`minimal`；`minimal` 保留现有内容，不作为贡献集成分支。主线保留签名、审批与必需 CI 保护。
-- 路径级 owner 评审基线：`.github/CODEOWNERS`（当前维护者：`@tukuaiai`、`@tradecatlabs`）
+- 远端长期保留 `main`、`minimal`；`minimal` 保留现有内容，不作为贡献集成分支。主线保留签名与必需 CI 保护。
+- 不要求审批：Ruleset 与经典分支保护的审批数量均为 0，Code Owner、最近推送及额外审批均关闭。
+- 自愿审查入口：`.github/CODEOWNERS`（当前维护者：`@tukuaiai`、`@tradecatlabs`），不作为合并前置条件。
 - Markdown lint 配置：`.github/lint_config.json`
 - Markdown lint 版本：`Makefile` 中固定为 `markdownlint-cli@0.48.0`
 - 外部链接检查配置：`.lychee.toml`，统一管理外链检查的超时、重试、并发上限和排除项
