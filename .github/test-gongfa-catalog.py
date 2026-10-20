@@ -189,6 +189,7 @@ class CatalogMaintenanceTest(unittest.TestCase):
         markdown = views['README.md']
         self.assertIn('- 共**411条内容记录**；已登记411条，待登记0条，未登记来源条目0条。', markdown)
         self.assertNotIn('[控制论与科学方法论](#控制论与科学方法论)', markdown)
+        self.assertIn('同名条目在导航中附稳定对象ID，不表示身份合并。', markdown)
         self.assertFalse('catalog.xlsx' in markdown, '活动阅读视图只有Markdown，历史Excel仅作原始载荷保存')
         self.assertLess(len(markdown.encode('utf-8')), 512 * 1024, 'README只作为轻量导航，不再展开全部功法表格与文集正文')
         self.assertNotIn('| 序号 | 说明项 | 内容 |', markdown)
@@ -239,15 +240,18 @@ class CatalogMaintenanceTest(unittest.TestCase):
         self.assertEqual(len(duplicate_display), 2)
         self.assertEqual(len({catalog.tool_explanations.anchor_for(row['key'])
                               for row in duplicate_display}), 2)
+        display_counts = Counter(prefix.sub('', row['name'], count=1) for row in rows)
         for row in numbered:
             match = prefix.match(row['name'])
             display_name = row['name'][match.end():]
+            navigation_label = (f'{display_name}（{row["key"]}）'
+                                if display_counts[display_name] > 1 else display_name)
             anchor = catalog.tool_explanations.anchor_for(row['key'])
             tier = row['grade_id'].split('-', 1)[0] if row['grade_id'] else 'huang'
             page = views[tier + '.md']
             link = next(line for line in page.splitlines() if line.endswith(f'(#{anchor})'))
             decoded_link = unescape(link)
-            self.assertIn(f'[{display_name}](#{anchor})', decoded_link)
+            self.assertIn(f'[{navigation_label}](#{anchor})', decoded_link)
             self.assertNotIn(row['name'], decoded_link)
             section = page.split(f'<a id="{anchor}"></a>', 1)[1].split('<a id="', 1)[0]
             decoded_section = unescape(section)
@@ -256,8 +260,40 @@ class CatalogMaintenanceTest(unittest.TestCase):
             readme_link = next(line for line in views['README.md'].splitlines()
                                if f'{tier}.md#{anchor})' in line)
             decoded_readme_link = unescape(readme_link)
-            self.assertIn(f'[{display_name}](', decoded_readme_link)
+            self.assertIn(f'[{navigation_label}](', decoded_readme_link)
             self.assertNotIn(row['name'], decoded_readme_link)
+
+    def test_duplicate_display_names_are_disambiguated_in_navigation(self):
+        rows = catalog.merge_rows(deepcopy(self.documents))
+        views = catalog.render_views(ROOT, rows, self.binding)
+        duplicates = [
+            row for row in rows
+            if re.sub(r'^\d+(?:\.\d+)+[ \t]+', '', row['name'], count=1) == '最小惊讶原则'
+        ]
+        self.assertEqual(
+            {
+                'registry:gongfa-least-surprise@r1',
+                'registry:gongfa-candidate-html211-c007-ac8d2a6d24@r1',
+            },
+            {row['key'] for row in duplicates},
+        )
+        for row in duplicates:
+            anchor = catalog.tool_explanations.anchor_for(row['key'])
+            label = f"最小惊讶原则（{row['key']}）"
+            page = views['xuan.md']
+            page_link = next(
+                unescape(line) for line in page.splitlines()
+                if line.endswith(f'(#{anchor})')
+            )
+            self.assertIn(f'[{label}](#{anchor})', page_link)
+            readme_link = next(
+                unescape(line) for line in views['README.md'].splitlines()
+                if f'xuan.md#{anchor})' in line
+            )
+            self.assertIn(f'[{label}](xuan.md#{anchor})', readme_link)
+            section = page.split(f'<a id="{anchor}"></a>', 1)[1].split('<a id="', 1)[0]
+            self.assertIn('### 最小惊讶原则', unescape(section))
+            self.assertIn('| 1 | 工具的名称 | 最小惊讶原则 |', unescape(section))
 
     def test_user_confirmed_candidate_review_replaces_stale_labels_in_active_views(self):
         items = [item for item in self.documents['explanations_v1']['items']
@@ -347,6 +383,29 @@ class CatalogMaintenanceTest(unittest.TestCase):
         self.assertIn('图尔敏', contract)
         self.assertIn('Warrant', contract)
         self.assertIn('仅列字段交叉引用', contract)
+
+    def test_gongfa_claims_do_not_apply_the_problem_summary_to_itself(self):
+        findings = []
+        marker = '来源快照记录的主题是“'
+        topic_end = '”（上游来源未独立核验）'
+        for item in self.documents['explanations_v1']['items']:
+            fields = {field['name']: field['content'] for field in item['fields']}
+            problem = fields['它要解决什么问题？']
+            if '未提供单独的问题定义' not in problem:
+                continue
+            topic_start = problem.find(marker)
+            if topic_start < 0:
+                continue
+            topic_start += len(marker)
+            topic_stop = problem.find(topic_end, topic_start)
+            if topic_stop < 0:
+                continue
+            topic = problem[topic_start:topic_stop]
+            self_application = f'按“{topic}”处理“{topic}”'
+            for name in ('提炼共同规律。', '结论', '连接规则'):
+                if self_application in fields[name]:
+                    findings.append(f"{item['object_key']}:{name}")
+        self.assertEqual([], findings, '主张不能把同一摘要同时当作方法和问题：' + ', '.join(findings))
 
     def test_active_v1_payload_migrates_all_441_records_with_toulmin_warrants(self):
         expected_counts = {'gongfa': 411, 'faqi': 30}
