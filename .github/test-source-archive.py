@@ -145,8 +145,11 @@ class SourceArchiveTest(unittest.TestCase):
             '../../context/metadata/taxonomy.yml': 'taxonomy.yml',
             '../../context/prompts/README.md': 'prompts-README.md',
             '../../context/getting-started/learning-map.md': 'god.md',
-            '../../learning-map.md#milestone-2': 'god.md#milestone-2',
-            '../getting-started/learning-map.md#ai-guidance-rules': 'god.md#ai-guidance-rules',
+            # 单一代码块不产生章节锚点；历史定位保留在输入，当前入口指向整份提示词。
+            '../../learning-map.md#milestone-2': 'god.md',
+            '../getting-started/learning-map.md#ai-guidance-rules': 'god.md',
+            '../getting-started/learning-map.md#milestone-0': 'god.md',
+            '../../god.md#milestone-2': 'god.md',
             '../../context/tool-explanation-template-v1.md': 'tool-explanation-template-v1.md',
         }
         for index, link in enumerate(retired_cloud_links):
@@ -213,6 +216,38 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertIn('](#doc-example-目标)', toc)
         self.assertIn('](#doc-other-目标)', toc)
         self.assertNotIn('代码不是目录', toc)
+
+    def test_god_prompt_is_one_expanded_copyable_code_block(self):
+        from markdown_it import MarkdownIt
+        import book_views
+        text = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        tokens = MarkdownIt('commonmark').parse(text)
+        self.assertEqual([token.type for token in tokens], ['fence'])
+        prompt = tokens[0].content
+        self.assertTrue(prompt.startswith('# 道成了肉身\n'))
+        self.assertNotRegex(prompt, r'</?(?:details|summary|a)\b')
+        self.assertNotRegex(prompt, r'\]\(#[^)]+\)')
+        self.assertIn("printf 'local shell OK\\n'", prompt)
+        for contract in (
+            '网页 AI 不能读取或操作用户终端',
+            '每轮只引导一个检查或动作',
+            '不索取密码、API Key、Token、cookie、私钥、订阅链接、`auth.json`',
+            'Pi 以启动账户权限运行，并非安全沙箱',
+            '须先说明具体目标与影响，等待用户明确决定',
+            'Node.js 22.19.0 或更高版本',
+            '本机 Agent 能力已验证（基础通路已建立；仅本机命令工具）',
+            '不是 Pi 官方模式',
+            '本次只验证本机命令工具',
+            '任务不包括创建项目、修改项目文件',
+        ):
+            with self.subTest(prompt_contract=contract):
+                self.assertIn(contract, prompt)
+        html = MarkdownIt('commonmark').render(text)
+        self.assertEqual(html.count('<pre>'), 1)
+        self.assertEqual(book_views._links.markdown_anchors(Path(__file__).with_name('god.md')), set())
+        self.assertEqual(book_views.relocated('.github/god.md', 'milestone-2'), ('.github/god.md', ''))
+        self.assertEqual(book_views.relocated('.github/first-project.md', 'example'),
+                         ('.github/first-project.md', 'example'))
 
     def test_v1_explanations_remain_separate_from_frozen_source_documents(self):
         explanation = {'template_sha256': 'a' * 64, 'items': []}
