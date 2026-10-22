@@ -239,9 +239,26 @@ class SourceArchiveTest(unittest.TestCase):
             '不是 Pi 官方模式',
             '本次只验证本机命令工具',
             '任务不包括创建项目、修改项目文件',
+            '网络环境是 Pi 安装和 OpenAI 云端 GPT 的前置条件',
+            'FlClash',
+            'https://github.com/chen08209/FlClash/releases/latest',
+            'https://xn--9kqz23b19z.com/#/register?code=35BcnKzl',
+            '服务商注册链接不是个人订阅链接',
+            '订阅链接属于凭据',
+            '默认目标配置：启用 TUN、系统代理和全局模式',
+            '启用前须说明流量路由范围、隐私影响和恢复方式',
+            '用户拒绝或当前界面/系统不支持时',
+            '也不得报告网络路线已完成',
+            '`/login` 选择 OpenAI',
+            '`api.openai.com`',
+            'https://api.openai.com/v1/models',
+            '只说明 API 端点有响应，不证明账户认证或 GPT 模型可用',
+            '不要在测试命令里加入 API Key',
+            'ChatGPT 网页订阅不等于 OpenAI API 额度',
         ):
             with self.subTest(prompt_contract=contract):
                 self.assertIn(contract, prompt)
+        self.assertLess(prompt.index('## M1：网络环境'), prompt.index('## M2：预备行各样的善事'))
         html = MarkdownIt('commonmark').render(text)
         self.assertEqual(html.count('<pre>'), 1)
         self.assertEqual(book_views._links.markdown_anchors(Path(__file__).with_name('god.md')), set())
