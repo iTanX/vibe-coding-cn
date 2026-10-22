@@ -19,7 +19,7 @@ import source_archive
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = None
-TEMPLATE = ROOT / ".github/context/assets/templates/tool-explanation-template-v1.md"
+TEMPLATE = ROOT / ".github/context/tool-explanation-template-v1.md"
 
 
 def v1_field_names():
@@ -64,6 +64,53 @@ class FaqiCatalogTest(unittest.TestCase):
         path = ARTIFACTS / (label + "-input.json")
         path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
         return path
+
+    def test_skill_rename_and_cloud_retirement_keep_fixed_archival_bindings(self):
+        self.assertTrue((ROOT / ".github/skills/skill/SKILL.md").is_file())
+        self.assertFalse((ROOT / ".github/skills/auto-skill").exists())
+        archive = json.loads((ROOT / ".github/context/faqi/data.json").read_text(encoding="utf-8"))
+        self.assertEqual(".github/skills/skill", archive["locations"][".github/skills/auto-skill"])
+        self.assertEqual(".github/skills/skill/README.md",
+                         archive["locations"][".github/skills/auto-skill/README.md"])
+        live_skill = archive["live_sources"][".github/skills/auto-skill/README.md"]
+        self.assertEqual(".github/skills/skill/README.md", live_skill["path"])
+        self.assertEqual(hashlib.sha256((ROOT / live_skill["path"]).read_bytes()).hexdigest(),
+                         live_skill["sha256"])
+        self.assertIn(".github/skills/auto-skill/README.md", archive["documents"])
+        current_skill_associations = {
+            item["object_key"]: next(field["content"] for field in item["fields"]
+                                     if field["name"] == "关联信息")
+            for item in archive["explanations_v1"]["items"]
+            if item["object_key"] in {
+                "faqi:faqi-auto-skill-create",
+                "faqi:faqi-auto-skill-validate",
+                "faqi:faqi-skill-seekers-adapter",
+            }
+        }
+        self.assertEqual(3, len(current_skill_associations))
+        # auto-skill路径在documents中保留为固定历史身份；当前位置由上面的映射断言约束。
+        for object_key, association in current_skill_associations.items():
+            self.assertIn("相关Skill说明=.github/skills/skill", association, object_key)
+            self.assertNotIn("相关Skill说明=.github/skills/auto-skill", association, object_key)
+        self.assertNotIn(".github/skills/auto-tmux", archive["locations"])
+        self.assertFalse(any(path.startswith(".github/skills/auto-tmux/")
+                             for path in archive["live_sources"]))
+        self.assertFalse(any(item["path"].startswith(".github/skills/auto-tmux/")
+                             for item in archive["projections"]))
+        self.assertNotIn(".github/context/external-resources", archive["locations"].values())
+        metadata = json.loads(source_archive.read_text(ROOT / ".github/metadata/faqi.json"))
+        for source in metadata["external_sources"]:
+            document = archive["documents"][source["path"]]
+            self.assertEqual(source["sha256"], document["sha256"], source["path"])
+            self.assertNotIn(source["path"], archive["locations"])
+        explanations = {item["object_key"]: item["fields"]
+                        for item in archive["explanations_v1"]["items"]}
+        auto_tmux = next(field["content"] for field in explanations["faqi:faqi-auto-tmux"]
+                         if field["name"] == "关联信息")
+        self.assertIn("已从GitHub当前树移除", auto_tmux)
+        self.assertTrue(TEMPLATE.is_file())
+        self.assertEqual(archive["explanations_v1"]["template_sha256"],
+                         hashlib.sha256(TEMPLATE.read_bytes()).hexdigest())
 
     def test_current_source_review_is_consumable(self):
         result = self.invoke("current", "--check")
@@ -513,7 +560,7 @@ class FaqiCatalogTest(unittest.TestCase):
             **{item["id"]: item["node"] for item in data["dependency_graph"]["dependency_categories"]},
         }
         (root / ".github/context/faqi").mkdir(parents=True, exist_ok=True)
-        template_copy = root / ".github/context/assets/templates/tool-explanation-template-v1.md"
+        template_copy = root / ".github/context/tool-explanation-template-v1.md"
         template_copy.parent.mkdir(parents=True, exist_ok=True)
         template_copy.write_bytes(TEMPLATE.read_bytes())
         archive_data = {
