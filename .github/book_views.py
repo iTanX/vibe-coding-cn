@@ -35,6 +35,8 @@ def relocated(path, fragment=''):
         if name == '__init__.py':
             return '.github/source_boundaries.py', fragment
     aliases = {
+        '.github/context/tool-explanation-template-v0.md': '.github/tool-explanation-template-v0.md',
+        '.github/context/tool-explanation-template-v1.md': '.github/tool-explanation-template-v1.md',
         '.github/metadata/faqi/README.md': '.github/context/faqi/README.md',
         '.github/metadata/faqi/AGENTS.md': '.github/context/AGENTS.md',
         '.github/metadata/gongfa/AGENTS.md': '.github/context/AGENTS.md',
@@ -43,6 +45,22 @@ def relocated(path, fragment=''):
     }
     if path in aliases:
         return aliases[path], fragment
+    flat_groups = {
+        '.github/context/ai-citation': 'ai-citation',
+        '.github/context/metadata': 'metadata',
+        '.github/context/prompts': 'prompts',
+        '.github/context/getting-started': 'getting-started',
+    }
+    for old, group in flat_groups.items():
+        if path == old or path.startswith(old + '/'):
+            suffix = path[len(old):].lstrip('/')
+            if not suffix or suffix == 'README.md':
+                filename = f'{group}-README.md'
+            elif suffix == 'AGENTS.md':
+                filename = f'{group}-AGENTS.md'
+            else:
+                filename = suffix.replace('/', '-')
+            return '.github/' + filename, fragment
     if path.rstrip('/') == '.github/docs/gongfa':
         return '.github/context/gongfa/README.md', fragment or '原文文集'
     if path.startswith('.github/docs/gongfa/'):
@@ -65,6 +83,10 @@ def relocated(path, fragment=''):
         '.github/skills/auto-skill/scripts/skill-seekers-src': '.github/extensions/Skill_Seekers-development',
         '.github/skills/auto-skill/scripts/skill-seekers-configs': '.github/extensions/Skill_Seekers-development/api/configs_repo',
         '.github/skills/claude-official-skills': '.github/extensions/claude-official-skills',
+        '.github/extensions/fetch-research-raw.py': '.github/fetch-research-raw.py',
+        '.github/extensions/sync-doc-toc.py': '.github/sync-doc-toc.py',
+        '.github/extensions/sync-faqi-catalog.py': '.github/sync-faqi-catalog.py',
+        '.github/extensions/sync-gongfa-catalog.py': '.github/sync-gongfa-catalog.py',
     }
     prefixes = {
         '.github/docs/getting-started': '.github/context/getting-started',
@@ -78,7 +100,7 @@ def relocated(path, fragment=''):
         '.github/scripts/lib': '.github',
         '.github/extensions/lib': '.github',
         '.github/lib': '.github',
-        '.github/scripts': '.github/extensions',
+        '.github/scripts': '.github',
         '.github/skills/auto-skill/scripts': '.github/extensions',
         '.github/tools/config': '.github/extensions/codex-config',
         '.github/tools/prompts-library': '.github/extensions/prompts-library',
@@ -94,6 +116,24 @@ def relocated(path, fragment=''):
         if path == old or path.startswith(old + '/'):
             path = new + path[len(old):]
             break
+    claude_repository = 'https://github.com/anthropics/skills'
+    claude_revision = '1ed29a03dc852d30fa6ef2ca53a67dc2c2c2c563'
+    claude_initializer = 'skills/skill-creator/scripts/init_skill.py'
+    if path in {'.github/init_skill.py', '.github/extensions/init_skill.py'}:
+        return (f'{claude_repository}/blob/{claude_revision}/{claude_initializer}', fragment)
+    retired_claude = '.github/extensions/claude-official-skills'
+    if path == retired_claude or path.startswith(retired_claude + '/'):
+        suffix = path[len(retired_claude):].lstrip('/')
+        route = 'blob' if suffix and Path(suffix).suffix else 'tree'
+        return (f'{claude_repository}/{route}/{claude_revision}'
+                + ('/' + quote(suffix, safe='/') if suffix else ''), fragment)
+    retired_upstream = '.github/extensions/Skill_Seekers-development'
+    if path == retired_upstream or path.startswith(retired_upstream + '/'):
+        suffix = path[len(retired_upstream):].lstrip('/')
+        repository = 'https://github.com/yusufkaraaslan/Skill_Seekers'
+        revision = '26638b248279a3b001b651475e0f28975f5ff069'
+        route = 'blob' if suffix and Path(suffix).suffix else 'tree'
+        return (f'{repository}/{route}/{revision}' + ('/' + quote(suffix, safe='/') if suffix else ''), fragment)
     retired = {
         '.github/extensions/prompts-library': ('b0e3454bb865b95bdc70127a431214c384542dee', 'tree'),
         '.github/extensions/chat-vault': ('44e6fe37a6a871e9327d9f15b23cfef0b7dcbb58', 'tree'),

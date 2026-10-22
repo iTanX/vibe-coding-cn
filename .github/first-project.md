@@ -303,7 +303,7 @@ git rev-parse --short HEAD
 
 ## 下一步
 
-- 想理解为什么要先定义目标、现状和标准：阅读 [问题求解](../gongfa/README.md#doc-problem-solving)。
-- 想把目标、约束、行动、证据和版本串起来：阅读 [Vibe Coding 状态转移闭环](../gongfa/README.md#doc-vibe-coding-state-transition)。
-- 想学习更完整的人机分工、机器门禁和复盘：阅读 [Vibe Coding 经验](../gongfa/README.md#doc-vibe-coding-experience)。
-- 想把一次练习升级为可维护项目：阅读 [项目架构模板](../gongfa/README.md#doc-project-architecture-template) 和 [开发流程](../gongfa/README.md#doc-development-process)。
+- 想理解为什么要先定义目标、现状和标准：阅读 [问题求解](context/gongfa/README.md#doc-problem-solving)。
+- 想把目标、约束、行动、证据和版本串起来：阅读 [Vibe Coding 状态转移闭环](context/gongfa/README.md#doc-vibe-coding-state-transition)。
+- 想学习更完整的人机分工、机器门禁和复盘：阅读 [Vibe Coding 经验](context/gongfa/README.md#doc-vibe-coding-experience)。
+- 想把一次练习升级为可维护项目：阅读 [项目架构模板](context/gongfa/README.md#doc-project-architecture-template) 和 [开发流程](context/gongfa/README.md#doc-development-process)。

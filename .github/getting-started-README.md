@@ -12,7 +12,7 @@
 |:---|:---|
 | <a id="learning-map"></a>[Pi CLI 上手提示词](learning-map.md) | 可全文复制给网页版 AI 的安装配置提示词：按条件检查、分平台安装、模型配置和本机工具验收；达标即停止。 |
 | <a id="first-project"></a>[第一个项目（可选练习）](first-project.md) | 用本地待办清单练习需求、运行、验收和 Git 保存。 |
-| <a id="vibe-coding-experience"></a>[Vibe Coding 经验](../gongfa/README.md#doc-vibe-coding-experience) | 功法文集：理解人机分工、验证和质量边界。 |
+| <a id="vibe-coding-experience"></a>[Vibe Coding 经验](context/gongfa/README.md#doc-vibe-coding-experience) | 功法文集：理解人机分工、验证和质量边界。 |
 
 <details>
 <summary><strong>完整细粒度目录（点击展开/收起）</strong></summary>
@@ -21,7 +21,7 @@
 
 - [Pi CLI 上手提示词](learning-map.md) - 全文复制给网页版 AI，逐步引导本机安装并配置 Pi CLI；包含官方来源、条件依赖和完成验收。
 - [第一个项目（可选练习）](first-project.md) - 用本地待办清单练习运行、验收和 Git 保存。
-- [Vibe Coding 经验](../gongfa/README.md#doc-vibe-coding-experience) - 功法文集：理解人机分工、验证和质量边界。
+- [Vibe Coding 经验](context/gongfa/README.md#doc-vibe-coding-experience) - 功法文集：理解人机分工、验证和质量边界。
 
 </details>
 
@@ -29,8 +29,8 @@
 
 - 完全新手将[Pi CLI 上手提示词](learning-map.md)全文复制到可用的网页版 AI，由 AI 从系统检查开始；已有 Pi 的用户先运行 `pi --version`，成功就不必重装。
 - 安装、模型和本机工具问题由 AI 按提示词逐步处理；项目工具配置不属于安装提示词范围。
-- 需要固定练习时再做[第一个项目](first-project.md)；想了解通用协作原则时按需读[Vibe Coding 经验](../gongfa/README.md#doc-vibe-coding-experience)。
+- 需要固定练习时再做[第一个项目](first-project.md)；想了解通用协作原则时按需读[Vibe Coding 经验](context/gongfa/README.md#doc-vibe-coding-experience)。
 
 ## 正文
 
-本目录的 Pi CLI 检查、安装、模型配置和本机工具验收统一维护于可全文复制的[Pi CLI 上手提示词](learning-map.md)。文档本身就是给网页版 AI 的操作指令，不另附重复提示词；项目练习继续独立且可选。
+本组文件的 Pi CLI 检查、安装、模型配置和本机工具验收统一维护于可全文复制的[Pi CLI 上手提示词](learning-map.md)。文档本身就是给网页版 AI 的操作指令，不另附重复提示词；项目练习继续独立且可选。

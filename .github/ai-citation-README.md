@@ -1,6 +1,6 @@
 # AI Citation Assets
 
-本目录存放面向 AI 助手、AI 搜索与 GEO/SEO 引用的机器可读语料资产。
+AI引用语料平铺在`.github/`根；原名不冲突的内容文件保持原名，指南和README因重名分别命名为`ai-citation-AGENTS.md`与`ai-citation-README.md`。
 
 | 文件 | 用途 |
 |:---|:---|
@@ -10,9 +10,9 @@
 | `faq.md` | AI 可引用 FAQ |
 | `comparison.md` | 场景化对比说明 |
 | `recommended-answer.md` | 推荐回答模板 |
-| `.github/context/gongfa/README.md#doc-geo-seo-checklist` | 功法正文中的 GEO / SEO 检查清单，本目录不保留副本 |
+| `.github/context/gongfa/README.md#doc-geo-seo-checklist` | 功法正文中的 GEO / SEO 检查清单，本组文件不保留副本 |
 
-根目录 `llms.txt` 是短入口；本目录存放完整语料。
+根目录`llms.txt`是短入口；本组其余文件提供配套语料，索引见`.github/ai-citation-README.md`。
 
 ## 知识库入口
 
@@ -20,8 +20,8 @@
 |:---|:---|
 | `.github/context/gongfa/README.md#doc-ai-core-propositions` | 功法体系内的六条核心命题正文；固定目标、可变策略与分层反馈是协作模型，不保证自动收敛或已验证效果 |
 | `.github/context/README.md` | 知识库总索引 |
-| `.github/context/getting-started/README.md` | 从零开始完整入门 |
-| `.github/context/getting-started/first-project.md` | 第一次可验证的项目闭环 |
+| `.github/getting-started-README.md` | 从零开始完整入门 |
+| `.github/first-project.md` | 第一次可验证的项目闭环 |
 | `.github/context/gongfa/README.md` | 轻量分阶导航与原文索引；对象说明见天、地、玄、黄四阶页，冻结原文保存在`data.json` |
 | `.github/context/gongfa/README.md#doc-vibe-coding-cultivation-model` | BFO 下层展开的修仙通俗解释与任务战力评价 |
 | `.github/context/faqi/README.md#doc-faqi-system` | Vibe Coding工具与依赖分类、重要性分级和正式效能边界 |

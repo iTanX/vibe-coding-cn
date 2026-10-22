@@ -110,7 +110,15 @@ class SourceArchiveTest(unittest.TestCase):
                  '\n[资料读取](../../scripts/lib/source_archive.py)\n'
                  '\n[视图模块](../../extensions/lib/book_views.py)\n'
                  '\n[分类模块](../../lib/taxonomy.py)\n'
-                 '\n[资源边界](../../lib/__init__.py)\n')
+                 '\n[资源边界](../../lib/__init__.py)\n'
+                 '\n[文档目录同步](../../extensions/sync-doc-toc.py)\n'
+                 '\n[法器生成器](../../extensions/sync-faqi-catalog.py)\n'
+                 '\n[功法生成器](../../extensions/sync-gongfa-catalog.py)\n'
+                 '\n[研究抓取](../../extensions/fetch-research-raw.py)\n'
+                 '\n[Claude旧初始化器入口](../../extensions/init_skill.py)\n'
+                 '\n[Claude根级旧初始化器入口](../../init_skill.py)\n'
+                 '\n[Claude官方初始化脚本历史来源](../../tools/external/claude-official-skills/skills/skill-creator/scripts/init_skill.py)\n'
+                 '\n[Skill Seekers历史源码](../../tools/external/Skill_Seekers-development/README.md)\n')
         retired_links = {
             '../../tools/chat-vault/README.md': 'chat-vault/README.md',
             '../../tools/external/my-nvim/README.md': 'my-nvim/README.md',
@@ -132,15 +140,24 @@ class SourceArchiveTest(unittest.TestCase):
             '../../context/external-resources/README.md': (
                 'blob', '.github/context/external-resources/README.md'),
         }
+        flattened_context_links = {
+            '../../context/ai-citation/README.md': 'ai-citation-README.md',
+            '../../context/metadata/taxonomy.yml': 'taxonomy.yml',
+            '../../context/prompts/README.md': 'prompts-README.md',
+            '../../context/getting-started/learning-map.md': 'learning-map.md',
+            '../../context/tool-explanation-template-v1.md': 'tool-explanation-template-v1.md',
+        }
         for index, link in enumerate(retired_cloud_links):
             text += f'\n[云端退役{index}]({link})\n'
+        for index, link in enumerate(flattened_context_links):
+            text += f'\n[平铺{index}]({link})\n'
         self.data['documents'] = {
             '.github/docs/gongfa/example.md': document(text.encode()),
             '.github/docs/gongfa/other.md': document('# 另一篇\n\n## 目标\n'.encode())}
         self.save()
         rendered = book_views.render_sources(self.root, 'gongfa')
-        index = self.root / '.github/context/metadata/taxonomy.yml'
-        index.parent.mkdir(parents=True)
+        index = self.root / '.github/taxonomy.yml'
+        index.parent.mkdir(parents=True, exist_ok=True)
         index.write_text('documents:\n  gongfa:\n  - path: .github/context/gongfa/README.md#doc-other\n  - path: .github/context/gongfa/README.md#doc-example\n')
         self.assertEqual(rendered, book_views.render_sources(self.root, 'gongfa'), '阅读内容与顺序只由本集合JSON决定')
         self.assertIn('id="doc-example-目标"', rendered)
@@ -155,6 +172,23 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertIn('[视图模块](../../book_views.py)', rendered)
         self.assertIn('[分类模块](../../taxonomy.py)', rendered)
         self.assertIn('[资源边界](../../source_boundaries.py)', rendered)
+        for label, target in (
+            ('文档目录同步', 'sync-doc-toc.py'),
+            ('法器生成器', 'sync-faqi-catalog.py'),
+            ('功法生成器', 'sync-gongfa-catalog.py'),
+            ('研究抓取', 'fetch-research-raw.py'),
+        ):
+            self.assertIn(f'[{label}](../../{target})', rendered)
+        claude_initializer = (
+            'https://github.com/anthropics/skills/blob/'
+            '1ed29a03dc852d30fa6ef2ca53a67dc2c2c2c563/'
+            'skills/skill-creator/scripts/init_skill.py')
+        self.assertIn(f'[Claude旧初始化器入口]({claude_initializer})', rendered)
+        self.assertIn(f'[Claude根级旧初始化器入口]({claude_initializer})', rendered)
+        self.assertIn(f'[Claude官方初始化脚本历史来源]({claude_initializer})', rendered)
+        self.assertIn(
+            '[Skill Seekers历史源码](https://github.com/yusufkaraaslan/Skill_Seekers/blob/'
+            '26638b248279a3b001b651475e0f28975f5ff069/README.md)', rendered)
         for index, target in enumerate(retired_links.values()):
             revision = ('b0e3454bb865b95bdc70127a431214c384542dee'
                         if target == 'prompts-library/README.md'
@@ -166,6 +200,8 @@ class SourceArchiveTest(unittest.TestCase):
             expected = (f'https://github.com/tradecatlabs/vibe-coding-cn/{route}/'
                         f'71bf460cfa894ad45163a9591d2043422974a681/{path}')
             self.assertIn(f'[云端退役{index}]({expected})', rendered)
+        for index, target in enumerate(flattened_context_links.values()):
+            self.assertIn(f'[平铺{index}](../../{target})', rendered)
         self.assertIn('### 代码不是目录', rendered)
         self.assertNotIn('id="doc-example-代码不是目录"', rendered)
         self.assertEqual(rendered.count('id="doc-example-目标"'), 1)
