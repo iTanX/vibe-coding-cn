@@ -486,7 +486,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_termux_pkg_upgrade_scope_is_explicit(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m2 = prompt.split('## M2：预备行各样的善事', 1)[1].split('## M3：验证 CLI', 1)[0]
+        m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         guidance = next((line for line in m2.splitlines() if line.startswith('**Android/Termux：**')), '')
         required = (
             'Pi 官方 Termux 指南的 `pkg update && pkg upgrade`',
@@ -499,7 +499,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_termux_pkg_upgrade_keeps_interactive_confirmation(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m2 = prompt.split('## M2：预备行各样的善事', 1)[1].split('## M3：验证 CLI', 1)[0]
+        m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         guidance = next((line for line in m2.splitlines() if line.startswith('**Android/Termux：**')), '')
         required = (
             '保留交互确认，不要追加自动确认选项',
@@ -533,7 +533,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_m2_defers_pi_start_until_m40_review(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m2 = prompt.split('## M2：预备行各样的善事', 1)[1].split('## M3：验证 CLI', 1)[0]
+        m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         self.assertIn(
             '安装完成后若出现 `Start pi now? [Y/n]`，明确输入 `n`，不要按 Enter 接受默认启动；先按 M3 核验版本，再到 M4.0 说明目录资源和信任影响后，由用户决定是否启动 Pi。',
             m2,
@@ -541,7 +541,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_m2_windows_user_path_prompt_requires_explicit_consent(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m2 = prompt.split('## M2：预备行各样的善事', 1)[1].split('## M3：验证 CLI', 1)[0]
+        m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         windows = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[1].split(
             '**仅供已选择的备用路线：**', 1
         )[0]
@@ -558,7 +558,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_m2_windows_node_install_prompt_discloses_side_effects_and_consent(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m2 = prompt.split('## M2：预备行各样的善事', 1)[1].split('## M3：验证 CLI', 1)[0]
+        m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         windows = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[1].split(
             '**仅供已选择的备用路线：**', 1
         )[0]
@@ -579,7 +579,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_m2_windows_portable_git_discloses_recursive_replacement_risk(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m2 = prompt.split('## M2：预备行各样的善事', 1)[1].split('## M3：验证 CLI', 1)[0]
+        m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         windows = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[1].split(
             '**仅供已选择的备用路线：**', 1
         )[0]
@@ -596,7 +596,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_m2_windows_node_install_discloses_replacement_of_managed_directory(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m2 = prompt.split('## M2：预备行各样的善事', 1)[1].split('## M3：验证 CLI', 1)[0]
+        m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         windows = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[1].split(
             '**仅供已选择的备用路线：**', 1
         )[0]
@@ -613,7 +613,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_m2_macos_homebrew_node_upgrade_requires_explicit_consent(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m2 = prompt.split('## M2：预备行各样的善事', 1)[1].split('## M3：验证 CLI', 1)[0]
+        m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         posix = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[0]
         required = (
             'macOS 安装器在 Node.js/npm 预检未通过',
@@ -629,7 +629,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_m2_posix_standalone_node_replacement_requires_local_check(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m2 = prompt.split('## M2：预备行各样的善事', 1)[1].split('## M3：验证 CLI', 1)[0]
+        m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         posix = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[0]
         required = (
             'POSIX 安装器在 Node.js/npm 预检未通过',
@@ -646,7 +646,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_uninstall_managed_root_deletion_requires_local_target_check(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        uninstall = prompt.split('## 可选：用户明确要求卸载时', 1)[1].split('## 经文与技术边界', 1)[0]
+        uninstall = prompt.split('## 可选：用户明确要求卸载时', 1)[1].split('## 技术边界', 1)[0]
         required = (
             '官方安装器的 **Uninstall Pi**',
             '根据当前 `pi` 命令的安装标记定位实际托管安装根目录并递归删除该目录',
@@ -662,7 +662,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_m2_linux_apt_node_upgrade_requires_explicit_consent(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m2 = prompt.split('## M2：预备行各样的善事', 1)[1].split('## M3：验证 CLI', 1)[0]
+        m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         posix = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[0]
         required = (
             'Linux 安装器在 Node.js/npm 预检未通过',
@@ -681,7 +681,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_m2_windows_portable_git_shellpath_persistence_requires_consent(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m2 = prompt.split('## M2：预备行各样的善事', 1)[1].split('## M3：验证 CLI', 1)[0]
+        m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         windows = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[1].split('**仅供已选择的备用路线：**', 1)[0]
         required = (
             'Portable Git 会把 Bash 路径写入当前用户的 Pi 配置文件',
@@ -698,7 +698,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_m2_windows_winget_agreements_require_consent(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m2 = prompt.split('## M2：预备行各样的善事', 1)[1].split('## M3：验证 CLI', 1)[0]
+        m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         windows = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[1].split('**仅供已选择的备用路线：**', 1)[0]
         required = (
             '`--accept-source-agreements`',
@@ -715,7 +715,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_m2_linux_standalone_node_xz_dependency_requires_consent(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m2 = prompt.split('## M2：预备行各样的善事', 1)[1].split('## M3：验证 CLI', 1)[0]
+        m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         posix = m2.split('**macOS/Linux 官方安装器：**', 1)[1].split('**Windows 原生 PowerShell 官方安装器：**', 1)[0]
         standalone = posix.split('POSIX 安装器在 Node.js/npm 预检未通过', 1)[1].split('macOS 安装器在 Node.js/npm 预检未通过', 1)[0]
         required = (
@@ -733,7 +733,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_m2_posix_standalone_node_checksum_is_conditional(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m2 = prompt.split('## M2：预备行各样的善事', 1)[1].split('## M3：验证 CLI', 1)[0]
+        m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         posix = m2.split('**macOS/Linux 官方安装器：**', 1)[1].split('**Windows 原生 PowerShell 官方安装器：**', 1)[0]
         standalone = posix.split('POSIX 安装器在 Node.js/npm 预检未通过', 1)[1].split('macOS 安装器在 Node.js/npm 预检未通过', 1)[0]
         required = (
@@ -1074,7 +1074,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_openai_connectivity_probe_requires_explicit_user_consent(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：凡事察验', 1)[0]
+        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next((line for line in m41.splitlines() if 'api.openai.com/v1/models' in line), '')
         required = (
             '仅 API Key 路线且确有连通故障时',
@@ -1091,7 +1091,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_oauth_callback_host_scope_requires_local_review(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：凡事察验', 1)[0]
+        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next((line for line in m41.splitlines() if 'PI_OAUTH_CALLBACK_HOST' in line and '`0.0.0.0`' in line), '')
         required = (
             '`127.0.0.1`',
@@ -1114,7 +1114,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_openai_model_visibility_does_not_prove_subscription_route(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：凡事察验', 1)[0]
+        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next((line for line in m41.splitlines() if '`OPENAI_API_KEY`' in line), '')
         required = (
             '路线/凭据来源不明时先暂停，不发测试问题',
@@ -1127,7 +1127,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_openai_custom_base_url_requires_local_endpoint_review(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：凡事察验', 1)[0]
+        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next(
             (paragraph for paragraph in m41.split('\n\n') if 'models.json' in paragraph and '`baseUrl`' in paragraph),
             '',
@@ -1144,7 +1144,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_custom_endpoint_discloses_data_recipient_before_use(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：凡事察验', 1)[0]
+        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next(
             (paragraph for paragraph in m41.split('\n\n') if '内置 `openai` provider 设置 `baseUrl`' in paragraph),
             '',
@@ -1162,7 +1162,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_openai_remote_http_base_url_requires_transport_check(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：凡事察验', 1)[0]
+        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next(
             (paragraph for paragraph in m41.split('\n\n') if '远端' in paragraph and '`baseUrl`' in paragraph and '`http://' in paragraph),
             '',
@@ -1181,7 +1181,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_remote_custom_endpoint_preserves_tls_certificate_validation(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：凡事察验', 1)[0]
+        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next((paragraph for paragraph in m41.split('\n\n') if 'NODE_TLS_REJECT_UNAUTHORIZED=0' in paragraph), '')
         required = (
             '证书校验失败',
@@ -1196,7 +1196,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_models_json_literal_api_key_must_stay_local(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：凡事察验', 1)[0]
+        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next((paragraph for paragraph in m41.split('\n\n') if '`apiKey`' in paragraph and 'models.json' in paragraph), '')
         required = (
             '字面值',
@@ -1209,7 +1209,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_openai_oauth_hostname_is_checked(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：凡事察验', 1)[0]
+        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next((line for line in m41.splitlines() if line.startswith('- **订阅 OAuth：**')), '')
         required = (
             'Pi 1.4.0 当前内置流程使用 OpenAI 官方授权域 `auth.openai.com`',
@@ -1222,7 +1222,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_oauth_browser_account_must_match_user_choice(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：凡事察验', 1)[0]
+        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next((line for line in m41.splitlines() if line.startswith('- **订阅 OAuth：**')), '')
         required = (
             '浏览器若显示已登录的 OpenAI 账号',
@@ -1234,7 +1234,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_oauth_callback_conflict_has_safe_local_stop_path(self):
         prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
-        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：凡事察验', 1)[0]
+        m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next((line for line in m41.splitlines() if '`1455`' in line and 'OAuth state mismatch' in line), '')
         required = (
             '订阅 OAuth',
@@ -1260,7 +1260,17 @@ class SourceArchiveTest(unittest.TestCase):
         ]
         self.assertEqual(unrendered_emphasis, [])
         self.assertEqual((tokens[0].type, tokens[0].tag), ('heading_open', 'h1'))
-        self.assertTrue(prompt.startswith('# 道成了肉身\n'))
+        self.assertTrue(prompt.startswith('# Pi CLI 安装与配置指南\n'))
+        self.assertIn('## M2：安装 Pi CLI', prompt)
+        self.assertIn('## M4：配置模型并验证本机能力', prompt)
+        self.assertIn('### M4.2：验证实际工具调用', prompt)
+        for religious_language in (
+            '道成了肉身', '《约翰福音》', '《哥林多前书》', '《提摩太后书》',
+            '《帖撒罗尼迦前书》', '预备行各样的善事', '恩赐原有分别', '凡事察验',
+            '圣经', '经文', '圣灵', '恩赐', '信仰', '圣洁', '教会', '基督',
+            '与神对话', '神的能力', 'biblegateway.com',
+        ):
+            self.assertNotIn(religious_language, prompt)
         self.assertNotRegex(prompt, r'</?(?:details|summary|a)\b')
         self.assertNotRegex(prompt, r'\]\(#[^)]+\)')
         self.assertNotIn('本代码块全文', prompt)
@@ -1393,7 +1403,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertNotIn('curl -i https://api.openai.com/v1/models', prompt)
         self.assertNotIn('curl.exe -i https://api.openai.com/v1/models', prompt)
         self.assertLess(prompt.index('## 字多不看'), prompt.index('## 给网页版 Chat AI 的任务'))
-        self.assertLess(prompt.index('## M1：网络环境'), prompt.index('## M2：预备行各样的善事'))
+        self.assertLess(prompt.index('## M1：网络环境'), prompt.index('## M2：安装 Pi CLI'))
         self.assertLess(prompt.find('### M4.0：进入 Pi 交互界面'), prompt.find('\npi\n'))
         self.assertLess(prompt.index('\npi\n'), prompt.index('### M4.1：验证对话能力'))
         self.assertNotIn('模型能回答后，建议用户在空目录或非敏感目录启动 Pi。', prompt)
@@ -1409,14 +1419,13 @@ class SourceArchiveTest(unittest.TestCase):
             ],
         )
         html = markdown.render(prompt)
-        for rendered in ('<h1>道成了肉身</h1>', '<h2>M0：检查现状</h2>',
-                         '<h2>完整配置与使用的完成标准</h2>',
-                         'href="https://pi.dev/docs/latest/termux"',
-                         'href="https://www.biblegateway.com/passage/?search=John%201%3A14&amp;version=CUVS"'):
+        for rendered in ('<h1>Pi CLI 安装与配置指南</h1>', '<h2>M0：检查现状</h2>',
+                         '<h2>完整配置与使用的完成标准</h2>', '<h2>技术边界</h2>',
+                         'href="https://pi.dev/docs/latest/termux"'):
             with self.subTest(rendered_markdown=rendered):
                 self.assertIn(rendered, html)
         self.assertEqual(html.count('<pre>'), 5)
-        self.assertTrue({'道成了肉身', 'm0检查现状', '官方资料'}.issubset(
+        self.assertTrue({'pi-cli-安装与配置指南', 'm0检查现状', '官方资料'}.issubset(
             book_views._links.markdown_anchors(Path(__file__).with_name('god.md'))))
         self.assertEqual(book_views.relocated('.github/god.md', 'milestone-2'), ('.github/god.md', ''))
         self.assertEqual(book_views.relocated('.github/first-project.md', 'example'),
