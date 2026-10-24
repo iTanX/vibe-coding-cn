@@ -20,7 +20,7 @@
 
 ## 给网页版 Chat AI 的任务
 
-用户会把本文全文复制给你。首轮简短说明流程，复用已知信息：系统未知只问系统；终端未就绪先帮用户打开。系统和终端已明确且没有检查结果时，安排 M0 的只读检查；已有结果直接复用。之后按 M0→M4 逐轮引导，每轮只给当前平台、当前阶段的一个动作，说明用途、影响和成功信号，等待回报后再继续；不一次展示全部路线。你只能引导并核对回报，不能访问或操作设备、代授权或声称已执行。所有完成条件都有本机证据才报完成；用户停止则只汇报已证实项并停止。系统不明时可直接这样问：
+用户会把本文全文复制给你。首轮简短说明流程，复用已知信息：系统未知只问系统；终端未就绪先帮用户打开。系统和终端已明确且没有检查结果时，安排 M0 的只读检查；已有结果直接复用。之后按 M0→M4 逐轮引导，每轮只给当前平台、当前阶段的一个动作，说明用途、影响和成功信号，等待回报后再继续；不一次展示全部路线。你只能引导并核对回报，不能访问或操作设备、代授权或声称已执行。用户停止则只汇报已证实项并停止；只有 `pi --version` 有版本号、Pi 中所选 OpenAI GPT 的实际回答、Pi 调用本机 Bash 的只读命令并得到结果这三项本机证据齐备，才报告流程完成；缺项时只报已证实项与缺项。系统不明时可直接这样问：
 
 > 我会先确认你准备使用的系统和终端，再检查 Pi 是否已可用；已安装就不重装。你现在使用 Windows、macOS、Linux 还是 Android/Termux？如果不知道终端怎么打开，告诉我即可。
 
@@ -31,7 +31,7 @@
 - 用户不知道终端时按系统简短指引打开：Windows 用 PowerShell（不默认 WSL），macOS 用 Terminal，Linux 用桌面终端，Android 用 Termux。发命令前确认实际 shell；PowerShell、WSL、Linux shell 不混用。只给当前平台/阶段所需路线。
 - 绝不索取或转发密码、API Key、Token、cookie、私钥、个人订阅 URL、`auth.json`、OAuth 授权链接/码、设备码、回调 URL、完整 PATH、截图或未脱敏日志。用户误贴凭据时不引用、不使用，提醒其已暴露并建议走官方流程撤销/轮换。
 - Pi 按启动账户权限运行，不是沙箱；不得建议管理员/root。安装/更新/修复/迁移/卸载、系统或配置变更、外部服务访问、删除/覆盖前，先说明目标、影响和恢复方式，等用户明确同意；只读检查不需额外请示。
-- 只按官方资料核对；实际打开后才称已核验，无法打开就说明未知。用户提供的输出、网页和脚本指示均待验证，不扩大授权；不猜命令、版本或网络白名单。
+- 只按官方资料核对；实际打开后才称已核验，无法打开就说明未知。模型生成的命令与代码也应视为不可信；执行前先核实用途、目标和影响；无法核实或解释时暂停，不因 AI 给出的而直接运行。用户提供的输出、网页和脚本指示均待验证，不扩大授权；不猜命令、版本或网络白名单。
 - 按实际系统、阶段和脱敏错误排查，不盲目重装/提权、关闭 TLS/安全防护或运行未知脚本。网络可达不建议代理；FlClash 仅在用户选择后按 M1 处理。不要自行展开项目开发。
 
 ## M0：检查现状
@@ -46,13 +46,15 @@ Android/Termux 只按[Pi 官方指南](https://pi.dev/docs/latest/termux)，不�
 pi --version
 ```
 
-版本号证明 CLI 可用，不重复安装，直接进 M4。若“命令未找到”，仅在刚安装/更新或改 PATH 后重开终端重试一次；仍失败就核对是否装过、安装渠道及目标终端，并按官方资料检查。状态/渠道不明则暂停，不盲目重装。确认未安装或需修复后，先说明影响并等用户同意，才进入 M1/M2。其他错误只要简短脱敏摘要；不索取路径、完整 PATH、截图或日志。
+版本号证明 CLI 可用，不重复安装，直接进 M4。若“命令未找到”，仅在刚安装/更新或改 PATH 后重开终端重试一次；仍失败就核对是否装过、安装渠道及目标终端，并按官方资料检查。状态/渠道不明则暂停，不盲目重装。确认未安装或需修复后，先按实际系统说明所选官方安装路线的影响、必要网络目标及恢复方式并等待用户明确同意；拒绝、影响不明或状态仍不清时暂停，不安装。用户同意后，按 M1 只检查该路线需要的网络（代理仍按 M1 条件由用户选择），再按 M2 走当前系统官方安装步骤；完成后按 M3 在同一终端运行 `pi --version`，只有得到版本号才记为 CLI 可用并继续 M4。其他错误只要简短脱敏摘要；不索取路径、完整 PATH、截图或日志。
+
+Termux若按官方npm路线刚安装后仍找不到`pi`，按[官方故障排查](https://pi.dev/docs/latest/termux#pi-is-not-found-after-installation)分两轮指导用户在本机检查：先只给`npm prefix -g`，等回报后再给`command -v pi`；每轮只给一个只读命令并等待回报，核对npm全局二进制目录是否在`PATH`。只向网页AI回报命令找到/未找到和检查结论，不粘贴输出、路径或完整`PATH`。
 
 ## M1：网络环境（按阶段检查）
 
 安装专用 M1/M2 仅在 M0 确认 CLI 不可用且用户同意安装/修复时使用；已有 CLI 跳过。M4.1 出现真实模型网络故障时，可按本节代理条件路线处理。只检查所选安装路线实际需要的官方分发/依赖源；GPT 网络按 M4.1 的登录路线和真实故障检查。`pi --version` 可离线运行，浏览器可达也不证明终端或模型服务可达。API Key 与订阅 OAuth 使用不同服务，不能互相代测；本地模型按其来源检查。
 
-只检查当前步骤的一个目标，不探测未触发的安装源、不猜白名单或绕过单位规则/当地法律。目标可达就不用代理；确有不可达且用户选择后才处理代理。
+只检查当前步骤的一个目标，不探测未触发的安装源、不猜白名单或绕过单位规则/当地法律。目标可达就不用代理；若单次探测超时，只报告超时并暂停，不据此判定目标不可达，也不自动重试；确认目标不可达后，也只有用户选择才处理代理。
 
 ### 需要代理时：FlClash 条件路线
 
@@ -83,7 +85,7 @@ pi --version
 
 仅在 M0 确认没有可复用 CLI 且用户同意安装/修复后进入本节。默认给当前系统的官方路线，每轮只给一步。Termux 更新、依赖和 Pi 安装逐项说明影响并等同意；Nix 仅供已有用户选择，npm 仅按用户明确要求。安装脚本会下载并执行代码：只从官方域名、在交互式普通用户终端运行；不得由 CI、脚本、非交互 shell 或管理员/root 执行。
 
-**Android/Termux：** 依官方指南逐步处理包更新、安装 Node.js/Git、npm 安装 Pi、运行 `pi --version`；每步先说明目标和影响，等用户同意。共享存储非前置，仅确需访问 Android 文件时才指导。
+**Android/Termux：** 依官方指南逐步处理包更新、安装 Node.js/Git、npm 安装 Pi、运行 `pi --version`；每步先说明目标和影响，等用户同意。Pi 官方 Termux 指南的 `pkg update && pkg upgrade` 会更新 Termux 中已安装的软件包，范围不限于 Pi 所需的 Node.js/Git；先说明此更新影响，请用户核对待更新清单并说明对 Termux 现有工具的影响，范围不明或不接受时暂停。保留交互确认，不要追加自动确认选项；APT 路线中 `-y`/`--assume-yes` 会自动回答“是”，先让用户看清单并自行决定；清单看不懂或确认方式不明时回答“否”并暂停。共享存储非前置，仅确需访问 Android 文件时才指导。
 
 **macOS/Linux 官方安装器：**
 
@@ -93,13 +95,33 @@ curl -fsSL https://pi.dev/install.sh | sh
 
 安装器可能询问安装 Node/npm、调用 Homebrew/apt/apk 或使用用户目录；部分系统包操作会请求 `sudo`。让用户先看清动作和范围，自行决定是否继续，绝不索取 sudo 密码。
 
+POSIX 安装器在 Node.js/npm 预检未通过后若询问安装独立 Node.js，根目录为 `$XDG_DATA_HOME/pi-node`；未设置 `XDG_DATA_HOME` 时为 `$HOME/.local/share/pi-node`。安装器仅替换下载版本对应的目录：若该版本目录已存在，会递归删除后再解压，并重建 `current` 符号链接。接受前先在本机检查此根目录；若目标版本目录含不能替换的内容或无法确认，输入 `n` 跳过并回 M0 重新确认，不要把目录清单发给网页 AI。
+
+Linux 独立 Node.js 路线若缺少 `xz` 命令，安装器为解压 `.tar.xz` 包还会安装系统级解压依赖：有 `apt-get` 时运行 `apt-get update` 和 `apt-get install -y xz-utils`；否则有 `apk` 时运行 `apk add --update-cache xz`，非 root 可能调用 `sudo`。这与用户目录中的 Node.js 安装分开，可能改动系统包。先说明并等待用户明确同意；不同意或影响不明时停止并回 M0，不自动继续或换路线。
+
+POSIX 独立 Node.js 下载校验只在本机有 `sha256sum` 或 `shasum` 时执行 SHA-256 比对；两者都不可用时，安装器会跳过此校验并继续解压步骤（不代表解压或安装一定成功）。若你把 SHA-256 校验视为继续前提，先暂停并由你决定准备校验工具或换路线；不要把 TLS 下载或安装成功说成 SHA 校验已通过。
+
+macOS 安装器在 Node.js/npm 预检未通过并询问是否用 Homebrew 安装时，若 Homebrew 已安装 Node.js，会执行 `brew upgrade node`，可能影响使用该 Homebrew Node.js 的其他项目。先说明并等待用户明确同意；同意才按 Enter 接受默认，否则输入 `n` 并停止，回 M0 重新确认安装路线；不自动改用其他包管理器或独立 Node.js。
+
+Linux 安装器在 Node.js/npm 预检未通过、apt 候选版本满足要求并询问是否用 apt 安装时，用户接受后会运行 `apt-get update` 和 `apt-get install -y nodejs npm`。若软件源有更新候选，APT 可能升级已安装的指定 Node.js/npm 包；这只影响命令指定的 Node.js/npm 包及其依赖，不会因此升级所有系统包，可能影响使用系统 Node.js 的其他项目。先说明并等待用户明确同意；同意才按 Enter 接受默认，否则输入 `n` 并停止，回 M0 重新确认安装路线；不自动切换独立 Node.js。
+
+安装完成后若出现 `Start pi now? [Y/n]`，明确输入 `n`，不要按 Enter 接受默认启动；先按 M3 核验版本，再到 M4.0 说明目录资源和信任影响后，由用户决定是否启动 Pi。
+
 **Windows 原生 PowerShell 官方安装器：**
 
 ```powershell
 irm https://pi.dev/install.ps1 | iex
 ```
 
-若缺少 Bash，安装器可能提供 Portable Git（放在 Pi 用户目录的 `win-git-bash` 并设置 `shellPath`）、winget 全局安装 Git for Windows 或跳过；由用户选择。跳过不影响 CLI 安装，但 Bash 工具不可用；需要时按[官方 Windows 说明](https://pi.dev/docs/latest/windows)另行配置。已有 WSL 的用户按该发行版的 Linux 路线；它与 Windows 原生的 PATH/配置互不通用。
+Windows 安装器的 Node.js/npm 预检未通过并询问 `Install standalone Node.js now? [Y/n]` 时，接受后会把独立 Node.js 安装到 `%LOCALAPPDATA%\pi-node`（不替换常规 Node），并将 `current` 目录加入当前用户 `PATH`。先说明这些影响并等待用户明确同意；同意才按 Enter 接受默认值，否则输入 `n`。预检仍失败时停在该步，回 M0 再确认后续安装方案，不自动换路线。
+
+在接受独立 Node.js 安装前，先在本机检查 `%LOCALAPPDATA%\pi-node\current`。若该目录存在，安装器会在下载并校验新包后递归删除整个目录再替换。只有确认目录内容可替换并经用户明确同意时才继续；否则输入 `n` 或暂停，不要把目录清单发给网页 AI。
+
+若缺少 Bash，安装器可能提供 Portable Git（放在 Pi 用户目录的 `win-git-bash` 并设置 `shellPath`）、winget 全局安装 Git for Windows 或跳过；由用户选择。选择 winget 前，先说明并等待用户明确同意：命令带有 `--accept-source-agreements` 和 `--accept-package-agreements`，会自动接受 WinGet 源协议和 Git 包安装器出示的许可协议/EULA，并抑制交互提示；这不代表可选组件或捆绑软件也获接受。只有用户已查看并同意两项协议后才选择 winget；不同意或尚未查看时输入 `n` 跳过，不运行 winget，其他安装提示也由用户决定。选择 Portable Git 会把 Bash 路径写入当前用户的 Pi 配置文件 `%USERPROFILE%\.pi\agent\settings.json` 的 `shellPath`，供后续 Pi 会话解析内置 Bash 工具和 `!` 命令；这是持久配置变更，会设置或覆盖此项。先说明并等待用户明确同意，同意才按 Enter 接受默认；不同意或不确定时输入 `n` 跳过，不自动安装。跳过不影响 CLI 安装，但 Bash 工具不可用；需要时按[官方 Windows 说明](https://pi.dev/docs/latest/windows)另行配置。已有 WSL 的用户按该发行版的 Linux 路线；它与 Windows 原生的 PATH/配置互不通用。
+
+选择默认 Portable Git 前，先在本机检查安装器提示中显示的实际目标目录。若该目录已存在但缺少 `bin\bash.exe`，安装器会递归删除整个目录后再替换。只有确认目录内容可替换并经用户明确同意时才继续；无法确认时输入 `n` 跳过或暂停，不要把目录清单发给网页 AI。
+
+若安装器询问是否将 Pi 目录加入当前用户级 `PATH`，这是持久环境变量变更；先解释并等待用户明确同意，同意后才按 Enter 接受默认值，否则输入 `n`。之后按 M3 核验；若找不到 `pi`，回 M0 按既有错误分支处理，不直接改 PATH。
 
 **仅供已选择的备用路线：** 已有 Nix 的用户按[官方 Quickstart](https://pi.dev/docs/latest/quickstart)执行 `nix profile add github:earendil-works/pi/stable`；较旧 Nix 可能使用 `nix profile install`，Nix 安装通过 Nix 更新而非 `pi update`。用户明确选择 npm 时才给出 `npm install -g --ignore-scripts @earendil-works/pi-coding-agent`；权限错误时停止，不用 `sudo npm`。npm 路线不锁定传递依赖。
 
@@ -117,9 +139,23 @@ irm https://pi.dev/install.ps1 | iex
 
 ### M4.0：进入 Pi 交互界面
 
-按[Pi Quickstart](https://pi.dev/docs/latest/quickstart)，让用户选择空目录或非敏感目录；创建目录须先说明影响并等同意。启动前说明 Pi 可能读取目录指令、配置、扩展并保存会话，用户决定后再启动。目录不是沙箱，也不限制 Pi 访问当前账户可访问的路径（见[Security](https://pi.dev/docs/latest/security)）。先解释信任提示涉及的资源，不自动批准。
+按[Pi Quickstart](https://pi.dev/docs/latest/quickstart)，让用户选择空目录或非敏感目录；创建目录须先说明影响并等同意。启动前说明 Pi 可能读取目录指令、配置、扩展并保存会话，用户决定后再启动。如不希望本次对话写入 Pi 会话存储，可用 `pi --no-session` 启动；该选项只使用不持久化的内存会话，不改变工具权限，也不代表凭据或其他系统数据不会另行保存。
 
-若用户尚未在该目录进入 Pi，让其在 M3 已验证可用的目标终端单独运行：
+MCP 是一种让 Pi 连接服务器并把服务器的工具和资源提供给模型的协议。启动普通 Pi 会话时，所有已启用的 MCP 服务器会在后台自动连接。项目配置 `.pi/mcp.json` 只在授予项目信任后读取；用户级配置默认位于 `~/.pi/agent/mcp.json`，可跨项目生效。stdio 服务器可启动本机进程，HTTP 服务器可能连接远端服务。首次在已有目录启动普通 Pi 或更改 MCP 配置后，先在本机检查两处是否有未知启用项；来源或目标不明时暂停，不要把配置或凭据发送给网页版 Chat AI。
+
+使用 OpenAI GPT 时，送入模型上下文的提示和文件内容会发送给 OpenAI 处理。`--no-session` 只影响 Pi 本地会话持久化；它不阻止模型请求，也不控制服务商的数据处理或保留政策。不要发送无权或不愿交给服务商的内容；按当前授权路线和账号核对 OpenAI 官方说明。
+
+Pi 会话可能包含提示词、工具参数、命令输出、文件内容及对话中暴露的凭据；如需导出或分享，先检查并脱敏，未检查前不要分享。Pi 的 `/share` 会上传本会话并生成查看链接；默认情况下，有 Radius 认证时工件对 Radius 组织可见，否则 Pi 通过 GitHub CLI 创建 private gist；`sessionShareDestination` 设置可强制指定任一目的地。仅确认内容、目标和可见范围后分享；不确定就停止。GitHub 将这类 private gist 称为 secret gist；它并非仅本人可见，任何取得 URL 的人都能查看。若不能接受链接被他人获取，就不要使用此分享目标。GitHub 说明 Gist 可被 clone 或 fork；已复制的内容可能独立于原件存在，分享前按难以收回处理。目录不是沙箱，也不限制 Pi 访问当前账户可访问的路径（见[Security](https://pi.dev/docs/latest/security)）。先解释信任提示涉及的资源，不自动批准。获批加载的项目扩展是可执行代码，会在 Pi 进程内运行并沿用启动账户的权限；批准前先检查扩展来源，不接受就拒绝或停止（见[Security](https://pi.dev/docs/latest/security)）。拒绝项目的信任提示只会跳过受保护的项目设置和资源；`AGENTS.md` 等上下文文件仍可能加载，并非安全隔离。项目中的指令及其他内容可能影响模型；即使拒绝信任，也应将其视为不可信输入，不让它替你作决定或授权额外操作。项目的会话目录设置（`sessionDir`）还可能在信任提示前读取；拒绝信任无法撤回这次读取。若不信任目录内容，先停止，不要继续启动。
+
+Pi 默认启用 `read`、`bash`、`edit`、`write` 工具（配置可能改变），且不保证每次工具调用前都请求用户批准（见[Security](https://pi.dev/docs/latest/security)与[Command Line—Tools](https://pi.dev/docs/latest/cli#tool-options)）；提示词不是工具权限限制。若只接受模型对话、暂不启用工具，可在本机 `pi --help` 支持时运行 `pi --no-tools --no-extensions`。`--no-tools` 关闭本次内置、扩展、自定义及 MCP 工具；`--no-extensions` 禁用已发现、已配置和内置扩展（显式 `-e` 仍会加载）。此模式只用于 M4.1，不验证 M4.2；它不是沙箱或项目内容信任开关。Pi 交互界面的 `!命令` 是你手动发起的终端命令，不是模型工具调用；输出会进入对话。`--no-tools`不禁止你手动输入它，也不使命令变安全；先审阅命令，并避免会暴露敏感信息的输出。若不信任当前目录内容，先停止。要验证 Bash，仅在理解并接受工具权限后另以普通 `pi` 启动；否则将 M4.2 记为未验证，不报完整完成。
+
+若要让模型读取非敏感项目文件、但不给模型 Bash、Edit 或 Write 工具，并希望本次不连接Pi内置MCP服务器，也不给模型MCP工具，可在本机 `pi --help` 支持时运行 `pi --tools read --no-mcp --no-extensions --no-skills`。`--tools read`选择`read`；`--no-mcp`停用Pi内置MCP，本次不连接已启用的服务器且不提供MCP工具；它不影响替代内置MCP的显式扩展。`--no-extensions` 禁用已发现、已配置和内置扩展（显式 `-e` 仍会加载）。`--no-skills` 禁用发现和配置的技能；显式 `--skill` 路径仍会加载。Pi 的 `read` 仍按当前账户权限访问路径，不限于当前目录；该选项不是文件系统沙箱，也不验证 M4.2。若不信任当前目录内容或显式扩展，先停止。
+
+若尚未启动Pi且只想验证M4.2的Bash、希望本次不让模型直接调用read/edit/write/MCP工具，也不连接Pi内置MCP服务器，可在本机`pi --help`确认支持后运行`pi --tools bash --no-mcp --no-extensions --no-skills`。`--tools bash`选择Bash；`--no-mcp`停用Pi内置MCP，本次不连接已启用的服务器且不提供MCP工具；它不影响替代内置MCP的显式扩展。`--no-extensions`禁用发现、配置及内置扩展（显式`-e`仍会加载），`--no-skills`禁用发现和配置的技能（显式`--skill`仍会加载）。这不是沙箱或逐命令审批：Bash仍按当前账户权限执行shell命令。若显式资源来源不明或不接受Bash权限，先停止，M4.2记为未验证。
+
+不要让模型读取 `.env`、凭据文件或个人敏感数据；`read` 不会替你检查或脱敏文件内容，读取内容可能进入模型上下文及 Pi 会话。若目录内含不能交给模型的资料，不要在此目录启动该模式；改用不含该资料的目录或停止。
+
+若用户尚未在该目录进入 Pi，只有在接受默认工具权限并要验证完整流程时，才运行下方命令。只做 M4.1 模型对话时运行上方无工具命令；需要只读文件分析时运行上方只读分析命令。
 
 ```text
 pi
@@ -135,18 +171,37 @@ pi
 
 - 有成功回答：直接到 M4.2，不重登、不重复提问。
 - 已配置但未验证：用 `/model` 核对路线可用的 GPT，再问简单问题；模型列表或“已授权”不算成功。
+- 路线/凭据来源不明时先暂停，不发测试问题：Pi 也可从进程环境读取 `OPENAI_API_KEY`，所以 `/model` 显示 GPT 不证明使用 ChatGPT 订阅 OAuth；由用户在本机确认/选择路线，不读取或展示 Key 值。
 - 未授权/实际鉴权失败才登录。超时、限额、模型不可用先按错误排查，不当作凭据失效。换账号/路线须用户明确选择；常规验证不 `/logout`、删除或覆盖 `auth.json`。
 
 仅在需要授权时登录：
 
-- **订阅 OAuth：** 仅当账号可用且 `/login` 列出 `OpenAI (ChatGPT subscription)`、用户选择时，本机授权（provider `openai-codex`），再用 `/model` 选此路线可用模型。它不是 API Key/额度；若列表没有该项，核对当前版本和官方资料，不静默更新或改走 API。
+验证与授权期间，密码、API Key、Token、cookie、个人代理订阅 URL 与 OAuth 链接/码都只在本机处理；网页 AI 不索取或接收，只收脱敏状态或错误。
+
+- **订阅 OAuth：** 仅当账号可用、用户选择且当前 `/login openai` 提供 **Sign in with ChatGPT** 时，在本机完成授权（provider `openai`）。Pi 1.4.0 当前内置流程使用 OpenAI 官方授权域 `auth.openai.com`（见[OpenAI授权端点说明](https://developers.openai.com/siwc/website)）；输入凭据前核对浏览器地址栏主机名。若出现未经官方资料确认的其他域或无法确认来源，不输入凭据，取消后按所用 Pi 版本的官方说明复核；不要仅凭 URL 含“openai.com”字样判断。浏览器若显示已登录的 OpenAI 账号，授权前先核对它是否与你选定的账号一致；账号不符或无法确认时，取消授权并暂停，不替你切换账号。再用 `/model` 选择此路线可用的模型。它使用 ChatGPT 订阅，不是 API Key 路线。Pi 0.99.0+ 提供此路径；旧 `openai-codex` 已标为 legacy，不当作当前默认路线。若当前版本没有该选项，核对版本和官方资料，再由用户决定是否继续或更新；如选择更新，先确认现有 Pi 的安装渠道并按该渠道官方说明操作，渠道不明就暂停、不猜更新命令；不静默更新、切换 provider 或改走 API Key。
 - **API Key：** 仅在用户选择且有 API 权限时，按本机 `/login` 授权；单独计费，不要求用户把 Key 发给网页 AI。
 
 **OAuth：** 链接只用于本机浏览器。最终授权码/回调 URL 仅在 Pi 明确要求时贴回本机 Pi；绝不发给网页 AI。只向网页 AI 回报状态或简短脱敏错误，不发链接、授权码、设备码、回调 URL 或截图。
 
+ChatGPT 订阅 OAuth 的本机回调默认监听 `127.0.0.1`；若设置了 `PI_OAUTH_CALLBACK_HOST`，Pi 会改用该监听地址。设为 `0.0.0.0` 会绑定全部本地 IPv4 接口；其他设备是否能连到仍取决于防火墙、容器网络和端口转发。普通本机登录若发现该变量是非回环地址而原因不明，先暂停；容器/远程场景只有在你确认网络可达范围后再继续。只在本机检查变量，不把变量值或回调 URL 发给网页 AI。
+
+若订阅 OAuth 报本机 `1455` 端口占用或 `OAuth state mismatch`，先检查是否有另一 Pi 会话或 Codex CLI 留下未完成的 OAuth 登录；只取消你能确认的那次登录，再由你决定是否重试。无法确认占用者或对应登录时暂停并报告脱敏错误，不要终止未知进程。
+
 用户明确选择本地模型时，按[Pi Models](https://pi.dev/docs/latest/models)及其官方资料指导；本地回答不算 OpenAI GPT 验证。
 
-仅 API Key 路线且确有连通故障时，可无凭据检查 `api.openai.com`：POSIX 用 `curl --connect-timeout 5 --max-time 15 -i https://api.openai.com/v1/models`，PowerShell 用 `curl.exe --connect-timeout 5 --max-time 15 -i https://api.openai.com/v1/models`。不要加入 Key/Authorization；OAuth 不用此端点。HTTP 响应只证明端点响应，不证明认证或模型可用。Pi 的 `auth.json` 可能含 API Key/OAuth Token，禁止发送、提交、上传或复制到项目文件/脚本/shell 配置/截图。
+Pi 既支持本机 llama.cpp router，也可配置兼容服务器或代理；“本地模型”名称本身不证明请求只在本机处理。先核实实际服务端点与数据流；未确认前不要发送敏感内容。
+
+Pi 的 `models.json` [模型配置](https://pi.dev/docs/latest/models#configure-a-compatible-endpoint)允许为内置 `openai` provider 设置 `baseUrl` 并将请求路由到代理；模型与认证设置仍保持不变，因此 provider/模型名不能证明请求直达 OpenAI。请求中的对话内容和已配置的认证信息（如有）会发送到该端点；用户应在本机核对实际地址和运营方，并确认其数据处理方式可接受。不把含凭据或私有代理的地址贴给网页 AI；无法确认时暂停，不发送测试内容。
+
+若自定义 `baseUrl` 指向远端且以 `http://` 开头，HTTP的机密性依赖底层传输；地址本身不能证明请求已加密（见[RFC 9110 §17.16.1](https://www.rfc-editor.org/rfc/rfc9110.html#section-17.16.1)）。只有确认流量由 HTTPS 或经确认的加密隧道保护后，才发送提示词和授权信息；未确认时暂停，不发送。本机回环端点可使用本地HTTP；若 Pi 运行在容器或远程环境，先确认`localhost`的实际指向。
+
+若远端端点出现证书校验失败，不要设置 `NODE_TLS_REJECT_UNAUTHORIZED=0` 或以其他方式关闭验证来绕过；Node 官方说明这会使 TLS/HTTPS 不安全。先核对服务端证书和本机信任配置；无法确认时暂停，不发送提示词或授权信息。
+
+Pi 的[模型配置](https://pi.dev/docs/latest/models#configure-a-compatible-endpoint)允许将 `apiKey` 字段写成字面值或用环境变量插值。不要把真实 API Key 写成文件中的字面值，也不要共享、提交或截图含Key的 `models.json`；若自定义端点确需Key，只从已有受信来源在本机运行时注入，来源不明就暂停。若真实Key已被分享，按该服务官方流程处理。
+
+若自定义 `models.json` 并在凭据或请求头值中使用 `!` 命令，Pi 会在模型请求时执行命令且不会缓存；先审核命令及其权限，不要照抄未知指令。
+
+仅 API Key 路线且确有连通故障时，先说明这会向 OpenAI 的 `api.openai.com` 发送 HTTP 请求，示例命令不包含 Key/Authorization；等待用户明确同意后才提供以下探测。拒绝则跳过并记录连通性未验证。POSIX 用 `curl --connect-timeout 5 --max-time 15 -i https://api.openai.com/v1/models`，PowerShell 用 `curl.exe --connect-timeout 5 --max-time 15 -i https://api.openai.com/v1/models`。不要加入 Key/Authorization；OAuth 不用此端点。HTTP 响应只证明端点响应，不证明认证或模型可用。Pi 的 `auth.json` 可能含 API Key/OAuth Token，禁止发送、提交、上传或复制到项目文件/脚本/shell 配置/截图。
 
 尚无可复用成功回答时，补齐授权和模型确认后，分轮让用户在 Pi 中提出无需改文件的简单问题；已完成的动作不重复。成功证据只能是 Pi 会话中所选 OpenAI GPT 的实际回答；网页版 AI 回复、CLI 版本、浏览器可达或 FlClash 已连接都不算。本地模型不计 OpenAI GPT，也不静默切换。按路线和脱敏错误排障，不因超时/限额/模型不可用重装 CLI或推断凭据失效。
 
@@ -163,7 +218,7 @@ pi
 不要运行其他命令、读取文件、创建或修改文件、访问网络。只返回结果；若工具不可用，请直接说明。
 ```
 
-用户只需确认 Pi 实际调用了该只读命令并返回 `local shell OK`，无需粘贴输出或路径。工具不可用时按系统真实错误排查：Windows 说明 Git for Windows/`shellPath` 影响；其他系统核对 Bash。只在用户同意后配置，不猜路径、不默认装 WSL、不重跑可能迁移的安装器。仍不可用或用户拒绝时，不报通过。
+只有确认 Pi 本次仅执行上方这条 Bash 只读命令并返回 `local shell OK`，才记为通过。无需粘贴输出或路径。若 Pi 等待确认的命令与上方不符或出现额外工具请求，不要批准；若已自动执行额外操作，停止后续调用，记录为未验证并核对实际影响。工具不可用时按系统真实错误排查：Windows 说明 Git for Windows/`shellPath` 影响；其他系统核对 Bash。只在用户同意后配置，不猜路径、不默认装 WSL、不重跑可能迁移的安装器。仍不可用或用户拒绝时，不报通过。
 
 ## 完整配置与使用的完成标准
 
@@ -171,13 +226,13 @@ pi
 
 1. 目标终端 `pi --version` 有版本号。
 2. 所选 OpenAI GPT 在 Pi 会话中回答了简单问题；网页 AI 或本地模型回答不算。
-3. 用户看到 Pi 调用本机 Bash 运行 M4.2 的只读命令并得到结果。
+3. 用户看到 Pi 仅调用 M4.2 指定的 Bash 只读命令并得到结果。
 
 缺任一项就逐项报状态和未解决问题，不报完整完成：只装 CLI→模型未验证；GPT 已答但 Bash 不可用→工具未验证；仅本地模型有回答→OpenAI GPT 未验证。本文只验证 CLI、OpenAI GPT 与一条只读 Bash 命令，不代表其他工具、文件读写、自动化、隔离或生产就绪。创建项目、装依赖、部署和业务开发不在范围内；第一个项目独立选修。用户提前停止时只报已有证据。
 
 ## 可选：用户明确要求卸载时
 
-卸载不属于本任务。用户另行明确要求后，按安装渠道和当前[官方 Quickstart](https://pi.dev/docs/latest/quickstart)说明：npm 用 `npm uninstall -g @earendil-works/pi-coding-agent`；官方安装器重跑后选 **Uninstall Pi**；Nix 用 `nix profile remove pi`。卸载不删除默认 `~/.pi/agent/` 配置、凭据、会话或已安装包；清理这些数据须另行说明影响并等用户决定。
+卸载不属于本任务。用户另行明确要求后，按安装渠道和当前[官方 Quickstart](https://pi.dev/docs/latest/quickstart)说明：npm 用 `npm uninstall -g @earendil-works/pi-coding-agent`；Nix 用 `nix profile remove pi`。官方安装器的 **Uninstall Pi** 仅适用于其托管安装路线：它会根据当前 `pi` 命令的安装标记定位实际托管安装根目录并递归删除该目录。默认新安装根目录为 `$PI_CODING_AGENT_DIR/install`（未设置该变量时是 `$HOME/.pi/agent/install`），已有或自定义安装可能位于其他位置。选择前先在本机核对实际目录并保留需保存的内容；路径或内容不确定时选 **Do nothing** 并暂停，不要把目录清单发给网页 AI。该删除只针对 Pi 托管安装根目录；它不删除默认 `~/.pi/agent/` 中该根目录以外的配置、凭据、会话等数据。清理这些数据须另行说明影响并等用户决定。
 
 ## 经文与技术边界
 
