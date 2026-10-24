@@ -21,7 +21,7 @@
 | AI引用文件；指南为`ai-citation-AGENTS.md` | AI引用语料 | `ai-citation-AGENTS.md` |
 | metadata文件；指南为`metadata-AGENTS.md` | 分类、术语与历史路径映射 | `metadata-AGENTS.md` |
 | 提示词文件；指南为`prompts-AGENTS.md` | 提示词入口 | `prompts-AGENTS.md` |
-| 入门文件；指南为`getting-started-AGENTS.md` | 新手入门与项目练习 | `getting-started-AGENTS.md` |
+| 入门文件；指南为`getting-started-AGENTS.md` | 新手入门与工作指南 | `getting-started-AGENTS.md` |
 
 这些带集合名的指南保留分组规则，但不再是按目录自动发现的`AGENTS.md`；本文件负责路由，改动对应文件前须显式阅读。
 

@@ -2,7 +2,7 @@
 
 ## 职责
 
-入门文件平铺在`.github/`根；原名不冲突的文件保留原名，README和AGENTS指南因重名分别命名为`getting-started-README.md`与`getting-started-AGENTS.md`。本组提供给网页版 AI 使用的 Pi CLI 安装配置提示词，以及一个独立的可选项目练习。
+入门文件平铺在`.github/`根；原名不冲突的文件保留原名，README和AGENTS指南因重名分别命名为`getting-started-README.md`与`getting-started-AGENTS.md`。本组提供给网页版 AI 使用的 Pi CLI 安装配置提示词，以及一篇独立的可选工作指南。
 
 ## 文件地图
 
@@ -10,7 +10,7 @@
 |---|---|
 | `getting-started-README.md` | 入门索引 |
 | `god.md` | 《道成了肉身》：以经文题名组织，要求全文复制到网页版 Chat AI 并逐轮引导，直到本文范围内的 Pi CLI、OpenAI GPT 与本机 Bash 配置/使用验证完成 |
-| `first-project.md` | 可选的自选目标练习：学习功法编排、验证和复盘，不预设具体任务 |
+| `first-project.md` | 《如何完成工作》：围绕自选目标按需选择方法、实施或观察并以证据验收；不预设具体任务或固定流程 |
 | `getting-started-AGENTS.md` | 本组维护规则 |
 
 ## 修改规则
@@ -23,6 +23,6 @@
 - 不把 WSL、Git、Python、编辑器、代理或项目依赖设为 Pi CLI 安装的通用前置条件。Windows 原生 Git Bash 是内置 Bash 工具的命令环境，不是 CLI 安装本身的要求。
 - 可达网络是 Pi 安装/更新和 OpenAI 云端 GPT 路线的基础条件；提示词按用户选择的订阅 OAuth 或 API Key 路线确认实际目标可达，再安装或登录。普通网络可达时跳过代理；只在具体官方分发源或模型服务确实不可达时，才逐步处理网络配置。FlClash 与历史服务商注册链接仅为条件路线，须标明来源和未核验边界；注册链接不是个人订阅链接，个人订阅 URL 属于凭据，只能由用户在本机 FlClash 导入。用户选择 FlClash 路线后，默认目标配置为开启 TUN、系统代理和全局模式；启用前说明流量路由范围、隐私与网络影响、权限和恢复路径，等待用户确认；用户拒绝时不得报告该路线已完成。不默认购买服务。关闭 TLS 或使用非官方源一律不作为排障方案。
 - 不要求用户把密码、API Key、Token、cookie、订阅链接、私钥、OAuth 授权链接、授权码、设备码或回调 URL 贴给网页 AI。OAuth 最终授权码或回调 URL 仅在 Pi 明确提示时贴回本机 Pi，授权链接只用于本机浏览器；给网页 AI 只回报授权状态或简短脱敏错误，不提供验证码、链接或截图。Pi 以启动账户权限运行，不是安全沙箱；提醒用户不要用管理员/root 启动并审阅实际命令与改动。
-- 第一个项目保持可选且独立；只同步其真实前置条件和指向提示词的链接，不在练习中复制 Pi 安装说明。
+- 《如何完成工作》保持独立选读，不是 Pi CLI 安装或模型连接的前置条件；只同步其真实前置条件和链接，不在该指南中复制 Pi 安装说明。
 - 入口变化时同步`.github/context/README.md`、根`README.md`、`llms.txt`、`.github/llms-full.txt`和`.github/taxonomy.yml`；删除或迁移入口时核对`.github/redirects.yml`与活动链接。
 - 修改后运行 `make sync-doc-toc` 和 `make test`；本地文档检查不证明用户机器安装成功、认证有效或模型效果。

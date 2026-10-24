@@ -250,7 +250,7 @@ class SourceArchiveTest(unittest.TestCase):
         document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
         section = document.split('## 先选一个安全、可验证的目标', 1)[1].split('## 功法编排：从问题决定方法', 1)[0]
         required = (
-            '示例（只演示写法，不是预设或必做项目）',
+            '示例（只演示写法，不是预设或必做任务）',
             '模糊目标“整理笔记”',
             '验收可观察为“标题与原文一致，顺序符合我给出的目录”',
         )
@@ -433,7 +433,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_first_project_step2_sanitizes_output_before_reporting(self):
         document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
-        step2 = document.split('## 第 2 步：拆分并实施最小增量', 1)[1].split('## 第 3 步：按实际项目方式运行', 1)[0]
+        step2 = document.split('## 第 2 步：拆分并实施最小增量', 1)[1].split('## 第 3 步：按实际方式运行或观察', 1)[0]
         prompt = step2.split('```text', 1)[1].split('```', 1)[0]
         self.assertIn(
             '完成后先检查准备回报的命令输出；如可能含凭据或个人敏感信息，先脱敏，只提供判断所需的最少内容；无法安全摘录时只报告状态和未验证项。',
@@ -442,7 +442,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_first_project_stops_before_unsafe_retry_after_failure(self):
         document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
-        step2 = document.split('## 第 2 步：拆分并实施最小增量', 1)[1].split('## 第 3 步：按实际项目方式运行', 1)[0]
+        step2 = document.split('## 第 2 步：拆分并实施最小增量', 1)[1].split('## 第 3 步：按实际方式运行或观察', 1)[0]
         required = (
             '若命令失败或中断',
             '先核对实际状态和已产生的改动',
@@ -453,7 +453,7 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_first_project_checks_actual_diff_after_file_changes(self):
         document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
-        step2 = document.split('## 第 2 步：拆分并实施最小增量', 1)[1].split('## 第 3 步：按实际项目方式运行', 1)[0]
+        step2 = document.split('## 第 2 步：拆分并实施最小增量', 1)[1].split('## 第 3 步：按实际方式运行或观察', 1)[0]
         required = (
             '若修改了文件',
             '核对可安全读取的实际差异',
@@ -466,7 +466,7 @@ class SourceArchiveTest(unittest.TestCase):
     def test_first_project_review_offers_optional_retrieval_before_notes(self):
         prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
         self.assertIn(
-            '想练习记住方法时，可选地先合上对话和笔记，用自己的话回忆本次的方法选择与证据，再对照原记录补漏；想不起的地方如实标“未知”。这只是低风险练习，不是项目验收，也不是完成教程的条件。',
+            '想练习记住方法时，可选地先合上对话和笔记，用自己的话回忆本次的方法选择与证据，再对照原记录补漏；想不起的地方如实标“未知”。这只是低风险的学习练习，不是工作验收，也不是使用本指南的条件。',
             prompt,
         )
 
@@ -751,7 +751,7 @@ class SourceArchiveTest(unittest.TestCase):
     def test_first_project_optional_transfer_practice_compares_cases_with_evidence_boundary(self):
         prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
         self.assertIn(
-            '若想练习方法迁移，可自行选一个第二情境（只构想即可，不必开启新项目）。并排写下两情境要解决的问题、约束和可观察的成功证据；比较相似点与关键差异，再说明本次方法哪些可复用、哪些需调整或不适用。理由应能回指本次记录；未在新情境实际验收前，不说迁移已成功。此练习可跳过。',
+            '若想练习方法迁移，可自行选一个第二情境（只构想即可，不必开始新工作）。并排写下两情境要解决的问题、约束和可观察的成功证据；比较相似点与关键差异，再说明本次方法哪些可复用、哪些需调整或不适用。理由应能回指本次记录；未在新情境实际验收前，不说迁移已成功。此练习可跳过。',
             prompt,
         )
 
