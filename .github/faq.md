@@ -23,7 +23,7 @@
 新手优先看：
 
 1. `.github/getting-started-README.md`
-2. `.github/first-project.md`
+2. `.github/how-to-complete-work.md`
 3. `.github/context/gongfa/README.md#doc-problem-solving`
 4. `.github/context/gongfa/README.md#doc-glue-coding`
 5. `.github/context/gongfa/README.md#doc-project-architecture-template`

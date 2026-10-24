@@ -144,12 +144,12 @@ class SourceArchiveTest(unittest.TestCase):
             '../../context/ai-citation/README.md': 'ai-citation-README.md',
             '../../context/metadata/taxonomy.yml': 'taxonomy.yml',
             '../../context/prompts/README.md': 'prompts-README.md',
-            '../../context/getting-started/learning-map.md': 'god.md',
+            '../../context/getting-started/learning-map.md': 'pi-cli-setup.md',
             # 单一代码块不产生章节锚点；历史定位保留在输入，当前入口指向整份提示词。
-            '../../learning-map.md#milestone-2': 'god.md',
-            '../getting-started/learning-map.md#ai-guidance-rules': 'god.md',
-            '../getting-started/learning-map.md#milestone-0': 'god.md',
-            '../../god.md#milestone-2': 'god.md',
+            '../../learning-map.md#milestone-2': 'pi-cli-setup.md',
+            '../getting-started/learning-map.md#ai-guidance-rules': 'pi-cli-setup.md',
+            '../getting-started/learning-map.md#milestone-0': 'pi-cli-setup.md',
+            '../../god.md#milestone-2': 'pi-cli-setup.md',
             '../../context/tool-explanation-template-v1.md': 'tool-explanation-template-v1.md',
         }
         for index, link in enumerate(retired_cloud_links):
@@ -218,7 +218,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertNotIn('代码不是目录', toc)
 
     def test_first_project_discloses_cloud_ai_data_flow(self):
-        prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         section = prompt.split('## 先选一个安全、可验证的目标', 1)[1].split('## 功法编排：从问题决定方法', 1)[0]
         required = (
             '若使用云端或网页版AI',
@@ -229,7 +229,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in section for item in required))
 
     def test_first_project_cloud_office_files_check_hidden_content(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         step1 = document.split('## 第 1 步：定义目标与验收', 1)[1].split('## 第 2 步：拆分并实施最小增量', 1)[0]
         prompt = step1.split('```text', 1)[1].split('```', 1)[0]
         self.assertIn(
@@ -238,7 +238,7 @@ class SourceArchiveTest(unittest.TestCase):
         )
 
     def test_first_project_cloud_pdf_overlay_is_not_secure_redaction(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         step1 = document.split('## 第 1 步：定义目标与验收', 1)[1].split('## 第 2 步：拆分并实施最小增量', 1)[0]
         prompt = step1.split('```text', 1)[1].split('```', 1)[0]
         self.assertIn(
@@ -247,7 +247,7 @@ class SourceArchiveTest(unittest.TestCase):
         )
 
     def test_first_project_goal_selection_includes_nonprescriptive_example(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         section = document.split('## 先选一个安全、可验证的目标', 1)[1].split('## 功法编排：从问题决定方法', 1)[0]
         required = (
             '示例（只演示写法，不是预设或必做任务）',
@@ -257,14 +257,14 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in section for item in required))
 
     def test_first_project_prompt_has_optional_pre_ai_method_guess(self):
-        prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         self.assertIn(
             '我在看 AI 方案前的暂定判断（可选；问题缺口/候选功法/理由，不确定可写“未知”）：【填写】',
             prompt,
         )
 
     def test_first_project_prompt_handles_missing_workspace_access_safely(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         step1 = document.split('## 第 1 步：定义目标与验收', 1)[1].split('## 第 2 步：拆分并实施最小增量', 1)[0]
         prompt = step1.split('```text', 1)[1].split('```', 1)[0]
         required = (
@@ -277,7 +277,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in prompt for item in required))
 
     def test_first_project_git_preflight_distinguishes_staged_and_unstaged_changes(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         step1 = document.split('## 第 1 步：定义目标与验收', 1)[1].split('## 第 2 步：拆分并实施最小增量', 1)[0]
         required = (
             '`git status --short`',
@@ -290,7 +290,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in step1 for item in required), step1)
 
     def test_first_project_git_checkpoint_avoids_staging_mixed_file_changes(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         git_step = document.split('## 第 6 步：按需保存 Git 检查点', 1)[1].split('## 完成记录', 1)[0]
         required = (
             '同一文件同时包含本次和此前改动',
@@ -301,7 +301,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in git_step for item in required), git_step)
 
     def test_first_project_git_checkpoint_confirms_repository_root_and_branch(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         git_step = document.split('## 第 6 步：按需保存 Git 检查点', 1)[1].split('## 完成记录', 1)[0]
         intro = git_step.strip().split('\n\n', 1)[0]
         required = (
@@ -318,7 +318,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in intro for item in required), intro)
 
     def test_first_project_git_commit_reviews_hooks_before_execution(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         git_step = document.split('## 第 6 步：按需保存 Git 检查点', 1)[1].split('## 完成记录', 1)[0]
         commit_list = next((block for block in git_step.split('\n\n') if '\n4. ' in block), '')
         item4 = commit_list.split('\n4. ', 1)[1] if '\n4. ' in commit_list else ''
@@ -334,7 +334,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(item4 and all(item in item4 for item in required), item4)
 
     def test_first_project_pauses_on_unmerged_git_paths(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         step1 = document.split('## 第 1 步：定义目标与验收', 1)[1].split('## 第 2 步：拆分并实施最小增量', 1)[0]
         required = (
             '`git status --short` 显示存在未合并/冲突路径',
@@ -346,7 +346,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in step1 for item in required), step1)
 
     def test_first_project_project_guidance_does_not_expand_authority(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         step1 = document.split('## 第 1 步：定义目标与验收', 1)[1].split('## 第 2 步：拆分并实施最小增量', 1)[0]
         prompt = step1.split('```text', 1)[1].split('```', 1)[0]
         required = (
@@ -358,7 +358,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in prompt for item in required))
 
     def test_first_project_prompt_traces_key_facts_to_nonsensitive_sources(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         step1 = document.split('## 第 1 步：定义目标与验收', 1)[1].split('## 第 2 步：拆分并实施最小增量', 1)[0]
         prompt = step1.split('```text', 1)[1].split('```', 1)[0]
         required = (
@@ -370,7 +370,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in prompt for item in required))
 
     def test_first_project_prompt_does_not_follow_out_of_scope_symlinks(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         step1 = document.split('## 第 1 步：定义目标与验收', 1)[1].split('## 第 2 步：拆分并实施最小增量', 1)[0]
         prompt = step1.split('```text', 1)[1].split('```', 1)[0]
         required = (
@@ -381,13 +381,13 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in prompt for item in required))
 
     def test_first_project_step1_prompt_lines_are_bounded(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         step1 = document.split('## 第 1 步：定义目标与验收', 1)[1].split('## 第 2 步：拆分并实施最小增量', 1)[0]
         prompt = step1.split('```text', 1)[1].split('```', 1)[0]
         self.assertLessEqual(max(map(len, prompt.splitlines())), 220)
 
     def test_first_project_prompt_uses_relative_nonsensitive_source_locators(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         step1 = document.split('## 第 1 步：定义目标与验收', 1)[1].split('## 第 2 步：拆分并实施最小增量', 1)[0]
         prompt = step1.split('```text', 1)[1].split('```', 1)[0]
         required = (
@@ -398,7 +398,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in prompt for item in required))
 
     def test_first_project_prompt_dates_version_sensitive_facts(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         step1 = document.split('## 第 1 步：定义目标与验收', 1)[1].split('## 第 2 步：拆分并实施最小增量', 1)[0]
         prompt = step1.split('```text', 1)[1].split('```', 1)[0]
         required = (
@@ -410,7 +410,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in prompt for item in required))
 
     def test_first_project_prompt_excludes_sensitive_workspace_material(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         step1 = document.split('## 第 1 步：定义目标与验收', 1)[1].split('## 第 2 步：拆分并实施最小增量', 1)[0]
         prompt = step1.split('```text', 1)[1].split('```', 1)[0]
         required = (
@@ -423,7 +423,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in prompt for item in required))
 
     def test_first_project_prompt_requires_confirmation_before_external_lookup(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         step1 = document.split('## 第 1 步：定义目标与验收', 1)[1].split('## 第 2 步：拆分并实施最小增量', 1)[0]
         prompt = step1.split('```text', 1)[1].split('```', 1)[0]
         self.assertIn(
@@ -432,7 +432,7 @@ class SourceArchiveTest(unittest.TestCase):
         )
 
     def test_first_project_step2_sanitizes_output_before_reporting(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         step2 = document.split('## 第 2 步：拆分并实施最小增量', 1)[1].split('## 第 3 步：按实际方式运行或观察', 1)[0]
         prompt = step2.split('```text', 1)[1].split('```', 1)[0]
         self.assertIn(
@@ -441,7 +441,7 @@ class SourceArchiveTest(unittest.TestCase):
         )
 
     def test_first_project_stops_before_unsafe_retry_after_failure(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         step2 = document.split('## 第 2 步：拆分并实施最小增量', 1)[1].split('## 第 3 步：按实际方式运行或观察', 1)[0]
         required = (
             '若命令失败或中断',
@@ -452,7 +452,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in step2 for item in required))
 
     def test_first_project_checks_actual_diff_after_file_changes(self):
-        document = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         step2 = document.split('## 第 2 步：拆分并实施最小增量', 1)[1].split('## 第 3 步：按实际方式运行或观察', 1)[0]
         required = (
             '若修改了文件',
@@ -464,28 +464,28 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in step2 for item in required))
 
     def test_first_project_review_offers_optional_retrieval_before_notes(self):
-        prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         self.assertIn(
             '想练习记住方法时，可选地先合上对话和笔记，用自己的话回忆本次的方法选择与证据，再对照原记录补漏；想不起的地方如实标“未知”。这只是低风险的学习练习，不是工作验收，也不是使用本指南的条件。',
             prompt,
         )
 
     def test_first_project_review_offers_optional_spaced_retrieval(self):
-        prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         self.assertIn(
             '若想再练一次，可隔一段时间后不看记录再次回忆同一方法与证据，再对照补漏；间隔由你决定，不是必做计划。',
             prompt,
         )
 
     def test_first_project_offers_optional_code_self_explanation(self):
-        prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         self.assertIn(
             '若本次确有代码改动，想练习解释时，可选地挑一处非敏感的小改动，用自己的话说明它做什么、为什么符合一项原定标准；适用时，再手动追踪一个具体输入。然后对照真实差异与验收证据，记录说不清的部分。这是可跳过的学习练习，不要求运行代码，也不替代测试或验收。',
             prompt,
         )
 
     def test_god_termux_pkg_upgrade_scope_is_explicit(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         guidance = next((line for line in m2.splitlines() if line.startswith('**Android/Termux：**')), '')
         required = (
@@ -498,7 +498,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(guidance and all(item in guidance for item in required), guidance)
 
     def test_god_termux_pkg_upgrade_keeps_interactive_confirmation(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         guidance = next((line for line in m2.splitlines() if line.startswith('**Android/Termux：**')), '')
         required = (
@@ -510,7 +510,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(guidance and all(item in guidance for item in required), guidance)
 
     def test_god_termux_pi_not_found_uses_official_read_only_diagnostics(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m0 = prompt.split('## M0：检查现状', 1)[1].split('## M1：网络环境', 1)[0]
         guidance = next((line for line in m0.splitlines() if '`npm prefix -g`' in line), '')
         required = (
@@ -525,14 +525,14 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(guidance and all(item in guidance for item in required))
 
     def test_god_m0_install_repair_handoff_co_locates_consent_stop_and_evidence(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         self.assertIn(
             '确认未安装或需修复后，先按实际系统说明所选官方安装路线的影响、必要网络目标及恢复方式并等待用户明确同意；拒绝、影响不明或状态仍不清时暂停，不安装。用户同意后，按 M1 只检查该路线需要的网络（代理仍按 M1 条件由用户选择），再按 M2 走当前系统官方安装步骤；完成后按 M3 在同一终端运行 `pi --version`，只有得到版本号才记为 CLI 可用并继续 M4。',
             prompt,
         )
 
     def test_god_m2_defers_pi_start_until_m40_review(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         self.assertIn(
             '安装完成后若出现 `Start pi now? [Y/n]`，明确输入 `n`，不要按 Enter 接受默认启动；先按 M3 核验版本，再到 M4.0 说明目录资源和信任影响后，由用户决定是否启动 Pi。',
@@ -540,7 +540,7 @@ class SourceArchiveTest(unittest.TestCase):
         )
 
     def test_god_m2_windows_user_path_prompt_requires_explicit_consent(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         windows = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[1].split(
             '**仅供已选择的备用路线：**', 1
@@ -557,7 +557,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(windows and all(item in windows for item in required))
 
     def test_god_m2_windows_node_install_prompt_discloses_side_effects_and_consent(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         windows = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[1].split(
             '**仅供已选择的备用路线：**', 1
@@ -578,7 +578,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(windows and all(item in windows for item in required))
 
     def test_god_m2_windows_portable_git_discloses_recursive_replacement_risk(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         windows = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[1].split(
             '**仅供已选择的备用路线：**', 1
@@ -595,7 +595,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(windows and all(item in windows for item in required))
 
     def test_god_m2_windows_node_install_discloses_replacement_of_managed_directory(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         windows = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[1].split(
             '**仅供已选择的备用路线：**', 1
@@ -612,7 +612,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(windows and all(item in windows for item in required))
 
     def test_god_m2_macos_homebrew_node_upgrade_requires_explicit_consent(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         posix = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[0]
         required = (
@@ -628,7 +628,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(posix and all(item in posix for item in required))
 
     def test_god_m2_posix_standalone_node_replacement_requires_local_check(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         posix = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[0]
         required = (
@@ -645,7 +645,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(posix and all(item in posix for item in required))
 
     def test_god_uninstall_managed_root_deletion_requires_local_target_check(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         uninstall = prompt.split('## 可选：用户明确要求卸载时', 1)[1].split('## 技术边界', 1)[0]
         required = (
             '官方安装器的 **Uninstall Pi**',
@@ -661,7 +661,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(uninstall and all(item in uninstall for item in required))
 
     def test_god_m2_linux_apt_node_upgrade_requires_explicit_consent(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         posix = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[0]
         required = (
@@ -680,7 +680,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(posix and all(item in posix for item in required))
 
     def test_god_m2_windows_portable_git_shellpath_persistence_requires_consent(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         windows = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[1].split('**仅供已选择的备用路线：**', 1)[0]
         required = (
@@ -697,7 +697,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(windows and all(item in windows for item in required))
 
     def test_god_m2_windows_winget_agreements_require_consent(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         windows = m2.split('**Windows 原生 PowerShell 官方安装器：**', 1)[1].split('**仅供已选择的备用路线：**', 1)[0]
         required = (
@@ -714,7 +714,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(windows and all(item in windows for item in required))
 
     def test_god_m2_linux_standalone_node_xz_dependency_requires_consent(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         posix = m2.split('**macOS/Linux 官方安装器：**', 1)[1].split('**Windows 原生 PowerShell 官方安装器：**', 1)[0]
         standalone = posix.split('POSIX 安装器在 Node.js/npm 预检未通过', 1)[1].split('macOS 安装器在 Node.js/npm 预检未通过', 1)[0]
@@ -732,7 +732,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(standalone and all(item in standalone for item in required))
 
     def test_god_m2_posix_standalone_node_checksum_is_conditional(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m2 = prompt.split('## M2：安装 Pi CLI', 1)[1].split('## M3：验证 CLI', 1)[0]
         posix = m2.split('**macOS/Linux 官方安装器：**', 1)[1].split('**Windows 原生 PowerShell 官方安装器：**', 1)[0]
         standalone = posix.split('POSIX 安装器在 Node.js/npm 预检未通过', 1)[1].split('macOS 安装器在 Node.js/npm 预检未通过', 1)[0]
@@ -749,28 +749,28 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(standalone and all(item in standalone for item in required))
 
     def test_first_project_optional_transfer_practice_compares_cases_with_evidence_boundary(self):
-        prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         self.assertIn(
             '若想练习方法迁移，可自行选一个第二情境（只构想即可，不必开始新工作）。并排写下两情境要解决的问题、约束和可观察的成功证据；比较相似点与关键差异，再说明本次方法哪些可复用、哪些需调整或不适用。理由应能回指本次记录；未在新情境实际验收前，不说迁移已成功。此练习可跳过。',
             prompt,
         )
 
     def test_first_project_offers_conditional_regression_first_guidance(self):
-        prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         self.assertIn(
             '| 可稳定复现的软件缺陷 | [开发流程](context/gongfa/README.md#doc-development-process)；回归测试先行 | 仅当缺陷可稳定复现且项目已有适用测试环境；先确认修复前测试会失败，再做最小修复；若无测试环境，保留复现步骤与原始现象，标“未验证”，不为此搭建或安装工具 | 修复前失败且修复后通过的同一回归测试；否则为复现证据和未验证记录 |',
             prompt,
         )
 
     def test_first_project_acceptance_explains_boundary_value_analysis(self):
-        prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         self.assertIn(
             '若原定验收标准包含有序范围或阈值，且有可控验证对象，可用边界值分析检查每个边界值及其相邻区间中的最近取值，不必穷举所有输入；记录测试值、预期和实际结果。无可控对象时标“未验证”，不为此搭建测试环境。',
             prompt,
         )
 
     def test_first_project_acceptance_requires_oracle_or_unverified_stop(self):
-        prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         acceptance = prompt.split('## 第 4 步：用证据验收', 1)[1].split(
             '## 第 5 步：复核并总结迁移方法', 1
         )[0]
@@ -784,7 +784,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in acceptance for item in required))
 
     def test_first_project_acceptance_offers_limited_relation_check_without_exact_oracle(self):
-        prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         acceptance = prompt.split('## 第 4 步：用证据验收', 1)[1].split(
             '## 第 5 步：复核并总结迁移方法', 1
         )[0]
@@ -799,7 +799,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in acceptance for item in required))
 
     def test_first_project_acceptance_refreshes_evidence_after_code_changes(self):
-        prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         acceptance = prompt.split('## 第 4 步：用证据验收', 1)[1].split(
             '## 第 5 步：复核并总结迁移方法', 1
         )[0]
@@ -813,7 +813,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in acceptance for item in required))
 
     def test_first_project_acceptance_covers_defined_input_categories(self):
-        prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         acceptance = prompt.split('## 第 4 步：用证据验收', 1)[1].split(
             '## 第 5 步：复核并总结迁移方法', 1
         )[0]
@@ -827,7 +827,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in acceptance for item in required))
 
     def test_first_project_acceptance_checks_defined_condition_combinations(self):
-        prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         acceptance = prompt.split('## 第 4 步：用证据验收', 1)[1].split(
             '## 第 5 步：复核并总结迁移方法', 1
         )[0]
@@ -842,7 +842,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in acceptance for item in required))
 
     def test_first_project_acceptance_checks_defined_state_sequences(self):
-        prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         acceptance = prompt.split('## 第 4 步：用证据验收', 1)[1].split(
             '## 第 5 步：复核并总结迁移方法', 1
         )[0]
@@ -857,7 +857,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in acceptance for item in required))
 
     def test_first_project_failure_checks_test_conditions_before_fix(self):
-        prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         acceptance = prompt.split('## 第 4 步：用证据验收', 1)[1].split(
             '## 第 5 步：复核并总结迁移方法', 1
         )[0]
@@ -874,7 +874,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in acceptance for item in required))
 
     def test_first_project_acceptance_prioritizes_checks_under_constraints(self):
-        prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         acceptance = prompt.split('## 第 4 步：用证据验收', 1)[1].split(
             '## 第 5 步：复核并总结迁移方法', 1
         )[0]
@@ -889,7 +889,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in acceptance for item in required))
 
     def test_first_project_acceptance_requires_defined_nonfunctional_environment(self):
-        prompt = Path(__file__).with_name('first-project.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
         acceptance = prompt.split('## 第 4 步：用证据验收', 1)[1].split(
             '## 第 5 步：复核并总结迁移方法', 1
         )[0]
@@ -902,7 +902,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in acceptance for item in required))
 
     def test_god_share_gist_copies_may_persist(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m40 = prompt.split('### M4.0：进入 Pi 交互界面', 1)[1].split('### M4.1：验证对话能力', 1)[0]
         required = (
             'Gist 可被 clone 或 fork',
@@ -912,7 +912,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in m40 for item in required))
 
     def test_god_share_gist_link_is_not_access_control(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m40 = prompt.split('### M4.0：进入 Pi 交互界面', 1)[1].split('### M4.1：验证对话能力', 1)[0]
         required = (
             'GitHub 将这类 private gist 称为 secret gist',
@@ -923,7 +923,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in m40 for item in required))
 
     def test_god_share_upload_and_destination_are_explicit(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m40 = prompt.split('### M4.0：进入 Pi 交互界面', 1)[1].split('### M4.1：验证对话能力', 1)[0]
         required = (
             'Pi 的 `/share` 会上传本会话并生成查看链接',
@@ -935,7 +935,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(all(item in m40 for item in required))
 
     def test_god_no_tools_route_clarifies_manual_bang_command(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m40 = prompt.split('### M4.0：进入 Pi 交互界面', 1)[1].split('### M4.1：验证对话能力', 1)[0]
         self.assertIn(
             'Pi 交互界面的 `!命令` 是你手动发起的终端命令，不是模型工具调用；输出会进入对话。`--no-tools`不禁止你手动输入它，也不使命令变安全；先审阅命令，并避免会暴露敏感信息的输出。',
@@ -943,7 +943,7 @@ class SourceArchiveTest(unittest.TestCase):
         )
 
     def test_god_prompt_offers_no_tools_model_only_route_with_limits(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         self.assertIn(
             '若只接受模型对话、暂不启用工具，可在本机 `pi --help` 支持时运行 `pi --no-tools --no-extensions`。',
             prompt,
@@ -959,7 +959,7 @@ class SourceArchiveTest(unittest.TestCase):
         )
 
     def test_god_prompt_offers_read_only_file_analysis_mode(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         self.assertIn(
             '若要让模型读取非敏感项目文件、但不给模型 Bash、Edit 或 Write 工具，并希望本次不连接Pi内置MCP服务器，也不给模型MCP工具，可在本机 `pi --help` 支持时运行 `pi --tools read --no-mcp --no-extensions --no-skills`。',
             prompt,
@@ -982,7 +982,7 @@ class SourceArchiveTest(unittest.TestCase):
         )
 
     def test_god_read_only_mode_prevents_builtin_mcp_connections(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         guidance = next((line for line in prompt.splitlines() if '`pi --tools read' in line), '')
         required = (
             '`pi --tools read --no-mcp --no-extensions --no-skills`',
@@ -994,7 +994,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(guidance and all(item in guidance for item in required))
 
     def test_god_bash_only_tool_mode_discloses_remaining_authority(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m40 = prompt.split('### M4.0：进入 Pi 交互界面', 1)[1].split('### M4.1：验证对话能力', 1)[0]
         guidance = next((line for line in m40.splitlines() if '`pi --tools bash' in line), '')
         required = (
@@ -1010,7 +1010,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(guidance and all(item in guidance for item in required))
 
     def test_god_bash_only_mode_prevents_builtin_mcp_connections(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m40 = prompt.split('### M4.0：进入 Pi 交互界面', 1)[1].split('### M4.1：验证对话能力', 1)[0]
         guidance = next((line for line in m40.splitlines() if '`pi --tools bash' in line), '')
         required = (
@@ -1023,42 +1023,42 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(guidance and all(item in guidance for item in required))
 
     def test_god_read_only_mode_warns_sensitive_files_and_stops_if_present(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         self.assertIn(
             '不要让模型读取 `.env`、凭据文件或个人敏感数据；`read` 不会替你检查或脱敏文件内容，读取内容可能进入模型上下文及 Pi 会话。若目录内含不能交给模型的资料，不要在此目录启动该模式；改用不含该资料的目录或停止。',
             prompt,
         )
 
     def test_god_no_session_does_not_claim_cloud_requests_stay_local(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         self.assertIn(
             '使用 OpenAI GPT 时，送入模型上下文的提示和文件内容会发送给 OpenAI 处理。`--no-session` 只影响 Pi 本地会话持久化；它不阻止模型请求，也不控制服务商的数据处理或保留政策。不要发送无权或不愿交给服务商的内容；按当前授权路线和账号核对 OpenAI 官方说明。',
             prompt,
         )
 
     def test_god_local_model_route_does_not_guarantee_local_data_processing(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         self.assertIn(
             'Pi 既支持本机 llama.cpp router，也可配置兼容服务器或代理；“本地模型”名称本身不证明请求只在本机处理。先核实实际服务端点与数据流；未确认前不要发送敏感内容。',
             prompt,
         )
 
     def test_god_custom_model_command_values_are_reviewed_before_request(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         self.assertIn(
             '若自定义 `models.json` 并在凭据或请求头值中使用 `!` 命令，Pi 会在模型请求时执行命令且不会缓存；先审核命令及其权限，不要照抄未知指令。',
             prompt,
         )
 
     def test_god_prompt_warns_about_mcp_connections_before_pi_start(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         self.assertIn(
             'MCP 是一种让 Pi 连接服务器并把服务器的工具和资源提供给模型的协议。启动普通 Pi 会话时，所有已启用的 MCP 服务器会在后台自动连接。项目配置 `.pi/mcp.json` 只在授予项目信任后读取；用户级配置默认位于 `~/.pi/agent/mcp.json`，可跨项目生效。stdio 服务器可启动本机进程，HTTP 服务器可能连接远端服务。首次在已有目录启动普通 Pi 或更改 MCP 配置后，先在本机检查两处是否有未知启用项；来源或目标不明时暂停，不要把配置或凭据发送给网页版 Chat AI。',
             prompt,
         )
 
     def test_god_m42_requires_the_exact_command_and_stops_on_extra_calls(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         self.assertIn(
             '只有确认 Pi 本次仅执行上方这条 Bash 只读命令并返回 `local shell OK`，才记为通过。',
             prompt,
@@ -1073,7 +1073,7 @@ class SourceArchiveTest(unittest.TestCase):
         )
 
     def test_god_openai_connectivity_probe_requires_explicit_user_consent(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next((line for line in m41.splitlines() if 'api.openai.com/v1/models' in line), '')
         required = (
@@ -1090,7 +1090,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(guidance and all(item in guidance for item in required))
 
     def test_god_oauth_callback_host_scope_requires_local_review(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next((line for line in m41.splitlines() if 'PI_OAUTH_CALLBACK_HOST' in line and '`0.0.0.0`' in line), '')
         required = (
@@ -1106,14 +1106,14 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(guidance and all(item in guidance for item in required))
 
     def test_god_oauth_update_requires_install_channel_and_official_route(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         self.assertRegex(
             prompt,
             r'若当前版本没有该选项[^\n]*如选择更新[^\n]*确认现有 Pi 的安装渠道[^\n]*按该渠道官方说明操作[^\n]*渠道不明就暂停[^\n]*不猜更新命令',
         )
 
     def test_god_openai_model_visibility_does_not_prove_subscription_route(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next((line for line in m41.splitlines() if '`OPENAI_API_KEY`' in line), '')
         required = (
@@ -1126,7 +1126,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(guidance and all(item in guidance for item in required), guidance)
 
     def test_god_openai_custom_base_url_requires_local_endpoint_review(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next(
             (paragraph for paragraph in m41.split('\n\n') if 'models.json' in paragraph and '`baseUrl`' in paragraph),
@@ -1143,7 +1143,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(guidance and all(item in guidance for item in required), guidance)
 
     def test_god_custom_endpoint_discloses_data_recipient_before_use(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next(
             (paragraph for paragraph in m41.split('\n\n') if '内置 `openai` provider 设置 `baseUrl`' in paragraph),
@@ -1161,7 +1161,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(guidance and all(item in guidance for item in required), guidance)
 
     def test_god_openai_remote_http_base_url_requires_transport_check(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next(
             (paragraph for paragraph in m41.split('\n\n') if '远端' in paragraph and '`baseUrl`' in paragraph and '`http://' in paragraph),
@@ -1180,7 +1180,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(guidance and all(item in guidance for item in required), guidance)
 
     def test_god_remote_custom_endpoint_preserves_tls_certificate_validation(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next((paragraph for paragraph in m41.split('\n\n') if 'NODE_TLS_REJECT_UNAUTHORIZED=0' in paragraph), '')
         required = (
@@ -1195,7 +1195,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(guidance and all(item in guidance for item in required), guidance)
 
     def test_god_models_json_literal_api_key_must_stay_local(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next((paragraph for paragraph in m41.split('\n\n') if '`apiKey`' in paragraph and 'models.json' in paragraph), '')
         required = (
@@ -1208,7 +1208,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(guidance and all(item in guidance for item in required), guidance)
 
     def test_god_openai_oauth_hostname_is_checked(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next((line for line in m41.splitlines() if line.startswith('- **订阅 OAuth：**')), '')
         required = (
@@ -1221,7 +1221,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(guidance and all(item in guidance for item in required), guidance)
 
     def test_god_oauth_browser_account_must_match_user_choice(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next((line for line in m41.splitlines() if line.startswith('- **订阅 OAuth：**')), '')
         required = (
@@ -1233,7 +1233,7 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertTrue(guidance and all(item in guidance for item in required), guidance)
 
     def test_god_oauth_callback_conflict_has_safe_local_stop_path(self):
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m41 = prompt.split('### M4.1：验证对话能力', 1)[1].split('### M4.2：验证实际工具调用', 1)[0]
         guidance = next((line for line in m41.splitlines() if '`1455`' in line and 'OAuth state mismatch' in line), '')
         required = (
@@ -1249,7 +1249,7 @@ class SourceArchiveTest(unittest.TestCase):
     def test_god_prompt_renders_markdown_with_only_example_code_blocks(self):
         from markdown_it import MarkdownIt
         import book_views
-        prompt = Path(__file__).with_name('god.md').read_text(encoding='utf-8')
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         markdown = MarkdownIt('commonmark')
         tokens = markdown.parse(prompt)
         unrendered_emphasis = [
@@ -1426,10 +1426,20 @@ class SourceArchiveTest(unittest.TestCase):
                 self.assertIn(rendered, html)
         self.assertEqual(html.count('<pre>'), 5)
         self.assertTrue({'pi-cli-安装与配置指南', 'm0检查现状', '官方资料'}.issubset(
-            book_views._links.markdown_anchors(Path(__file__).with_name('god.md'))))
-        self.assertEqual(book_views.relocated('.github/god.md', 'milestone-2'), ('.github/god.md', ''))
+            book_views._links.markdown_anchors(Path(__file__).with_name('pi-cli-setup.md'))))
+        self.assertEqual(book_views.relocated('.github/god.md', 'milestone-2'),
+                         ('.github/pi-cli-setup.md', ''))
         self.assertEqual(book_views.relocated('.github/first-project.md', 'example'),
-                         ('.github/first-project.md', 'example'))
+                         ('.github/how-to-complete-work.md', 'example'))
+        self.assertEqual(book_views.relocated('.github/context/getting-started/first-project.md', 'example'),
+                         ('.github/how-to-complete-work.md', 'example'))
+
+    def test_getting_started_documents_use_descriptive_filenames(self):
+        root = Path(__file__).parent
+        self.assertTrue((root / 'pi-cli-setup.md').is_file())
+        self.assertTrue((root / 'how-to-complete-work.md').is_file())
+        self.assertFalse((root / 'god.md').exists())
+        self.assertFalse((root / 'first-project.md').exists())
 
     def test_v1_explanations_remain_separate_from_frozen_source_documents(self):
         explanation = {'template_sha256': 'a' * 64, 'items': []}

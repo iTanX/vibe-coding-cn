@@ -20,8 +20,8 @@ reading_paths:
     documents:
     - .github/getting-started-README.md
     - .github/context/gongfa/README.md#doc-vibe-coding-experience
-    - .github/god.md
-    - .github/first-project.md
+    - .github/pi-cli-setup.md
+    - .github/how-to-complete-work.md
     - .github/context/gongfa/README.md#doc-problem-solving
     - .github/context/gongfa/README.md#doc-vibe-coding-state-transition
     - .github/context/gongfa/README.md#doc-glue-coding
@@ -54,7 +54,7 @@ reading_paths:
     - .github/context/gongfa/README.md#doc-development-process
     - .github/getting-started-README.md
     - .github/context/gongfa/README.md#doc-vibe-coding-experience
-    - .github/first-project.md
+    - .github/how-to-complete-work.md
     - .github/context/gongfa/README.md#doc-project-architecture-template
     - .github/context/gongfa/README.md#doc-quality-gates-and-pitfalls
     - .github/ai-citation-README.md
@@ -69,10 +69,10 @@ selection_rules:
   getting-started: 需要准备 Pi CLI、连接所选模型并验证本机工具调用时读取；《如何完成工作》是独立可选指南，通用经验链接到功法。
 documents:
   getting-started:
-  - path: .github/god.md
+  - path: .github/pi-cli-setup.md
     title: Pi CLI 安装与配置指南
     role: 可全文复制给网页版 Chat AI，逐步引导检查或安装 Pi CLI、连接 OpenAI GPT，并由用户在本机验证 Bash 工具调用；区分 CLI 可用、模型回答、工具执行和具体工作完成，验收后停止
-  - path: .github/first-project.md
+  - path: .github/how-to-complete-work.md
     title: 如何完成工作
     role: 可选工作指南：围绕自选目标按需选择方法，实施或观察并以证据验收；不预设具体任务或固定流程
   gongfa:

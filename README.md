@@ -19,7 +19,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/github/license/tukuaiai/vibe-coding-cn?label=%E8%AE%B8%E5%8F%AF%E8%AF%81&style=flat" alt="许可证"></a>
   <a href="https://t.me/glue_coding"><img src="https://img.shields.io/badge/交流-Telegram-blue?style=flat&logo=telegram" alt="交流群"></a>
   <a href=".github/context/gongfa/README.md#原文文集"><img src="https://img.shields.io/badge/功法-体系-slateblue?style=flat" alt="功法体系：思想、准则、方法与流程"></a>
-  <a href=".github/god.md"><img src="https://img.shields.io/badge/入门-教程-red?style=flat" alt="Pi CLI 安装与配置指南，供网页版 AI 分步引导"></a>
+  <a href=".github/pi-cli-setup.md"><img src="https://img.shields.io/badge/入门-教程-red?style=flat" alt="Pi CLI 安装与配置指南，供网页版 AI 分步引导"></a>
   <a href=".github/skills/README.md#当前保留"><img src="https://img.shields.io/badge/Skills-技能-forestgreen?style=flat" alt="skills技能大全"></a>
   <a href=".github/prompts-README.md#在线提示词库"><img src="https://img.shields.io/badge/提示词-表格-blue?style=flat" alt="提示词在线表格"></a>
   <a href="https://github.com/tukuaiai/vibe-coding-cn/wiki"><img src="https://img.shields.io/badge/Wiki-导航-slateblue?style=flat" alt="Wiki 导航入口"></a>
@@ -48,8 +48,8 @@
 
 ### 🚀 从零开始
 
-1. **从对话到工作：** 将[Pi CLI 安装与配置指南](.github/god.md)全文复制给网页版 Chat AI；先确认系统/终端并复用已安装的 Pi，缺少 CLI 时再按所选安装路线核对网络、安装并验证，之后连接 OpenAI GPT，并通过本机 Pi 的真实工具调用验证基础执行通路；这不代表某项具体工作已完成。
-2. **如何完成工作：** 按需阅读[如何完成工作](.github/first-project.md)，围绕自选目标编排必要方法并用证据验收；本指南独立可选，不预设具体任务或要求完成固定流程。
+1. **从对话到工作：** 将[Pi CLI 安装与配置指南](.github/pi-cli-setup.md)全文复制给网页版 Chat AI；先确认系统/终端并复用已安装的 Pi，缺少 CLI 时再按所选安装路线核对网络、安装并验证，之后连接 OpenAI GPT，并通过本机 Pi 的真实工具调用验证基础执行通路；这不代表某项具体工作已完成。
+2. **如何完成工作：** 按需阅读[如何完成工作](.github/how-to-complete-work.md)，围绕自选目标编排必要方法并用证据验收；本指南独立可选，不预设具体任务或要求完成固定流程。
 
 </details>
 

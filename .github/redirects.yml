@@ -43,11 +43,11 @@ redirects:
   - from: .github/context/getting-started/README.md
     to: .github/getting-started-README.md
   - from: .github/context/getting-started/first-project.md
-    to: .github/first-project.md
+    to: .github/how-to-complete-work.md
   - from: .github/context/getting-started/learning-map.md
-    to: .github/god.md
+    to: .github/pi-cli-setup.md
   - from: .github/learning-map.md
-    to: .github/god.md
+    to: .github/pi-cli-setup.md
   - from: .github/context/tool-explanation-template-v0.md
     to: .github/tool-explanation-template-v0.md
   - from: .github/context/tool-explanation-template-v1.md
@@ -111,15 +111,15 @@ redirects:
   - from: docs/getting-started/Codex-CLI配置.md
     to: .github/context/README.md#本地研究资料
   - from: docs/getting-started/学习地图.md
-    to: .github/god.md
+    to: .github/pi-cli-setup.md
   - from: docs/getting-started/Vibe Coding 经验.md
     to: .github/context/gongfa/README.md#doc-vibe-coding-experience
   - from: docs/getting-started/网络环境配置.md
-    to: .github/god.md
+    to: .github/pi-cli-setup.md
   - from: docs/getting-started/CLI配置.md
-    to: .github/god.md
+    to: .github/pi-cli-setup.md
   - from: docs/getting-started/开发环境搭建.md
-    to: .github/god.md
+    to: .github/pi-cli-setup.md
   - from: docs/references/通用项目架构模板.md
     to: .github/context/gongfa/README.md#doc-project-architecture-template
   - from: docs/references/数据集导向数据服务模板.md
@@ -149,7 +149,7 @@ redirects:
   - from: assets/repos/
     to: .github/extensions/
   - from: assets/config/
-    to: .github/god.md
+    to: .github/pi-cli-setup.md
   - from: docs/concepts/问题求解.md
     to: .github/context/gongfa/README.md#doc-problem-solving
   - from: docs/concepts/拼好码.md
@@ -271,8 +271,13 @@ redirects:
 
   # Pi CLI 入门分篇已合并到一份完整指南。
   - from: .github/context/getting-started/cli-setup.md
-    to: .github/god.md
+    to: .github/pi-cli-setup.md
   - from: .github/context/getting-started/network-environment.md
-    to: .github/god.md
+    to: .github/pi-cli-setup.md
   - from: .github/context/getting-started/development-environment.md
-    to: .github/god.md
+    to: .github/pi-cli-setup.md
+  # 原平铺入口重命名后只保留历史路径映射，不保留兼容文件。
+  - from: .github/god.md
+    to: .github/pi-cli-setup.md
+  - from: .github/first-project.md
+    to: .github/how-to-complete-work.md

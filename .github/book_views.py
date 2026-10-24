@@ -35,9 +35,13 @@ def relocated(path, fragment=''):
         if name == '__init__.py':
             return '.github/source_boundaries.py', fragment
     aliases = {
-        '.github/learning-map.md': '.github/god.md',
-        '.github/context/getting-started/learning-map.md': '.github/god.md',
-        '.github/docs/getting-started/learning-map.md': '.github/god.md',
+        '.github/learning-map.md': '.github/pi-cli-setup.md',
+        '.github/context/getting-started/learning-map.md': '.github/pi-cli-setup.md',
+        '.github/docs/getting-started/learning-map.md': '.github/pi-cli-setup.md',
+        '.github/god.md': '.github/pi-cli-setup.md',
+        '.github/first-project.md': '.github/how-to-complete-work.md',
+        '.github/context/getting-started/first-project.md': '.github/how-to-complete-work.md',
+        '.github/docs/getting-started/first-project.md': '.github/how-to-complete-work.md',
         '.github/context/tool-explanation-template-v0.md': '.github/tool-explanation-template-v0.md',
         '.github/context/tool-explanation-template-v1.md': '.github/tool-explanation-template-v1.md',
         '.github/metadata/faqi/README.md': '.github/context/faqi/README.md',
@@ -48,7 +52,7 @@ def relocated(path, fragment=''):
     }
     if path in aliases:
         target = aliases[path]
-        return target, '' if target == '.github/god.md' else fragment
+        return target, '' if target == '.github/pi-cli-setup.md' else fragment
     flat_groups = {
         '.github/context/ai-citation': 'ai-citation',
         '.github/context/metadata': 'metadata',
@@ -158,7 +162,7 @@ def relocated(path, fragment=''):
             route = root_route if path == prefix else 'blob'
             return ('https://github.com/tradecatlabs/vibe-coding-cn/' + route
                     + '/' + revision + '/' + quote(path, safe='/')), fragment
-    return path, '' if path == '.github/god.md' else fragment
+    return path, '' if path == '.github/pi-cli-setup.md' else fragment
 
 
 def reference(value, original_path, output_path):
