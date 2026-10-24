@@ -133,15 +133,71 @@ class CatalogMaintenanceTest(unittest.TestCase):
         self.assertIn('用户明确指定', input_output['explanation_fields'][5]['content'])
         self.assertIn('天阶中级', input_output['explanation_fields'][5]['content'])
 
+    def test_experience_pattern_transfer_is_task_level_and_keeps_unresolved_grade_direction(self):
+        entry_id = 'gongfa-experience-pattern-transfer-feedback'
+        entries = [entry for entry in self.documents['registry']['gongfa'] if entry['id'] == entry_id]
+        self.assertEqual(len(entries), 1)
+        entry = entries[0]
+        self.assertEqual(entry['name'], '经验规律迁移与反馈校正')
+        self.assertEqual(entry['content_version'], 'r1')
+        self.assertEqual(entry['entry_status'], 'registered')
+        self.assertEqual(entry['ontology_type'], 'method-specification')
+        finite_sample = [item for item in self.documents['registry']['gongfa']
+                         if item['id'] == 'gongfa-finite-sample-generative-inference']
+        self.assertEqual(len(finite_sample), 1)
+        self.assertEqual(finite_sample[0]['name'], '有限样本生成推断')
+        source = next(source for source in self.documents['registry']['sources']
+                      if source['id'] == entry['source_ref']['source_id'])
+        self.assertEqual(source['kind'], 'repository_document')
+        self.assertEqual(source['path'], '.github/docs/gongfa/experience-pattern-transfer-feedback.md')
+        self.assertEqual(entry['source_ref']['heading_id'], 'experience-pattern-transfer-feedback')
+        self.assertEqual(entry['source_ref']['selection'], 'markdown-section')
+        original_text = entry['content']['original_text']
+        for required in ('当前任务', '过往经验', '比较情境', '差异', '调整', '实际结果', '因果', '训练模型'):
+            self.assertIn(required, original_text)
+        self.assertIn('不保证性能提升或最优解', original_text)
+
+        batches = [batch for batch in self.documents['registry']['grade_proposals']
+                   if any(item['gongfa_id'] == entry_id for item in batch['items'])]
+        self.assertEqual(len(batches), 1)
+        proposal = next(item for item in batches[0]['items'] if item['gongfa_id'] == entry_id)
+        self.assertIsNone(proposal['grade_id'])
+        self.assertEqual(proposal['grading_status'], 'undetermined')
+        self.assertEqual(proposal['confidence'], 'low')
+        self.assertIn('细级待定', proposal['reason'])
+        self.assertEqual(self.documents['registry']['assessments'], [])
+
+        key = f'registry:{entry_id}@r1'
+        explanation = next(item for item in self.documents['explanations_v1']['items']
+                           if item['object_key'] == key)
+        fields = {field['name']: field['content'] for field in explanation['fields']}
+        self.assertEqual(list(fields), v1_field_names())
+        self.assertIn('当前单项任务', fields['是什么'])
+        self.assertIn('比较情境差异', fields['怎么做'])
+        self.assertIn('比较实际结果', fields['怎么做'])
+        self.assertIn('不要求训练模型', fields['扩展'])
+        self.assertIn('未核验', fields['相关图书'])
+        self.assertIn('不证明效果或因果', fields['结论'])
+        self.assertIn('不据此外推未观察效果、许可或正式评级', fields['连接规则'])
+        self.assertIn(source['id'], fields['依据'])
+
+        rows = catalog.merge_rows(deepcopy(self.documents))
+        row = next(row for row in rows if row['original_id'] == entry_id)
+        self.assertEqual(row['entry_status'], '已登记')
+        self.assertIsNone(row['grade_id'])
+        self.assertEqual(row['grading_status'], 'undetermined')
+        self.assertEqual(row['explanation_fields'], explanation['fields'])
+
     def test_current_all_classified_content_and_two_bad_summaries_keep_original_opinions(self):
         rows = catalog.merge_rows(deepcopy(self.documents))
-        self.assertEqual(Counter(row['namespace'] for row in rows), {'registry': 412})
-        self.assertEqual(len(rows), 412)
-        self.assertEqual(len({(r['namespace'], r['original_id'], r['content_version']) for r in rows}), 412)
+        self.assertEqual(Counter(row['namespace'] for row in rows), {'registry': 413})
+        self.assertEqual(len(rows), 413)
+        self.assertEqual(len({(r['namespace'], r['original_id'], r['content_version']) for r in rows}), 413)
         undetermined = {r['original_id'] for r in rows if r['grading_status'] == 'undetermined'}
         self.assertEqual(undetermined, {
             'gongfa-candidate-html211-e001-a663456869',
             'gongfa-candidate-html96-vc029-6cca304cec',
+            'gongfa-experience-pattern-transfer-feedback',
         })
         by_id = {(r['namespace'], r['original_id']): r for r in rows}
         self.assertEqual(by_id['registry', 'gongfa-first-principles']['grade_id'], 'di-advanced')
@@ -153,7 +209,7 @@ class CatalogMaintenanceTest(unittest.TestCase):
         self.assertEqual(by_id['registry', 'gongfa-candidate-html211-e001-a663456869']['grading_status'], 'undetermined')
         self.assertIn('失去50%容量时剩余单位需要承担2倍总流量。',
                       by_id['registry', 'gongfa-candidate-html211-e001-a663456869']['original_text'])
-        self.assertEqual(sum(r['entry_status'] == '已登记' for r in rows), 412)
+        self.assertEqual(sum(r['entry_status'] == '已登记' for r in rows), 413)
         lambda_index = next(index for index, row in enumerate(rows) if row['original_id'] == 'gongfa-lambda-calculus')
         glue_index = next(index for index, row in enumerate(rows) if row['original_id'] == 'gongfa-glue-coding')
         self.assertEqual(lambda_index + 1, glue_index)
@@ -165,7 +221,7 @@ class CatalogMaintenanceTest(unittest.TestCase):
         self.assertEqual(chapters[chapters.index('## 拼好码') + 1], '## Lambda 演算')
         self.assertEqual(sum(r['entry_status'] == '登记库候选' for r in rows), 0)
         self.assertEqual(self.documents['registry']['assessments'], [])
-        self.assertEqual(len(self.documents['registry']['gongfa']), 412)
+        self.assertEqual(len(self.documents['registry']['gongfa']), 413)
         self.assertTrue(all(item['entry_status'] == 'registered' for item in self.documents['registry']['gongfa']))
         registry_item = next(item for item in self.documents['registry']['gongfa'] if item['id'] == 'gongfa-first-principles')
         profile = registry_item['content']['profile']
@@ -220,12 +276,12 @@ class CatalogMaintenanceTest(unittest.TestCase):
         self.assertEqual(self.documents['html211_candidates']['registry_updated'], False)
         self.assertEqual(self.documents['html96_candidates']['registry_updated'], False)
         self.assertEqual(self.documents['explanations_v1']['template_sha256'], catalog.tool_explanations.template_sha256(ROOT))
-        self.assertEqual(len(self.documents['explanations_v1']['items']), 412)
+        self.assertEqual(len(self.documents['explanations_v1']['items']), 413)
         self.assertTrue(all(item['object_key'].startswith('registry:')
                             for item in self.documents['explanations_v1']['items']))
         views = catalog.render_views(ROOT, rows, self.binding)
         markdown = views['README.md']
-        self.assertIn('- 共**412条内容记录**；已登记412条，待登记0条，未登记来源条目0条。', markdown)
+        self.assertIn('- 共**413条内容记录**；已登记413条，待登记0条，未登记来源条目0条。', markdown)
         self.assertNotIn('[控制论与科学方法论](#控制论与科学方法论)', markdown)
         self.assertIn('同名条目在导航中附稳定对象ID，不表示身份合并。', markdown)
         self.assertFalse('catalog.xlsx' in markdown, '活动阅读视图只有Markdown，历史Excel仅作原始载荷保存')
@@ -514,8 +570,8 @@ class CatalogMaintenanceTest(unittest.TestCase):
                 for phrase in phrases:
                     self.assertNotIn(phrase, fields[field_name], f'{candidate_id}:{field_name}')
 
-    def test_stale_status_scan_covers_all_442_explanation_items_without_rewriting_them(self):
-        expected_counts = {'gongfa': 412, 'faqi': 30}
+    def test_stale_status_scan_covers_all_443_explanation_items_without_rewriting_them(self):
+        expected_counts = {'gongfa': 413, 'faqi': 30}
         bundles = source_archive.bundles(ROOT)
         self.assertEqual(set(expected_counts), set(bundles))
         hits = []
@@ -531,7 +587,7 @@ class CatalogMaintenanceTest(unittest.TestCase):
                     for label in STALE_EXPLANATION_LABELS:
                         if label in field['content']:
                             hits.append(f"{kind}:{item['object_key']}:{field['name']}:{label}")
-        self.assertEqual(442, total)
+        self.assertEqual(443, total)
         self.assertEqual([], hits, '仅报告过时状态词候选，不自动改写说明：' + chr(10) + chr(10).join(hits))
 
     def test_v1_template_appends_the_three_argument_fields_without_changing_v0(self):
@@ -569,8 +625,8 @@ class CatalogMaintenanceTest(unittest.TestCase):
                     findings.append(f"{item['object_key']}:{name}")
         self.assertEqual([], findings, '主张不能把同一摘要同时当作方法和问题：' + ', '.join(findings))
 
-    def test_active_v1_payload_migrates_all_442_records_with_toulmin_warrants(self):
-        expected_counts = {'gongfa': 412, 'faqi': 30}
+    def test_active_v1_payload_migrates_all_443_records_with_toulmin_warrants(self):
+        expected_counts = {'gongfa': 413, 'faqi': 30}
         expected_names = v0_field_names() + ['结论', '连接规则', '依据']
         bundles = source_archive.bundles(ROOT)
         total = 0
@@ -601,7 +657,7 @@ class CatalogMaintenanceTest(unittest.TestCase):
                 self.assertNotIn('仅当第18项支持第11项机制适用于第9项问题', warrant, item['object_key'])
                 self.assertIn('第7项', fields['依据'], item['object_key'])
                 self.assertIn('第11项', fields['依据'], item['object_key'])
-        self.assertEqual(442, total)
+        self.assertEqual(443, total)
         gongfa_items = {
             item['object_key']: {field['name']: field['content'] for field in item['fields']}
             for item in bundles['gongfa']['data']['explanations_v1']['items']
@@ -670,8 +726,8 @@ class CatalogMaintenanceTest(unittest.TestCase):
         documents['registry']['gongfa'].append(candidate)
         rows = catalog.merge_rows(documents)
         self.assertEqual(sum(row['entry_status'] == '登记库候选' for row in rows), 1)
-        self.assertEqual(413, len(rows))
-        self.assertIn('合计413条', '\n'.join(catalog.notes(rows, self.binding)))
+        self.assertEqual(414, len(rows))
+        self.assertIn('合计414条', '\n'.join(catalog.notes(rows, self.binding)))
 
     def test_registry_updates_follow_explicit_correction_and_never_inherit_a_new_version(self):
         documents = deepcopy(self.documents)

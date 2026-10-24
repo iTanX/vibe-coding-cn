@@ -3,12 +3,12 @@
 
 ## 字多不看
 
-- 共**412条内容记录**；已登记412条，待登记0条，未登记来源条目0条。不是独立功法去重后的总数。
-- 原前瞻初评410条，暂不可判2条；不是正式效果评级，亦不把缺测默认补成黄阶。
+- 共**413条内容记录**；已登记413条，待登记0条，未登记来源条目0条。不是独立功法去重后的总数。
+- 原前瞻初评410条，暂不可判3条；不是正式效果评级，亦不把缺测默认补成黄阶。
 - 331条来源迁入说明曾由用户确认正式通过审阅；后续内容更新不自动继承该确认。历史来源快照保留原样，书目/许可核验、实际效果与正式评级仍分别维护。
 - [data.json](data.json)是唯一原始数据源，原始文档、历史来源选区、意见、来源和附件均保留其中。
 
-输入绑定：`fbdb41c7aeb69ea1e378ffa1e47c18695f901228b2cf2d4299b4bc7ad619540c`。
+输入绑定：`c4948f6cde5110f6488cfd0ee751781be4e983a76faa7b308b99f61eb4601836`。
 
 ## 快速导航
 
@@ -16,7 +16,7 @@
 - [地阶（76条）](di.md)
 - [玄阶（309条）](xuan.md)
 - [黄阶（21条）](huang.md)
-- [未明确品级（2条；不归属任何阶）](huang.md#未明确品级不归属黄阶)
+- [未明确品级（3条；不归属任何阶）](huang.md#未明确品级不归属黄阶)
 - [全部记录导航](#全部记录)
 - [原文文集](#原文文集)
 - [品级词表](#品级词表)
@@ -1909,6 +1909,9 @@
 - [cross-domain-input-state-transform-output](#doc-cross-domain-input-state-transform-output)
   - [cross-domain-input-state-transform-output](#doc-cross-domain-input-state-transform-output-cross-domain-input-state-transform-output)
   - [输入状态变换输出跨领域框架](#doc-cross-domain-input-state-transform-output-输入状态变换输出跨领域框架)
+- [experience-pattern-transfer-feedback](#doc-experience-pattern-transfer-feedback)
+  - [experience-pattern-transfer-feedback](#doc-experience-pattern-transfer-feedback-experience-pattern-transfer-feedback)
+  - [经验规律迁移与反馈校正](#doc-experience-pattern-transfer-feedback-经验规律迁移与反馈校正)
 
 </details>
 
@@ -2758,6 +2761,8 @@
 - [灾备容量负载放大模型](huang.md#v0-registry-gongfa-candidate-html211-e001-a663456869-r1-5c259ebd) — 暂不可判
 <a id="v0-registry-gongfa-candidate-html96-vc029-6cca304cec-r1-434a756e"></a>
 - [CAP 定理 (CAP Theorem)](huang.md#v0-registry-gongfa-candidate-html96-vc029-6cca304cec-r1-434a756e) — 暂不可判
+<a id="v0-registry-gongfa-experience-pattern-transfer-feedback-r1-21c9b633"></a>
+- [经验规律迁移与反馈校正](huang.md#v0-registry-gongfa-experience-pattern-transfer-feedback-r1-21c9b633) — 暂不可判
 
 ## 原文文集
 
@@ -2843,6 +2848,8 @@
 - `.github/docs/gongfa/geo-seo-checklist.md`：原始字节与摘要见[data.json](data.json)
 <a id="doc-cross-domain-input-state-transform-output"></a>
 - `.github/docs/gongfa/cross-domain-input-state-transform-output.md`：原始字节与摘要见[data.json](data.json)
+<a id="doc-experience-pattern-transfer-feedback"></a>
+- `.github/docs/gongfa/experience-pattern-transfer-feedback.md`：原始字节与摘要见[data.json](data.json)
 
 <!-- 兼容已发布阅读视图中的章节锚点 -->
 <a id="doc-cultivation-ontology-taxonomy-修仙领域统一本体与分类设计v4-bfo-草案"></a>
@@ -4688,6 +4695,8 @@
 <a id="doc-geo-seo-checklist-推荐回答"></a>
 <a id="doc-cross-domain-input-state-transform-output-cross-domain-input-state-transform-output"></a>
 <a id="doc-cross-domain-input-state-transform-output-输入状态变换输出跨领域框架"></a>
+<a id="doc-experience-pattern-transfer-feedback-experience-pattern-transfer-feedback"></a>
+<a id="doc-experience-pattern-transfer-feedback-经验规律迁移与反馈校正"></a>
 ## 品级词表
 
 | 值标识 | 名称 | 大阶 | 细级 | 次序 |
