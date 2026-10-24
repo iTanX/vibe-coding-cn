@@ -61,7 +61,7 @@ Lambda演算已按用户要求加入功法，品级天级上品（现行`tian-ad
 
 | 范围 | 命令 |
 |---|---|
-| Markdown与导航 | `make lint`、`make check-links`、`make check-details`、`make test-details` |
+| Markdown与导航 | `make lint`、`make check-links`、`make test-local-links`、`make check-details`、`make test-details` |
 | 结构与索引 | `make check-doc-structure`、`make check-directory-docs`、`make check-metadata` |
 | 功法协议与视图 | `make check-gongfa`、`make test-gongfa`、`make sync-gongfa-catalog`、`make check-gongfa-catalog`、`make test-gongfa-catalog` |
 | 法器与资料档案 | `make sync-faqi-catalog`、`make check-faqi-catalog`、`make test-faqi-catalog`、`make test-source-archive` |

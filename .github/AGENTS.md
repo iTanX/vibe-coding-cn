@@ -36,7 +36,7 @@
 | 数据与来源 | `check-gongfa.py`；本机研究副本另用`check-research-raw.py`、`check-source-facts.py` |
 | Wiki | `check-wiki.py`；仍只校验明确给定的本地checkout |
 | 资料维护 | `sync-doc-toc.py`、`sync-faqi-catalog.py`、`sync-gongfa-catalog.py`；`fetch-research-raw.py`会联网并写入本机研究资料，不属于默认测试 |
-| 测试 | `test-gongfa.py`、`test-gongfa-catalog.py`、`test-faqi-catalog.py`、`test-markdown-details.py`、`test-source-archive.py`、`test-research-distribution.py` |
+| 测试 | `test-gongfa.py`、`test-gongfa-catalog.py`、`test-faqi-catalog.py`、`test-local-links.py`、`test-markdown-details.py`、`test-source-archive.py`、`test-research-distribution.py` |
 | 共享实现 | `source_boundaries.py`、`taxonomy.py`、`source_archive.py`、`book_views.py`、`tool_explanations.py`直接平铺；供同级入口与原资料生成器共用，不保留lib包 |
 | 依赖 | `requirements-gongfa.txt`、`requirements-faqi.txt` |
 

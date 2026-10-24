@@ -3,7 +3,9 @@
 
 from __future__ import annotations
 
+import os
 import re
+import subprocess
 import sys
 import urllib.parse
 from pathlib import Path
@@ -104,6 +106,45 @@ def should_skip(path: Path) -> bool:
     return any(rel == prefix or prefix in rel.parents for prefix in SKIP_PREFIXES)
 
 
+def gitlink_roots() -> tuple[Path, ...]:
+    """读取已跟踪Gitlink目录，不初始化其工作树。"""
+    try:
+        completed = subprocess.run(
+            ["git", "-C", str(ROOT), "ls-files", "--stage", "-z"],
+            check=False,
+            capture_output=True,
+            timeout=10,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return ()
+    if completed.returncode != 0:
+        return ()
+
+    roots: set[Path] = set()
+    for entry in completed.stdout.split(b"\0"):
+        if not entry:
+            continue
+        try:
+            metadata, raw_path = entry.split(b"\t", 1)
+        except ValueError:
+            continue
+        if metadata.split(b" ", 1)[0] == b"160000":
+            roots.add((ROOT / os.fsdecode(raw_path)).resolve())
+    return tuple(sorted(roots))
+
+
+def is_uninitialized_gitlink_target(destination: Path, roots: tuple[Path, ...]) -> bool:
+    for root in roots:
+        if os.path.lexists(root / ".git"):
+            continue
+        try:
+            destination.relative_to(root)
+        except ValueError:
+            continue
+        return True
+    return False
+
+
 def normalize_target(raw: str) -> tuple[str, str]:
     raw = raw.strip()
     if not raw or raw.startswith(EXTERNAL_PREFIXES):
@@ -122,6 +163,8 @@ def main() -> int:
     missing_anchors: list[tuple[Path, str, Path, str]] = []
     anchor_cache: dict[Path, set[str]] = {}
     checked_files = 0
+    uninitialized_gitlinks = gitlink_roots()
+    skipped_gitlink_targets = 0
 
     for markdown_file in sorted(ROOT.rglob("*.md")):
         if should_skip(markdown_file):
@@ -145,6 +188,9 @@ def main() -> int:
                     continue
 
                 if not destination.exists():
+                    if is_uninitialized_gitlink_target(destination, uninitialized_gitlinks):
+                        skipped_gitlink_targets += 1
+                        continue
                     missing_links.append((markdown_file.relative_to(ROOT), raw, markdown_file.parent / target))
                     continue
                 if anchor and destination.suffix.lower() == ".md":
@@ -152,6 +198,9 @@ def main() -> int:
                         anchor_cache[destination] = markdown_anchors(destination)
                     if anchor not in anchor_cache[destination]:
                         missing_anchors.append((markdown_file.relative_to(ROOT), raw, destination.relative_to(ROOT), anchor))
+
+    if skipped_gitlink_targets:
+        print(f"SKIPPED_UNINITIALIZED_GITLINK_TARGETS={skipped_gitlink_targets}")
 
     if missing_links or missing_anchors:
         print("MISSING_LINKS")

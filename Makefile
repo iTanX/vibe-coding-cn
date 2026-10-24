@@ -1,5 +1,5 @@
 # Vibe Coding工具箱：资源分三域，测试与校验维护入口统一在.github。
-.PHONY: help lint check-links check-details test-details check-doc-structure check-directory-docs check-metadata check-gongfa test-gongfa sync-gongfa-catalog check-gongfa-catalog test-gongfa-catalog sync-faqi-catalog check-faqi-catalog test-faqi-catalog test-source-archive test-research-distribution check-ai-citation check-research-raw check-source-facts test-local-research check-wiki fetch-research-raw sync-doc-toc build test clean clean-deps
+.PHONY: help lint check-links test-local-links check-details test-details check-doc-structure check-directory-docs check-metadata check-gongfa test-gongfa sync-gongfa-catalog check-gongfa-catalog test-gongfa-catalog sync-faqi-catalog check-faqi-catalog test-faqi-catalog test-source-archive test-research-distribution check-ai-citation check-research-raw check-source-facts test-local-research check-wiki fetch-research-raw sync-doc-toc build test clean clean-deps
 
 MARKDOWNLINT = npx --yes markdownlint-cli@0.48.0
 MAINT = .github
@@ -9,7 +9,7 @@ SOURCE_IGNORES = --ignore .history --ignore '$(EXT)/tmux/**' --ignore '$(EXT)/oh
 
 help:
 	@echo "Vibe Coding工具箱"
-	@echo "lint / check-links / check-details / test-details：Markdown格式、内链、折叠与回归"
+	@echo "lint / check-links / test-local-links / check-details / test-details：Markdown格式、内链、折叠与回归"
 	@echo "check-doc-structure / check-directory-docs / check-metadata：阅读结构、目录职责与机器索引"
 	@echo "check-gongfa / test-gongfa：功法来源与既有评级协议"
 	@echo "sync-gongfa-catalog / check-gongfa-catalog / test-gongfa-catalog：功法四阶Markdown视图"
@@ -29,6 +29,9 @@ lint:
 
 check-links:
 	@python3 $(MAINT)/check-local-links.py
+
+test-local-links:
+	@python3 $(MAINT)/test-local-links.py
 
 check-details:
 	@python3 $(MAINT)/check-markdown-details.py
@@ -99,7 +102,7 @@ sync-doc-toc:
 build:
 	@echo "无需构建；本仓是文档、既有Skills和小工具的资源集合。"
 
-test: lint check-links check-details test-details check-doc-structure check-directory-docs check-metadata check-gongfa test-gongfa check-gongfa-catalog test-gongfa-catalog check-faqi-catalog test-faqi-catalog test-source-archive test-research-distribution check-ai-citation
+test: lint check-links test-local-links check-details test-details check-doc-structure check-directory-docs check-metadata check-gongfa test-gongfa check-gongfa-catalog test-gongfa-catalog check-faqi-catalog test-faqi-catalog test-source-archive test-research-distribution check-ai-citation
 	@echo "本地默认质量检查完成；不含本机研究档案专用检查，也不代表工具效果、运行可用性或许可批准。"
 
 clean: clean-deps
