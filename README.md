@@ -20,7 +20,7 @@
   <a href="https://t.me/glue_coding"><img src="https://img.shields.io/badge/交流-Telegram-blue?style=flat&logo=telegram" alt="交流群"></a>
   <a href=".github/context/gongfa/README.md#原文文集"><img src="https://img.shields.io/badge/功法-体系-slateblue?style=flat" alt="功法体系：思想、准则、方法与流程"></a>
   <a href=".github/pi-cli-setup.md"><img src="https://img.shields.io/badge/入门-教程-red?style=flat" alt="Pi CLI 安装与配置指南，供网页版 AI 分步引导"></a>
-  <a href=".github/skills/README.md#当前保留"><img src="https://img.shields.io/badge/Skills-技能-forestgreen?style=flat" alt="skills技能大全"></a>
+  <a href=".github/skills/README.md#当前保留"><img src="https://img.shields.io/badge/Skill-指令-forestgreen?style=flat" alt="当前保留的 Skill：制作与维护技能指南"></a>
   <a href=".github/prompts-README.md#在线提示词库"><img src="https://img.shields.io/badge/提示词-表格-blue?style=flat" alt="提示词在线表格"></a>
   <a href="https://github.com/tukuaiai/vibe-coding-cn/wiki"><img src="https://img.shields.io/badge/Wiki-导航-slateblue?style=flat" alt="Wiki 导航入口"></a>
   <a href=".github/context/gongfa/README.md#全部记录"><img src="https://img.shields.io/badge/功法-总表-purple?style=flat" alt="功法总表"></a>
@@ -44,7 +44,11 @@
 
 以 Pi Agent 为执行宿主、以 OpenAI GPT 为模型选项，提供按任务取用的知识、指令和工具，并用实际证据验收工作结果。
 
-资源入口：[Context](.github/context/README.md)、[Skills](.github/skills/README.md) 和 [Extensions](.github/extensions/README.md)。
+这三类资源按任务选用，不是必须依次走完的流程：
+
+- [Context](.github/context/README.md)：按需查阅的参考资料，不会默认全部注入。
+- [Skills](.github/skills/README.md)：按需加载的指令；当前保留的是 Skill 制作指南，不会自动加载。
+- [Extensions](.github/extensions/README.md)：固定来源代码和配置，不等同于 Pi 原生扩展，也不要把整个目录交给 `-e`。
 
 <a id="getting-started"></a>
 
