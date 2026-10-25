@@ -516,26 +516,43 @@ class SourceArchiveTest(unittest.TestCase):
         )
         self.assertTrue(all(item in step2 for item in required))
 
+    # 固定学习边界，不把整句或段落布局锁成兼容接口。
     def test_first_project_review_offers_optional_retrieval_before_notes(self):
         prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
-        self.assertIn(
-            '想练习记住方法时，可选地先合上对话和笔记，用自己的话回忆本次的方法选择与证据，再对照原记录补漏；想不起的地方如实标“未知”。这只是低风险的学习练习，不是工作验收，也不是使用本指南的条件。',
-            prompt,
+        required = (
+            '以下学习练习都可跳过',
+            '它们不是工作验收',
+            '也不是使用本指南的条件',
+            '合上对话和笔记',
+            '回忆方法选择、证据和适用条件',
+            '再对照记录补漏',
+            '不确定处标“未知”',
         )
+        self.assertTrue(all(item in prompt for item in required))
+        recall_start = prompt.index('合上对话和笔记')
+        recall = prompt.index('回忆方法选择、证据和适用条件', recall_start)
+        compare = prompt.index('再对照记录补漏', recall)
+        self.assertLess(recall_start, recall)
+        self.assertLess(recall, compare)
 
     def test_first_project_review_offers_optional_spaced_retrieval(self):
         prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
-        self.assertIn(
-            '若想再练一次，可隔一段时间后不看记录再次回忆同一方法与证据，再对照补漏；间隔由你决定，不是必做计划。',
-            prompt,
-        )
+        required = ('隔一段时间再做一次', '间隔由你决定', '不是必做计划')
+        self.assertTrue(all(item in prompt for item in required))
 
     def test_first_project_offers_optional_code_self_explanation(self):
         prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
-        self.assertIn(
-            '若本次确有代码改动，想练习解释时，可选地挑一处非敏感的小改动，用自己的话说明它做什么、为什么符合一项原定标准；适用时，再手动追踪一个具体输入。然后对照真实差异与验收证据，记录说不清的部分。这是可跳过的学习练习，不要求运行代码，也不替代测试或验收。',
-            prompt,
+        required = (
+            '若本次改过代码',
+            '非敏感改动',
+            '对应一项原定标准',
+            '手动追踪一个输入',
+            '对照实际差异与验收证据',
+            '记下说不清处',
+            '不要求运行代码',
+            '不替代测试或验收',
         )
+        self.assertTrue(all(item in prompt for item in required))
 
     def test_god_termux_pkg_upgrade_scope_is_explicit(self):
         prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
@@ -803,10 +820,15 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_first_project_optional_transfer_practice_compares_cases_with_evidence_boundary(self):
         prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
-        self.assertIn(
-            '若想练习方法迁移，可自行选一个第二情境（只构想即可，不必开始新工作）。并排写下两情境要解决的问题、约束和可观察的成功证据；比较相似点与关键差异，再说明本次方法哪些可复用、哪些需调整或不适用。理由应能回指本次记录；未在新情境实际验收前，不说迁移已成功。此练习可跳过。',
-            prompt,
+        required = (
+            '以下学习练习都可跳过',
+            '自选第二情境（只构想即可）',
+            '比较问题、约束和成功证据',
+            '哪些可复用、哪些需调整或不适用',
+            '理由应能回指本次记录',
+            '未在新情境实际验收前，不说迁移已成功',
         )
+        self.assertTrue(all(item in prompt for item in required))
 
     def test_first_project_offers_conditional_regression_first_guidance(self):
         prompt = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
