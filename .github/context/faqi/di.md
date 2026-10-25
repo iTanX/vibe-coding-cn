@@ -24,15 +24,15 @@
 
 | 序号 | 说明项 | 内容 |
 |:---:|:---|:---|
-| 1 | 概念 | 待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。 |
+| 1 | 概念 | 由历史命令版本观察定位的Bash解释器实例 |
 | 2 | 术语 | GNU Bash |
-| 3 | 定义 | 现有依赖图将其记录为6.2 Shell与命令解释器节点；身份状态与证据字段：bash --version 输出 GNU bash 5.2.21。 |
-| 4 | 条目注释 | 待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。 |
+| 3 | 定义 | 工作性定义：依赖图中由历史命令观察定位的GNU Bash Shell与命令解释器实例，原记录版本为5.2.21。 |
+| 4 | 条目注释 | 编者注（据本条固定来源与既有说明归纳）：原bash --version记录为5.2.21；版本观察不证明脚本兼容性，也不能把Bash当作Linux内核或终端模拟器。 |
 | 5 | 来源 | 依赖图来源：{<br>  "source&#95;path": ".github/docs/gongfa/technology-stack.md",<br>  "source&#95;sha256": "88ff3494095c2a794acf130d5d2ccc4eb4b67ccdc8c174e7ef09f35c11a450a2",<br>  "source&#95;anchor": "reference-technology-stack-十六技术栈的层级结构",<br>  "observed&#95;at": "2026-10-10T12:14:00Z"<br>}<br>依赖图对象记录：{<br>  "id": "dep-bash",<br>  "name": "GNU Bash",<br>  "type&#95;id": "software-artifact",<br>  "graph&#95;node": "6.2 Shell与命令解释器",<br>  "identity&#95;status": "runtime&#95;observed",<br>  "version": "5.2.21",<br>  "evidence": "bash --version 输出 GNU bash 5.2.21。",<br>  "resource&#95;ids": &#91;&#93;,<br>  "related&#95;object&#95;id": null,<br>  "grade&#95;id": null,<br>  "grade&#95;status": "pending",<br>  "grade&#95;reason": "版本观测不等于具体任务效果；分级量表阈值未校准。"<br>}<br>重要性分级记录：{<br>  "subject&#95;id": "dep-bash",<br>  "grade&#95;id": "faqi-di-advanced",<br>  "assignment&#95;status": "user&#95;directed&#95;provisional",<br>  "scope": "Vibe Coding重要性：Agent命令执行与脚本交互",<br>  "basis": "直接承接终端命令、开发脚本和验证操作，是当前Agent落地代码动作的高重要性接口；Shell实现可替代但该角色不可缺。"<br>}<br>版本/身份字段仅按依赖图记录呈现；未据此推断当前环境中正在运行。 |
 | 6 | 为什么 | 依赖图将GNU Bash放在“6.2 Shell与命令解释器”，用于表示该层提供的能力或承载关系。此为架构角色说明，不反推本机选择动机，也不证明该依赖对所有任务必需。 |
 | 7 | 怎么做 | 本条是环境观察记录，不是安装说明。依赖图把它放在“6.2 Shell与命令解释器”职责层；若要采用，具体操作必须依具名产品、版本与项目合同确定，不能从该记录反推已安装或运行。 |
 | 8 | 扩展 | 本对象表示单个依赖图节点（运行观察或具名候选），不是插件/扩展集合；其他版本、替代实现和配置应按各自身份另行说明，不从本条自动继承能力。 |
-| 9 | 关联信息 | 依赖图对象ID=dep-bash；图节点=6.2 Shell与命令解释器；身份状态=runtime&#95;observed；观测版本=5.2.21；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶高级（grade&#95;id=faqi-di-advanced；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：Agent命令执行与脚本交互；分级依据：直接承接终端命令、开发脚本和验证操作，是当前Agent落地代码动作的高重要性接口；Shell实现可替代但该角色不可缺。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
+| 9 | 关联信息 | 本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。<br><br>原关联记录（含历史意见）：<br>依赖图对象ID=dep-bash；图节点=6.2 Shell与命令解释器；身份状态=runtime&#95;observed；观测版本=5.2.21；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶高级（grade&#95;id=faqi-di-advanced；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：Agent命令执行与脚本交互；分级依据：直接承接终端命令、开发脚本和验证操作，是当前Agent落地代码动作的高重要性接口；Shell实现可替代但该角色不可缺。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
 | 10 | 相关图书 | 本条指向依赖图中的runtime&#95;observed对象或观察记录，不是图书主题；固定来源为技术栈依赖图及其环境证据（见第7项），本项不列图书。 |
 | 11 | 它要解决什么问题？ | 在依赖图中，本节点承担“6.2 Shell与命令解释器”的环境/工具职责；它回答的是系统如何提供该层能力，不单独定义某个业务问题或验收目标。 |
 | 12 | 为什么这样设计？ | 依赖图将“6.2 Shell与命令解释器”与其他层分开记录，避免把运行实例、源码、类别和承载平台混为一体。这解释登记结构，不声称上游软件设计者的历史动机。 |
@@ -50,15 +50,15 @@
 
 | 序号 | 说明项 | 内容 |
 |:---:|:---|:---|
-| 1 | 概念 | 待核：原登记类别为dependency-category；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认本依赖类别的独立概念，不能用分类标签代替。 |
+| 1 | 概念 | 向进程提供终端呈现与伪终端接口的依赖类别 |
 | 2 | 术语 | 3.2 Terminal Emulator / PTY |
-| 3 | 定义 | 依赖图将其作为抽象依赖类别登记：3.2 Terminal Emulator / PTY；纳入依据：用户确认此依赖类别已核并要求纳入；终端模拟器与PTY系统接口分开分类；本次品级按Vibe Coding重要性分组，正式效能评级另行判断。 |
-| 4 | 条目注释 | 待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。 |
+| 3 | 定义 | 工作性定义：一种涵盖终端模拟器与PTY接口、用于描述工具进程终端交互边界的抽象依赖类别，不对应单个终端产品或会话。 |
+| 4 | 条目注释 | 编者注（据本条固定来源与既有说明归纳）：终端模拟器是程序，PTY是系统接口；Shell又是独立解释器，不能因共同参与终端交互而合并身份。 |
 | 5 | 来源 | 依赖类别来源与登记记录：{<br>  "source&#95;path": ".github/docs/gongfa/technology-stack.md",<br>  "source&#95;sha256": "88ff3494095c2a794acf130d5d2ccc4eb4b67ccdc8c174e7ef09f35c11a450a2",<br>  "source&#95;anchor": "reference-technology-stack-十六技术栈的层级结构",<br>  "observed&#95;at": "2026-10-10T12:14:00Z"<br>}<br>类别登记：{<br>  "id": "dep-category-terminal-pty",<br>  "node": "3.2 Terminal Emulator / PTY",<br>  "disposition": "user&#95;confirmed&#95;in&#95;scope",<br>  "reason": "用户确认此依赖类别已核并要求纳入；终端模拟器与PTY系统接口分开分类；本次品级按Vibe Coding重要性分组，正式效能评级另行判断。"<br>}<br>重要性分级记录：{<br>  "subject&#95;id": "dep-category-terminal-pty",<br>  "grade&#95;id": "faqi-di-advanced",<br>  "assignment&#95;status": "user&#95;directed&#95;provisional",<br>  "scope": "Vibe Coding重要性：Agent调用工具与执行开发命令",<br>  "basis": "把Agent计划转成真实文件、构建和测试操作的关键执行边界；没有等价工具执行通道，代码闭环无法完成。"<br>}<br>类别纳入状态仅表示范围登记，不指向已部署的具体产品。 |
 | 6 | 为什么 | 依赖图纳入该类别是为了表示“为工具进程提供终端模拟器、PTY、Shell和标准I/O边界”这一系统能力层；它是用户确认范围内的抽象类别，不代表任一具体产品被采用。 |
 | 7 | 怎么做 | 不适用：本条是抽象依赖类别，不指定唯一可执行产品、安装步骤或操作流程；具体实现需另行识别。 |
 | 8 | 扩展 | 类别层只定义“为工具进程提供终端模拟器、PTY、Shell和标准I/O边界”的边界；供应商、软件、版本、插件和部署属于具体实现或独立依赖对象，不作为本类别的默认扩展。 |
-| 9 | 关联信息 | 依赖类别ID=dep-category-terminal-pty；类别节点=3.2 Terminal Emulator / PTY；纳入状态=user&#95;confirmed&#95;in&#95;scope。这是抽象类别，不是具体产品或运行实例。<br>Vibe Coding 重要性暂定：地阶高级（grade&#95;id=faqi-di-advanced；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：Agent调用工具与执行开发命令；分级依据：把Agent计划转成真实文件、构建和测试操作的关键执行边界；没有等价工具执行通道，代码闭环无法完成。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
+| 9 | 关联信息 | 本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。<br><br>原关联记录（含历史意见）：<br>依赖类别ID=dep-category-terminal-pty；类别节点=3.2 Terminal Emulator / PTY；纳入状态=user&#95;confirmed&#95;in&#95;scope。这是抽象类别，不是具体产品或运行实例。<br>Vibe Coding 重要性暂定：地阶高级（grade&#95;id=faqi-di-advanced；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：Agent调用工具与执行开发命令；分级依据：把Agent计划转成真实文件、构建和测试操作的关键执行边界；没有等价工具执行通道，代码闭环无法完成。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
 | 10 | 相关图书 | 本条是依赖图抽象类别，不是书目对象；来源是技术栈的架构节点定义（见第7项），不列产品文档为图书。 |
 | 11 | 它要解决什么问题？ | 该类别覆盖的系统问题是：在工作流中提供“为工具进程提供终端模拟器、PTY、Shell和标准I/O边界”所需的依赖位置。它不单独定义业务输入、结果或特定供应商的服务能力。 |
 | 12 | 为什么这样设计？ | 不适用：该条是类别节点而非具名实现，当前材料不能支持具体设计选择解释。 |
@@ -76,15 +76,15 @@
 
 | 序号 | 说明项 | 内容 |
 |:---:|:---|:---|
-| 1 | 概念 | 待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。 |
+| 1 | 概念 | 由历史版本观察定位的本地Git客户端实例 |
 | 2 | 术语 | Git 本地客户端 |
-| 3 | 定义 | 现有依赖图将其记录为3.2 文件与代码 / Git本地客户端与工作树节点；身份状态与证据字段：git --version 输出 git version 2.43.0。 |
-| 4 | 条目注释 | 待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。 |
+| 3 | 定义 | 工作性定义：依赖图中由历史git命令版本观察定位、承担本地版本库与工作树操作职责的Git客户端实例，原记录版本为2.43.0。 |
+| 4 | 条目注释 | 编者注（据本条固定来源与既有说明归纳）：原git --version记录为2.43.0；客户端存在不证明远端访问、签名或推送权限已经可用。 |
 | 5 | 来源 | 依赖图来源：{<br>  "source&#95;path": ".github/docs/gongfa/technology-stack.md",<br>  "source&#95;sha256": "88ff3494095c2a794acf130d5d2ccc4eb4b67ccdc8c174e7ef09f35c11a450a2",<br>  "source&#95;anchor": "reference-technology-stack-十六技术栈的层级结构",<br>  "observed&#95;at": "2026-10-10T12:14:00Z"<br>}<br>依赖图对象记录：{<br>  "id": "dep-git-client",<br>  "name": "Git 本地客户端",<br>  "type&#95;id": "software-artifact",<br>  "graph&#95;node": "3.2 文件与代码 / Git本地客户端与工作树",<br>  "identity&#95;status": "runtime&#95;observed",<br>  "version": "2.43.0",<br>  "evidence": "git --version 输出 git version 2.43.0。",<br>  "resource&#95;ids": &#91;&#93;,<br>  "related&#95;object&#95;id": null,<br>  "grade&#95;id": null,<br>  "grade&#95;status": "pending",<br>  "grade&#95;reason": "版本观测不等于具体任务效果；分级量表阈值未校准。"<br>}<br>重要性分级记录：{<br>  "subject&#95;id": "dep-git-client",<br>  "grade&#95;id": "faqi-di-advanced",<br>  "assignment&#95;status": "user&#95;directed&#95;provisional",<br>  "scope": "Vibe Coding重要性：代码变更追踪、比较与恢复",<br>  "basis": "支撑审查AI改动、保留版本历史和安全回退，是可维护代码生成闭环的高重要性基础；版本控制实现可替代。"<br>}<br>版本/身份字段仅按依赖图记录呈现；未据此推断当前环境中正在运行。 |
 | 6 | 为什么 | 依赖图将Git 本地客户端放在“3.2 文件与代码 / Git本地客户端与工作树”，用于表示该层提供的能力或承载关系。此为架构角色说明，不反推本机选择动机，也不证明该依赖对所有任务必需。 |
 | 7 | 怎么做 | 本条是环境观察记录，不是安装说明。依赖图把它放在“3.2 文件与代码 / Git本地客户端与工作树”职责层；若要采用，具体操作必须依具名产品、版本与项目合同确定，不能从该记录反推已安装或运行。 |
 | 8 | 扩展 | 本对象表示单个依赖图节点（运行观察或具名候选），不是插件/扩展集合；其他版本、替代实现和配置应按各自身份另行说明，不从本条自动继承能力。 |
-| 9 | 关联信息 | 依赖图对象ID=dep-git-client；图节点=3.2 文件与代码 / Git本地客户端与工作树；身份状态=runtime&#95;observed；观测版本=2.43.0；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶高级（grade&#95;id=faqi-di-advanced；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：代码变更追踪、比较与恢复；分级依据：支撑审查AI改动、保留版本历史和安全回退，是可维护代码生成闭环的高重要性基础；版本控制实现可替代。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
+| 9 | 关联信息 | 本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。<br><br>原关联记录（含历史意见）：<br>依赖图对象ID=dep-git-client；图节点=3.2 文件与代码 / Git本地客户端与工作树；身份状态=runtime&#95;observed；观测版本=2.43.0；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶高级（grade&#95;id=faqi-di-advanced；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：代码变更追踪、比较与恢复；分级依据：支撑审查AI改动、保留版本历史和安全回退，是可维护代码生成闭环的高重要性基础；版本控制实现可替代。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
 | 10 | 相关图书 | 本条指向依赖图中的runtime&#95;observed对象或观察记录，不是图书主题；固定来源为技术栈依赖图及其环境证据（见第7项），本项不列图书。 |
 | 11 | 它要解决什么问题？ | 在依赖图中，本节点承担“3.2 文件与代码 / Git本地客户端与工作树”的环境/工具职责；它回答的是系统如何提供该层能力，不单独定义某个业务问题或验收目标。 |
 | 12 | 为什么这样设计？ | 依赖图将“3.2 文件与代码 / Git本地客户端与工作树”与其他层分开记录，避免把运行实例、源码、类别和承载平台混为一体。这解释登记结构，不声称上游软件设计者的历史动机。 |
@@ -102,15 +102,15 @@
 
 | 序号 | 说明项 | 内容 |
 |:---:|:---|:---|
-| 1 | 概念 | 待核：原登记类别为dependency-category；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认本依赖类别的独立概念，不能用分类标签代替。 |
+| 1 | 概念 | 为计算提供硬件、网络及设施供给的资源类别 |
 | 2 | 术语 | 8 CPU/GPU、内存、存储、网络、电力与数据中心 |
-| 3 | 定义 | 依赖图将其作为抽象依赖类别登记：8 CPU/GPU、内存、存储、网络、电力与数据中心；纳入依据：用户确认此资源类别已核并要求纳入；物理设备、基础设施与供给服务按所指分别分类；本次品级按Vibe Coding重要性分组，正式效能评级另行判断。 |
-| 4 | 条目注释 | 待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。 |
+| 3 | 定义 | 工作性定义：一种涵盖CPU/GPU、内存、存储、网络、电力和数据中心等计算承载条件的抽象资源类别，具体设备及供给服务分别判断。 |
+| 4 | 条目注释 | 编者注（据本条固定来源与既有说明归纳）：设备、基础设施和供给服务的对象类型不同；不能把CPU、数据中心和电力服务统称为同一软件工件。 |
 | 5 | 来源 | 依赖类别来源与登记记录：{<br>  "source&#95;path": ".github/docs/gongfa/technology-stack.md",<br>  "source&#95;sha256": "88ff3494095c2a794acf130d5d2ccc4eb4b67ccdc8c174e7ef09f35c11a450a2",<br>  "source&#95;anchor": "reference-technology-stack-十六技术栈的层级结构",<br>  "observed&#95;at": "2026-10-10T12:14:00Z"<br>}<br>类别登记：{<br>  "id": "dep-category-infrastructure",<br>  "node": "8 CPU/GPU、内存、存储、网络、电力与数据中心",<br>  "disposition": "user&#95;confirmed&#95;in&#95;scope",<br>  "reason": "用户确认此资源类别已核并要求纳入；物理设备、基础设施与供给服务按所指分别分类；本次品级按Vibe Coding重要性分组，正式效能评级另行判断。"<br>}<br>重要性分级记录：{<br>  "subject&#95;id": "dep-category-infrastructure",<br>  "grade&#95;id": "faqi-di-intermediate",<br>  "assignment&#95;status": "user&#95;directed&#95;provisional",<br>  "scope": "Vibe Coding重要性：计算、存储与网络承载",<br>  "basis": "为模型调用、代码执行及数据交换提供资源底座；实现可跨云、主机和本地环境替换，故不是单一核心产品。"<br>}<br>类别纳入状态仅表示范围登记，不指向已部署的具体产品。 |
 | 6 | 为什么 | 依赖图纳入该类别是为了表示“承载本地或托管计算所需的CPU/GPU、内存、存储、网络、电力和数据中心资源”这一系统能力层；它是用户确认范围内的抽象类别，不代表任一具体产品被采用。 |
 | 7 | 怎么做 | 不适用：本条是抽象依赖类别，不指定唯一可执行产品、安装步骤或操作流程；具体实现需另行识别。 |
 | 8 | 扩展 | 类别层只定义“承载本地或托管计算所需的CPU/GPU、内存、存储、网络、电力和数据中心资源”的边界；供应商、软件、版本、插件和部署属于具体实现或独立依赖对象，不作为本类别的默认扩展。 |
-| 9 | 关联信息 | 依赖类别ID=dep-category-infrastructure；类别节点=8 CPU/GPU、内存、存储、网络、电力与数据中心；纳入状态=user&#95;confirmed&#95;in&#95;scope。这是抽象类别，不是具体产品或运行实例。<br>Vibe Coding 重要性暂定：地阶中级（grade&#95;id=faqi-di-intermediate；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：计算、存储与网络承载；分级依据：为模型调用、代码执行及数据交换提供资源底座；实现可跨云、主机和本地环境替换，故不是单一核心产品。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
+| 9 | 关联信息 | 本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。<br><br>原关联记录（含历史意见）：<br>依赖类别ID=dep-category-infrastructure；类别节点=8 CPU/GPU、内存、存储、网络、电力与数据中心；纳入状态=user&#95;confirmed&#95;in&#95;scope。这是抽象类别，不是具体产品或运行实例。<br>Vibe Coding 重要性暂定：地阶中级（grade&#95;id=faqi-di-intermediate；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：计算、存储与网络承载；分级依据：为模型调用、代码执行及数据交换提供资源底座；实现可跨云、主机和本地环境替换，故不是单一核心产品。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
 | 10 | 相关图书 | 本条是依赖图抽象类别，不是书目对象；来源是技术栈的架构节点定义（见第7项），不列产品文档为图书。 |
 | 11 | 它要解决什么问题？ | 该类别覆盖的系统问题是：在工作流中提供“承载本地或托管计算所需的CPU/GPU、内存、存储、网络、电力和数据中心资源”所需的依赖位置。它不单独定义业务输入、结果或特定供应商的服务能力。 |
 | 12 | 为什么这样设计？ | 不适用：该条是类别节点而非具名实现，当前材料不能支持具体设计选择解释。 |
@@ -128,15 +128,15 @@
 
 | 序号 | 说明项 | 内容 |
 |:---:|:---|:---|
-| 1 | 概念 | 待核：原登记类别为dependency-category；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认本依赖类别的独立概念，不能用分类标签代替。 |
+| 1 | 概念 | 取得和解析项目依赖的注册表、源码与缓存来源类别 |
 | 2 | 术语 | 4.2 包注册表、Git源与可信缓存 |
-| 3 | 定义 | 依赖图将其作为抽象依赖类别登记：4.2 包注册表、Git源与可信缓存；纳入依据：用户确认此依赖类别已核并要求纳入；注册表、Git来源与缓存分开分类；本次品级按Vibe Coding重要性分组，正式效能评级另行判断。 |
-| 4 | 条目注释 | 待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。 |
+| 3 | 定义 | 工作性定义：一种涵盖包注册表、Git源码来源及可信缓存，用于描述项目依赖获取与解析来源的抽象类别，不指某次下载或具体仓库。 |
+| 4 | 条目注释 | 编者注（据本条固定来源与既有说明归纳）：注册表、Git来源和缓存须分别判断可信性与版本；缓存命中不自动证明来源授权或供应链安全。 |
 | 5 | 来源 | 依赖类别来源与登记记录：{<br>  "source&#95;path": ".github/docs/gongfa/technology-stack.md",<br>  "source&#95;sha256": "88ff3494095c2a794acf130d5d2ccc4eb4b67ccdc8c174e7ef09f35c11a450a2",<br>  "source&#95;anchor": "reference-technology-stack-十六技术栈的层级结构",<br>  "observed&#95;at": "2026-10-10T12:14:00Z"<br>}<br>类别登记：{<br>  "id": "dep-category-package-sources",<br>  "node": "4.2 包注册表、Git源与可信缓存",<br>  "disposition": "user&#95;confirmed&#95;in&#95;scope",<br>  "reason": "用户确认此依赖类别已核并要求纳入；注册表、Git来源与缓存分开分类；本次品级按Vibe Coding重要性分组，正式效能评级另行判断。"<br>}<br>重要性分级记录：{<br>  "subject&#95;id": "dep-category-package-sources",<br>  "grade&#95;id": "faqi-di-intermediate",<br>  "assignment&#95;status": "user&#95;directed&#95;provisional",<br>  "scope": "Vibe Coding重要性：依赖获取、锁定与复现",<br>  "basis": "支持安装成熟组件、解析代码依赖和重建开发环境；具体注册表与来源有替代，不直接承担AI生成。"<br>}<br>类别纳入状态仅表示范围登记，不指向已部署的具体产品。 |
 | 6 | 为什么 | 依赖图纳入该类别是为了表示“取得并解析项目依赖的包注册表、Git源或可信缓存”这一系统能力层；它是用户确认范围内的抽象类别，不代表任一具体产品被采用。 |
 | 7 | 怎么做 | 不适用：本条是抽象依赖类别，不指定唯一可执行产品、安装步骤或操作流程；具体实现需另行识别。 |
 | 8 | 扩展 | 类别层只定义“取得并解析项目依赖的包注册表、Git源或可信缓存”的边界；供应商、软件、版本、插件和部署属于具体实现或独立依赖对象，不作为本类别的默认扩展。 |
-| 9 | 关联信息 | 依赖类别ID=dep-category-package-sources；类别节点=4.2 包注册表、Git源与可信缓存；纳入状态=user&#95;confirmed&#95;in&#95;scope。这是抽象类别，不是具体产品或运行实例。<br>Vibe Coding 重要性暂定：地阶中级（grade&#95;id=faqi-di-intermediate；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：依赖获取、锁定与复现；分级依据：支持安装成熟组件、解析代码依赖和重建开发环境；具体注册表与来源有替代，不直接承担AI生成。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
+| 9 | 关联信息 | 本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。<br><br>原关联记录（含历史意见）：<br>依赖类别ID=dep-category-package-sources；类别节点=4.2 包注册表、Git源与可信缓存；纳入状态=user&#95;confirmed&#95;in&#95;scope。这是抽象类别，不是具体产品或运行实例。<br>Vibe Coding 重要性暂定：地阶中级（grade&#95;id=faqi-di-intermediate；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：依赖获取、锁定与复现；分级依据：支持安装成熟组件、解析代码依赖和重建开发环境；具体注册表与来源有替代，不直接承担AI生成。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
 | 10 | 相关图书 | 本条是依赖图抽象类别，不是书目对象；来源是技术栈的架构节点定义（见第7项），不列产品文档为图书。 |
 | 11 | 它要解决什么问题？ | 该类别覆盖的系统问题是：在工作流中提供“取得并解析项目依赖的包注册表、Git源或可信缓存”所需的依赖位置。它不单独定义业务输入、结果或特定供应商的服务能力。 |
 | 12 | 为什么这样设计？ | 不适用：该条是类别节点而非具名实现，当前材料不能支持具体设计选择解释。 |
@@ -154,15 +154,15 @@
 
 | 序号 | 说明项 | 内容 |
 |:---:|:---|:---|
-| 1 | 概念 | 待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。 |
+| 1 | 概念 | 由历史node入口观察定位的JavaScript运行时实例 |
 | 2 | 术语 | Node.js 运行时 |
-| 3 | 定义 | 现有依赖图将其记录为4.3 语言与运行时节点；身份状态与证据字段：node --version 输出 v22.23.2。 |
-| 4 | 条目注释 | 待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。 |
+| 3 | 定义 | 工作性定义：依赖图中由历史node命令观察定位、承担JavaScript程序执行职责的Node.js运行时实例，原记录版本为v22.23.2。 |
+| 4 | 条目注释 | 编者注（据本条固定来源与既有说明归纳）：v22.23.2是原node --version记录，不是本轮升级声明；包管理器和代理程序版本不由此推导。 |
 | 5 | 来源 | 依赖图来源：{<br>  "source&#95;path": ".github/docs/gongfa/technology-stack.md",<br>  "source&#95;sha256": "88ff3494095c2a794acf130d5d2ccc4eb4b67ccdc8c174e7ef09f35c11a450a2",<br>  "source&#95;anchor": "reference-technology-stack-十六技术栈的层级结构",<br>  "observed&#95;at": "2026-10-10T12:14:00Z"<br>}<br>依赖图对象记录：{<br>  "id": "dep-nodejs-runtime",<br>  "name": "Node.js 运行时",<br>  "type&#95;id": "software-artifact",<br>  "graph&#95;node": "4.3 语言与运行时",<br>  "identity&#95;status": "runtime&#95;observed",<br>  "version": "22.23.2",<br>  "evidence": "node --version 输出 v22.23.2。",<br>  "resource&#95;ids": &#91;&#93;,<br>  "related&#95;object&#95;id": null,<br>  "grade&#95;id": null,<br>  "grade&#95;status": "pending",<br>  "grade&#95;reason": "版本观测不等于具体任务效果；分级量表阈值未校准。"<br>}<br>重要性分级记录：{<br>  "subject&#95;id": "dep-nodejs-runtime",<br>  "grade&#95;id": "faqi-di-intermediate",<br>  "assignment&#95;status": "user&#95;directed&#95;provisional",<br>  "scope": "Vibe Coding重要性：前端及工具链代码运行",<br>  "basis": "支撑前端、Node项目和本仓Markdown工具链；具体语言环境可替代，重要性低于通用Agent与终端执行核心。"<br>}<br>版本/身份字段仅按依赖图记录呈现；未据此推断当前环境中正在运行。 |
 | 6 | 为什么 | 依赖图将Node.js 运行时放在“4.3 语言与运行时”，用于表示该层提供的能力或承载关系。此为架构角色说明，不反推本机选择动机，也不证明该依赖对所有任务必需。 |
 | 7 | 怎么做 | 本条是环境观察记录，不是安装说明。依赖图把它放在“4.3 语言与运行时”职责层；若要采用，具体操作必须依具名产品、版本与项目合同确定，不能从该记录反推已安装或运行。 |
 | 8 | 扩展 | 本对象表示单个依赖图节点（运行观察或具名候选），不是插件/扩展集合；其他版本、替代实现和配置应按各自身份另行说明，不从本条自动继承能力。 |
-| 9 | 关联信息 | 依赖图对象ID=dep-nodejs-runtime；图节点=4.3 语言与运行时；身份状态=runtime&#95;observed；观测版本=22.23.2；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶中级（grade&#95;id=faqi-di-intermediate；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：前端及工具链代码运行；分级依据：支撑前端、Node项目和本仓Markdown工具链；具体语言环境可替代，重要性低于通用Agent与终端执行核心。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
+| 9 | 关联信息 | 本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。<br><br>原关联记录（含历史意见）：<br>依赖图对象ID=dep-nodejs-runtime；图节点=4.3 语言与运行时；身份状态=runtime&#95;observed；观测版本=22.23.2；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶中级（grade&#95;id=faqi-di-intermediate；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：前端及工具链代码运行；分级依据：支撑前端、Node项目和本仓Markdown工具链；具体语言环境可替代，重要性低于通用Agent与终端执行核心。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
 | 10 | 相关图书 | 本条指向依赖图中的runtime&#95;observed对象或观察记录，不是图书主题；固定来源为技术栈依赖图及其环境证据（见第7项），本项不列图书。 |
 | 11 | 它要解决什么问题？ | 在依赖图中，本节点承担“4.3 语言与运行时”的环境/工具职责；它回答的是系统如何提供该层能力，不单独定义某个业务问题或验收目标。 |
 | 12 | 为什么这样设计？ | 依赖图将“4.3 语言与运行时”与其他层分开记录，避免把运行实例、源码、类别和承载平台混为一体。这解释登记结构，不声称上游软件设计者的历史动机。 |
@@ -180,15 +180,15 @@
 
 | 序号 | 说明项 | 内容 |
 |:---:|:---|:---|
-| 1 | 概念 | 待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。 |
+| 1 | 概念 | 由历史共同版本观察定位的npm与npx工具链记录 |
 | 2 | 术语 | npm / npx 工具 |
-| 3 | 定义 | 现有依赖图将其记录为4.2 包管理器与依赖解析器节点；身份状态与证据字段：npm --version 与 npx --version 均输出 10.9.8；登记为同一当前工具链版本观测，不把命令入口重复计数为两件法器。 |
-| 4 | 条目注释 | 待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。 |
+| 3 | 定义 | 工作性定义：依赖图中承担包管理与相关命令调用职责、由npm和npx共同版本10.9.8历史观察定位的工具链记录。 |
+| 4 | 条目注释 | 编者注（据本条固定来源与既有说明归纳）：原两个命令均报告10.9.8；登记为同一工具链观察，不因两个入口重复计成两件独立法器。 |
 | 5 | 来源 | 依赖图来源：{<br>  "source&#95;path": ".github/docs/gongfa/technology-stack.md",<br>  "source&#95;sha256": "88ff3494095c2a794acf130d5d2ccc4eb4b67ccdc8c174e7ef09f35c11a450a2",<br>  "source&#95;anchor": "reference-technology-stack-十六技术栈的层级结构",<br>  "observed&#95;at": "2026-10-10T12:14:00Z"<br>}<br>依赖图对象记录：{<br>  "id": "dep-npm-npx",<br>  "name": "npm / npx 工具",<br>  "type&#95;id": "software-artifact",<br>  "graph&#95;node": "4.2 包管理器与依赖解析器",<br>  "identity&#95;status": "runtime&#95;observed",<br>  "version": "10.9.8",<br>  "evidence": "npm --version 与 npx --version 均输出 10.9.8；登记为同一当前工具链版本观测，不把命令入口重复计数为两件法器。",<br>  "resource&#95;ids": &#91;&#93;,<br>  "related&#95;object&#95;id": null,<br>  "grade&#95;id": null,<br>  "grade&#95;status": "pending",<br>  "grade&#95;reason": "版本观测不等于具体任务效果；分级量表阈值未校准。"<br>}<br>重要性分级记录：{<br>  "subject&#95;id": "dep-npm-npx",<br>  "grade&#95;id": "faqi-di-intermediate",<br>  "assignment&#95;status": "user&#95;directed&#95;provisional",<br>  "scope": "Vibe Coding重要性：Node依赖解析与工具调用",<br>  "basis": "让Node生态依赖和命令行工具可安装、解析与调用；作用范围依赖项目技术栈，可由其他生态包管理器替代。"<br>}<br>版本/身份字段仅按依赖图记录呈现；未据此推断当前环境中正在运行。 |
 | 6 | 为什么 | 依赖图将npm / npx 工具放在“4.2 包管理器与依赖解析器”，用于表示该层提供的能力或承载关系。此为架构角色说明，不反推本机选择动机，也不证明该依赖对所有任务必需。 |
 | 7 | 怎么做 | 本条是环境观察记录，不是安装说明。依赖图把它放在“4.2 包管理器与依赖解析器”职责层；若要采用，具体操作必须依具名产品、版本与项目合同确定，不能从该记录反推已安装或运行。 |
 | 8 | 扩展 | 本对象表示单个依赖图节点（运行观察或具名候选），不是插件/扩展集合；其他版本、替代实现和配置应按各自身份另行说明，不从本条自动继承能力。 |
-| 9 | 关联信息 | 依赖图对象ID=dep-npm-npx；图节点=4.2 包管理器与依赖解析器；身份状态=runtime&#95;observed；观测版本=10.9.8；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶中级（grade&#95;id=faqi-di-intermediate；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：Node依赖解析与工具调用；分级依据：让Node生态依赖和命令行工具可安装、解析与调用；作用范围依赖项目技术栈，可由其他生态包管理器替代。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
+| 9 | 关联信息 | 本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。<br><br>原关联记录（含历史意见）：<br>依赖图对象ID=dep-npm-npx；图节点=4.2 包管理器与依赖解析器；身份状态=runtime&#95;observed；观测版本=10.9.8；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶中级（grade&#95;id=faqi-di-intermediate；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：Node依赖解析与工具调用；分级依据：让Node生态依赖和命令行工具可安装、解析与调用；作用范围依赖项目技术栈，可由其他生态包管理器替代。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
 | 10 | 相关图书 | 本条指向依赖图中的runtime&#95;observed对象或观察记录，不是图书主题；固定来源为技术栈依赖图及其环境证据（见第7项），本项不列图书。 |
 | 11 | 它要解决什么问题？ | 在依赖图中，本节点承担“4.2 包管理器与依赖解析器”的环境/工具职责；它回答的是系统如何提供该层能力，不单独定义某个业务问题或验收目标。 |
 | 12 | 为什么这样设计？ | 依赖图将“4.2 包管理器与依赖解析器”与其他层分开记录，避免把运行实例、源码、类别和承载平台混为一体。这解释登记结构，不声称上游软件设计者的历史动机。 |
@@ -206,15 +206,15 @@
 
 | 序号 | 说明项 | 内容 |
 |:---:|:---|:---|
-| 1 | 概念 | 待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。 |
+| 1 | 概念 | 由历史python3入口观察定位的语言运行时实例 |
 | 2 | 术语 | Python 运行时 |
-| 3 | 定义 | 现有依赖图将其记录为4.3 语言与运行时节点；身份状态与证据字段：python3 --version 输出 Python 3.12.3。 |
-| 4 | 条目注释 | 待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。 |
+| 3 | 定义 | 工作性定义：依赖图中由历史python3命令观察定位、承担Python程序解释执行职责的语言运行时实例，原记录版本为3.12.3。 |
+| 4 | 条目注释 | 编者注（据本条固定来源与既有说明归纳）：3.12.3仅对应原python3 --version观察；其他虚拟环境、别名及平台的Python入口需分别判断。 |
 | 5 | 来源 | 依赖图来源：{<br>  "source&#95;path": ".github/docs/gongfa/technology-stack.md",<br>  "source&#95;sha256": "88ff3494095c2a794acf130d5d2ccc4eb4b67ccdc8c174e7ef09f35c11a450a2",<br>  "source&#95;anchor": "reference-technology-stack-十六技术栈的层级结构",<br>  "observed&#95;at": "2026-10-10T12:14:00Z"<br>}<br>依赖图对象记录：{<br>  "id": "dep-python-runtime",<br>  "name": "Python 运行时",<br>  "type&#95;id": "software-artifact",<br>  "graph&#95;node": "4.3 语言与运行时",<br>  "identity&#95;status": "runtime&#95;observed",<br>  "version": "3.12.3",<br>  "evidence": "python3 --version 输出 Python 3.12.3。",<br>  "resource&#95;ids": &#91;&#93;,<br>  "related&#95;object&#95;id": null,<br>  "grade&#95;id": null,<br>  "grade&#95;status": "pending",<br>  "grade&#95;reason": "版本观测不等于具体任务效果；分级量表阈值未校准。"<br>}<br>重要性分级记录：{<br>  "subject&#95;id": "dep-python-runtime",<br>  "grade&#95;id": "faqi-di-intermediate",<br>  "assignment&#95;status": "user&#95;directed&#95;provisional",<br>  "scope": "Vibe Coding重要性：脚本、工具与项目代码运行",<br>  "basis": "支撑本仓工具及大量Python项目的执行和验证；语言运行时可按项目替代，重要但非所有Vibe Coding任务必需。"<br>}<br>版本/身份字段仅按依赖图记录呈现；未据此推断当前环境中正在运行。 |
 | 6 | 为什么 | 依赖图将Python 运行时放在“4.3 语言与运行时”，用于表示该层提供的能力或承载关系。此为架构角色说明，不反推本机选择动机，也不证明该依赖对所有任务必需。 |
 | 7 | 怎么做 | 本条是环境观察记录，不是安装说明。依赖图把它放在“4.3 语言与运行时”职责层；若要采用，具体操作必须依具名产品、版本与项目合同确定，不能从该记录反推已安装或运行。 |
 | 8 | 扩展 | 本对象表示单个依赖图节点（运行观察或具名候选），不是插件/扩展集合；其他版本、替代实现和配置应按各自身份另行说明，不从本条自动继承能力。 |
-| 9 | 关联信息 | 依赖图对象ID=dep-python-runtime；图节点=4.3 语言与运行时；身份状态=runtime&#95;observed；观测版本=3.12.3；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶中级（grade&#95;id=faqi-di-intermediate；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：脚本、工具与项目代码运行；分级依据：支撑本仓工具及大量Python项目的执行和验证；语言运行时可按项目替代，重要但非所有Vibe Coding任务必需。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
+| 9 | 关联信息 | 本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。<br><br>原关联记录（含历史意见）：<br>依赖图对象ID=dep-python-runtime；图节点=4.3 语言与运行时；身份状态=runtime&#95;observed；观测版本=3.12.3；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶中级（grade&#95;id=faqi-di-intermediate；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：脚本、工具与项目代码运行；分级依据：支撑本仓工具及大量Python项目的执行和验证；语言运行时可按项目替代，重要但非所有Vibe Coding任务必需。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
 | 10 | 相关图书 | 本条指向依赖图中的runtime&#95;observed对象或观察记录，不是图书主题；固定来源为技术栈依赖图及其环境证据（见第7项），本项不列图书。 |
 | 11 | 它要解决什么问题？ | 在依赖图中，本节点承担“4.3 语言与运行时”的环境/工具职责；它回答的是系统如何提供该层能力，不单独定义某个业务问题或验收目标。 |
 | 12 | 为什么这样设计？ | 依赖图将“4.3 语言与运行时”与其他层分开记录，避免把运行实例、源码、类别和承载平台混为一体。这解释登记结构，不声称上游软件设计者的历史动机。 |
@@ -232,15 +232,15 @@
 
 | 序号 | 说明项 | 内容 |
 |:---:|:---|:---|
-| 1 | 概念 | 待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。 |
+| 1 | 概念 | 由历史版本观察定位的GNU Make构建工具实例 |
 | 2 | 术语 | GNU Make |
-| 3 | 定义 | 现有依赖图将其记录为4.3 构建系统节点；身份状态与证据字段：make --version 输出 GNU Make 4.3。 |
-| 4 | 条目注释 | 待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。 |
+| 3 | 定义 | 工作性定义：依赖图中由历史make版本观察定位、按构建描述组织目标及依赖执行的GNU Make工具实例，原记录版本为4.3。 |
+| 4 | 条目注释 | 编者注（据本条固定来源与既有说明归纳）：原make --version记录为4.3；读取Makefile和执行其目标具有不同副作用，不能仅凭工具存在运行任意目标。 |
 | 5 | 来源 | 依赖图来源：{<br>  "source&#95;path": ".github/docs/gongfa/technology-stack.md",<br>  "source&#95;sha256": "88ff3494095c2a794acf130d5d2ccc4eb4b67ccdc8c174e7ef09f35c11a450a2",<br>  "source&#95;anchor": "reference-technology-stack-十六技术栈的层级结构",<br>  "observed&#95;at": "2026-10-10T12:14:00Z"<br>}<br>依赖图对象记录：{<br>  "id": "dep-gnu-make",<br>  "name": "GNU Make",<br>  "type&#95;id": "software-artifact",<br>  "graph&#95;node": "4.3 构建系统",<br>  "identity&#95;status": "runtime&#95;observed",<br>  "version": "4.3",<br>  "evidence": "make --version 输出 GNU Make 4.3。",<br>  "resource&#95;ids": &#91;&#93;,<br>  "related&#95;object&#95;id": null,<br>  "grade&#95;id": null,<br>  "grade&#95;status": "pending",<br>  "grade&#95;reason": "版本观测不等于具体任务效果；分级量表阈值未校准。"<br>}<br>重要性分级记录：{<br>  "subject&#95;id": "dep-gnu-make",<br>  "grade&#95;id": "faqi-di-initial",<br>  "assignment&#95;status": "user&#95;directed&#95;provisional",<br>  "scope": "Vibe Coding重要性：可重复构建与检查入口",<br>  "basis": "把构建和验证命令组织成可重复入口有助于交付，但Make可由其他任务运行器或脚本替代。"<br>}<br>版本/身份字段仅按依赖图记录呈现；未据此推断当前环境中正在运行。 |
 | 6 | 为什么 | 依赖图将GNU Make放在“4.3 构建系统”，用于表示该层提供的能力或承载关系。此为架构角色说明，不反推本机选择动机，也不证明该依赖对所有任务必需。 |
 | 7 | 怎么做 | 本条是环境观察记录，不是安装说明。依赖图把它放在“4.3 构建系统”职责层；若要采用，具体操作必须依具名产品、版本与项目合同确定，不能从该记录反推已安装或运行。 |
 | 8 | 扩展 | 本对象表示单个依赖图节点（运行观察或具名候选），不是插件/扩展集合；其他版本、替代实现和配置应按各自身份另行说明，不从本条自动继承能力。 |
-| 9 | 关联信息 | 依赖图对象ID=dep-gnu-make；图节点=4.3 构建系统；身份状态=runtime&#95;observed；观测版本=4.3；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶初级（grade&#95;id=faqi-di-initial；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：可重复构建与检查入口；分级依据：把构建和验证命令组织成可重复入口有助于交付，但Make可由其他任务运行器或脚本替代。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
+| 9 | 关联信息 | 本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。<br><br>原关联记录（含历史意见）：<br>依赖图对象ID=dep-gnu-make；图节点=4.3 构建系统；身份状态=runtime&#95;observed；观测版本=4.3；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶初级（grade&#95;id=faqi-di-initial；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：可重复构建与检查入口；分级依据：把构建和验证命令组织成可重复入口有助于交付，但Make可由其他任务运行器或脚本替代。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
 | 10 | 相关图书 | 本条指向依赖图中的runtime&#95;observed对象或观察记录，不是图书主题；固定来源为技术栈依赖图及其环境证据（见第7项），本项不列图书。 |
 | 11 | 它要解决什么问题？ | 在依赖图中，本节点承担“4.3 构建系统”的环境/工具职责；它回答的是系统如何提供该层能力，不单独定义某个业务问题或验收目标。 |
 | 12 | 为什么这样设计？ | 依赖图将“4.3 构建系统”与其他层分开记录，避免把运行实例、源码、类别和承载平台混为一体。这解释登记结构，不声称上游软件设计者的历史动机。 |
@@ -258,15 +258,15 @@
 
 | 序号 | 说明项 | 内容 |
 |:---:|:---|:---|
-| 1 | 概念 | 待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。 |
+| 1 | 概念 | 由历史发行版标识定位的Ubuntu用户空间环境 |
 | 2 | 术语 | Ubuntu 用户空间发行版 |
-| 3 | 定义 | 现有依赖图将其记录为6.1 Linux发行版 / Ubuntu节点；身份状态与证据字段：/etc/os-release 报告 Ubuntu 24.04.3 LTS（VERSION&#95;ID=24.04）。 |
-| 4 | 条目注释 | 待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。 |
+| 3 | 定义 | 工作性定义：依赖图中由历史/etc/os-release标识定位的Ubuntu用户空间发行版环境，区别于其下层Linux内核与Windows宿主。 |
+| 4 | 条目注释 | 编者注（据本条固定来源与既有说明归纳）：原/etc/os-release记录为Ubuntu24.04.3 LTS、VERSION&#95;ID=24.04；不据此推断当前升级状态或对应内核版本。 |
 | 5 | 来源 | 依赖图来源：{<br>  "source&#95;path": ".github/docs/gongfa/technology-stack.md",<br>  "source&#95;sha256": "88ff3494095c2a794acf130d5d2ccc4eb4b67ccdc8c174e7ef09f35c11a450a2",<br>  "source&#95;anchor": "reference-technology-stack-十六技术栈的层级结构",<br>  "observed&#95;at": "2026-10-10T12:14:00Z"<br>}<br>依赖图对象记录：{<br>  "id": "dep-ubuntu-userland",<br>  "name": "Ubuntu 用户空间发行版",<br>  "type&#95;id": "software-artifact",<br>  "graph&#95;node": "6.1 Linux发行版 / Ubuntu",<br>  "identity&#95;status": "runtime&#95;observed",<br>  "version": "24.04.3 LTS",<br>  "evidence": "/etc/os-release 报告 Ubuntu 24.04.3 LTS（VERSION&#95;ID=24.04）。",<br>  "resource&#95;ids": &#91;&#93;,<br>  "related&#95;object&#95;id": null,<br>  "grade&#95;id": null,<br>  "grade&#95;status": "pending",<br>  "grade&#95;reason": "版本观测不等于具体任务效果；分级量表阈值未校准。"<br>}<br>重要性分级记录：{<br>  "subject&#95;id": "dep-ubuntu-userland",<br>  "grade&#95;id": "faqi-di-initial",<br>  "assignment&#95;status": "user&#95;directed&#95;provisional",<br>  "scope": "Vibe Coding重要性：当前Linux用户空间",<br>  "basis": "承载当前工具链和本地命令，但同类操作系统环境可以替代，重要性来自运行基座而非该发行版身份。"<br>}<br>版本/身份字段仅按依赖图记录呈现；未据此推断当前环境中正在运行。 |
 | 6 | 为什么 | 依赖图将Ubuntu 用户空间发行版放在“6.1 Linux发行版 / Ubuntu”，用于表示该层提供的能力或承载关系。此为架构角色说明，不反推本机选择动机，也不证明该依赖对所有任务必需。 |
 | 7 | 怎么做 | 本条是环境观察记录，不是安装说明。依赖图把它放在“6.1 Linux发行版 / Ubuntu”职责层；若要采用，具体操作必须依具名产品、版本与项目合同确定，不能从该记录反推已安装或运行。 |
 | 8 | 扩展 | 本对象表示单个依赖图节点（运行观察或具名候选），不是插件/扩展集合；其他版本、替代实现和配置应按各自身份另行说明，不从本条自动继承能力。 |
-| 9 | 关联信息 | 依赖图对象ID=dep-ubuntu-userland；图节点=6.1 Linux发行版 / Ubuntu；身份状态=runtime&#95;observed；观测版本=24.04.3 LTS；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶初级（grade&#95;id=faqi-di-initial；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：当前Linux用户空间；分级依据：承载当前工具链和本地命令，但同类操作系统环境可以替代，重要性来自运行基座而非该发行版身份。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
+| 9 | 关联信息 | 本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。<br><br>原关联记录（含历史意见）：<br>依赖图对象ID=dep-ubuntu-userland；图节点=6.1 Linux发行版 / Ubuntu；身份状态=runtime&#95;observed；观测版本=24.04.3 LTS；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶初级（grade&#95;id=faqi-di-initial；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：当前Linux用户空间；分级依据：承载当前工具链和本地命令，但同类操作系统环境可以替代，重要性来自运行基座而非该发行版身份。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
 | 10 | 相关图书 | 本条指向依赖图中的runtime&#95;observed对象或观察记录，不是图书主题；固定来源为技术栈依赖图及其环境证据（见第7项），本项不列图书。 |
 | 11 | 它要解决什么问题？ | 在依赖图中，本节点承担“6.1 Linux发行版 / Ubuntu”的环境/工具职责；它回答的是系统如何提供该层能力，不单独定义某个业务问题或验收目标。 |
 | 12 | 为什么这样设计？ | 依赖图将“6.1 Linux发行版 / Ubuntu”与其他层分开记录，避免把运行实例、源码、类别和承载平台混为一体。这解释登记结构，不声称上游软件设计者的历史动机。 |
@@ -284,15 +284,15 @@
 
 | 序号 | 说明项 | 内容 |
 |:---:|:---|:---|
-| 1 | 概念 | 待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。 |
+| 1 | 概念 | 由历史uname版本定位的WSL2内核实例 |
 | 2 | 术语 | WSL2 Linux 内核 |
-| 3 | 定义 | 现有依赖图将其记录为6.1 WSL / 版本对应的Linux内核节点；身份状态与证据字段：uname -r 输出 6.6.87.2-microsoft-standard-WSL2；不据内核版本推断 Windows/WSL 产品版本。 |
-| 4 | 条目注释 | 待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。 |
+| 3 | 定义 | 工作性定义：依赖图中由历史uname观察定位、承担WSL2环境内核层职责的Linux内核实例记录，原版本为6.6.87.2-microsoft-standard-WSL2。 |
+| 4 | 条目注释 | 编者注（据本条固定来源与既有说明归纳）：6.6.87.2-microsoft-standard-WSL2是原内核版本观察；不能由该字符串反推Windows和WSL产品的具体版本。 |
 | 5 | 来源 | 依赖图来源：{<br>  "source&#95;path": ".github/docs/gongfa/technology-stack.md",<br>  "source&#95;sha256": "88ff3494095c2a794acf130d5d2ccc4eb4b67ccdc8c174e7ef09f35c11a450a2",<br>  "source&#95;anchor": "reference-technology-stack-十六技术栈的层级结构",<br>  "observed&#95;at": "2026-10-10T12:14:00Z"<br>}<br>依赖图对象记录：{<br>  "id": "dep-wsl2-kernel",<br>  "name": "WSL2 Linux 内核",<br>  "type&#95;id": "software-artifact",<br>  "graph&#95;node": "6.1 WSL / 版本对应的Linux内核",<br>  "identity&#95;status": "runtime&#95;observed",<br>  "version": "6.6.87.2-microsoft-standard-WSL2",<br>  "evidence": "uname -r 输出 6.6.87.2-microsoft-standard-WSL2；不据内核版本推断 Windows/WSL 产品版本。",<br>  "resource&#95;ids": &#91;&#93;,<br>  "related&#95;object&#95;id": null,<br>  "grade&#95;id": null,<br>  "grade&#95;status": "pending",<br>  "grade&#95;reason": "版本观测不等于具体任务效果；分级量表阈值未校准。"<br>}<br>重要性分级记录：{<br>  "subject&#95;id": "dep-wsl2-kernel",<br>  "grade&#95;id": "faqi-di-initial",<br>  "assignment&#95;status": "user&#95;directed&#95;provisional",<br>  "scope": "Vibe Coding重要性：当前运行环境内核",<br>  "basis": "提供当前WSL用户空间的执行底座，但存在其他内核和宿主替代，不属于AI编程核心能力。"<br>}<br>版本/身份字段仅按依赖图记录呈现；未据此推断当前环境中正在运行。 |
 | 6 | 为什么 | 依赖图将WSL2 Linux 内核放在“6.1 WSL / 版本对应的Linux内核”，用于表示该层提供的能力或承载关系。此为架构角色说明，不反推本机选择动机，也不证明该依赖对所有任务必需。 |
 | 7 | 怎么做 | 本条是环境观察记录，不是安装说明。依赖图把它放在“6.1 WSL / 版本对应的Linux内核”职责层；若要采用，具体操作必须依具名产品、版本与项目合同确定，不能从该记录反推已安装或运行。 |
 | 8 | 扩展 | 本对象表示单个依赖图节点（运行观察或具名候选），不是插件/扩展集合；其他版本、替代实现和配置应按各自身份另行说明，不从本条自动继承能力。 |
-| 9 | 关联信息 | 依赖图对象ID=dep-wsl2-kernel；图节点=6.1 WSL / 版本对应的Linux内核；身份状态=runtime&#95;observed；观测版本=6.6.87.2-microsoft-standard-WSL2；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶初级（grade&#95;id=faqi-di-initial；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：当前运行环境内核；分级依据：提供当前WSL用户空间的执行底座，但存在其他内核和宿主替代，不属于AI编程核心能力。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
+| 9 | 关联信息 | 本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。<br><br>原关联记录（含历史意见）：<br>依赖图对象ID=dep-wsl2-kernel；图节点=6.1 WSL / 版本对应的Linux内核；身份状态=runtime&#95;observed；观测版本=6.6.87.2-microsoft-standard-WSL2；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶初级（grade&#95;id=faqi-di-initial；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：当前运行环境内核；分级依据：提供当前WSL用户空间的执行底座，但存在其他内核和宿主替代，不属于AI编程核心能力。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
 | 10 | 相关图书 | 本条指向依赖图中的runtime&#95;observed对象或观察记录，不是图书主题；固定来源为技术栈依赖图及其环境证据（见第7项），本项不列图书。 |
 | 11 | 它要解决什么问题？ | 在依赖图中，本节点承担“6.1 WSL / 版本对应的Linux内核”的环境/工具职责；它回答的是系统如何提供该层能力，不单独定义某个业务问题或验收目标。 |
 | 12 | 为什么这样设计？ | 依赖图将“6.1 WSL / 版本对应的Linux内核”与其他层分开记录，避免把运行实例、源码、类别和承载平台混为一体。这解释登记结构，不声称上游软件设计者的历史动机。 |
@@ -310,15 +310,15 @@
 
 | 序号 | 说明项 | 内容 |
 |:---:|:---|:---|
-| 1 | 概念 | 待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。 |
+| 1 | 概念 | 由历史内核标记识别的WSL2兼容承载环境 |
 | 2 | 术语 | WSL 2 承载平台 |
-| 3 | 定义 | 现有依赖图将其记录为6.1 Windows主机 / WSL节点；身份状态与证据字段：uname -r 含 microsoft-standard-WSL2，确认当前 Linux 内核运行在 WSL2 兼容环境；Windows宿主版本及 WSL 产品版本未核。 |
-| 4 | 条目注释 | 待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。 |
+| 3 | 定义 | 工作性定义：依赖图中由历史Linux内核的microsoft-standard-WSL2标记识别、用于承载Linux用户空间的WSL2兼容平台环境记录。 |
+| 4 | 条目注释 | 编者注（据本条固定来源与既有说明归纳）：microsoft-standard-WSL2标记支持兼容环境判断，不提供Windows宿主版本或WSL产品版本的完整身份。 |
 | 5 | 来源 | 依赖图来源：{<br>  "source&#95;path": ".github/docs/gongfa/technology-stack.md",<br>  "source&#95;sha256": "88ff3494095c2a794acf130d5d2ccc4eb4b67ccdc8c174e7ef09f35c11a450a2",<br>  "source&#95;anchor": "reference-technology-stack-十六技术栈的层级结构",<br>  "observed&#95;at": "2026-10-10T12:14:00Z"<br>}<br>依赖图对象记录：{<br>  "id": "dep-wsl2-platform",<br>  "name": "WSL 2 承载平台",<br>  "type&#95;id": "software-artifact",<br>  "graph&#95;node": "6.1 Windows主机 / WSL",<br>  "identity&#95;status": "runtime&#95;observed",<br>  "version": null,<br>  "evidence": "uname -r 含 microsoft-standard-WSL2，确认当前 Linux 内核运行在 WSL2 兼容环境；Windows宿主版本及 WSL 产品版本未核。",<br>  "resource&#95;ids": &#91;&#93;,<br>  "related&#95;object&#95;id": null,<br>  "grade&#95;id": null,<br>  "grade&#95;status": "pending",<br>  "grade&#95;reason": "承载平台精确版本、任务合同及分级量表阈值尚未确认。"<br>}<br>重要性分级记录：{<br>  "subject&#95;id": "dep-wsl2-platform",<br>  "grade&#95;id": "faqi-di-initial",<br>  "assignment&#95;status": "user&#95;directed&#95;provisional",<br>  "scope": "Vibe Coding重要性：当前宿主环境实现",<br>  "basis": "为当前工具链提供运行宿主，但Linux、macOS或原生Windows等环境可替代，不是Vibe Coding定义性能力。"<br>}<br>版本/身份字段仅按依赖图记录呈现；未据此推断当前环境中正在运行。 |
 | 6 | 为什么 | 依赖图将WSL 2 承载平台放在“6.1 Windows主机 / WSL”，用于表示该层提供的能力或承载关系。此为架构角色说明，不反推本机选择动机，也不证明该依赖对所有任务必需。 |
 | 7 | 怎么做 | 本条是环境观察记录，不是安装说明。依赖图把它放在“6.1 Windows主机 / WSL”职责层；若要采用，具体操作必须依具名产品、版本与项目合同确定，不能从该记录反推已安装或运行。 |
 | 8 | 扩展 | 本对象表示单个依赖图节点（运行观察或具名候选），不是插件/扩展集合；其他版本、替代实现和配置应按各自身份另行说明，不从本条自动继承能力。 |
-| 9 | 关联信息 | 依赖图对象ID=dep-wsl2-platform；图节点=6.1 Windows主机 / WSL；身份状态=runtime&#95;observed；观测版本=未记录；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶初级（grade&#95;id=faqi-di-initial；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：当前宿主环境实现；分级依据：为当前工具链提供运行宿主，但Linux、macOS或原生Windows等环境可替代，不是Vibe Coding定义性能力。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
+| 9 | 关联信息 | 本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。<br><br>原关联记录（含历史意见）：<br>依赖图对象ID=dep-wsl2-platform；图节点=6.1 Windows主机 / WSL；身份状态=runtime&#95;observed；观测版本=未记录；相关本地对象=未关联。<br>Vibe Coding 重要性暂定：地阶初级（grade&#95;id=faqi-di-initial；状态=user&#95;directed&#95;provisional）；范围：Vibe Coding重要性：当前宿主环境实现；分级依据：为当前工具链提供运行宿主，但Linux、macOS或原生Windows等环境可替代，不是Vibe Coding定义性能力。不代表效能评级、运行结果或质量结论。<br>既有关系记录：未记录对象关系。 |
 | 10 | 相关图书 | 本条指向依赖图中的runtime&#95;observed对象或观察记录，不是图书主题；固定来源为技术栈依赖图及其环境证据（见第7项），本项不列图书。 |
 | 11 | 它要解决什么问题？ | 在依赖图中，本节点承担“6.1 Windows主机 / WSL”的环境/工具职责；它回答的是系统如何提供该层能力，不单独定义某个业务问题或验收目标。 |
 | 12 | 为什么这样设计？ | 依赖图将“6.1 Windows主机 / WSL”与其他层分开记录，避免把运行实例、源码、类别和承载平台混为一体。这解释登记结构，不声称上游软件设计者的历史动机。 |

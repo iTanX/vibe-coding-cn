@@ -676,10 +676,14 @@ class CatalogMaintenanceTest(unittest.TestCase):
             for item in payload['items']:
                 fields = {field['name']: field['content'] for field in item['fields']}
                 self.assertEqual(expected_names, list(fields), item['object_key'])
-                self.assertFalse(fields['概念'].startswith(('原登记本体类型：', '原登记类别：')),
-                                 item['object_key'])
-                if fields['概念'].startswith('待核：原登记'):
-                    self.assertIn('不能用分类标签代替', fields['概念'], item['object_key'])
+                self.assertFalse(fields['概念'].startswith(
+                    ('原登记本体类型：', '原登记类别：', '待核：原登记')), item['object_key'])
+                self.assertNotEqual(fields['概念'].strip(), fields['术语'].strip(), item['object_key'])
+                self.assertNotEqual(fields['概念'].strip(), fields['定义'].strip(), item['object_key'])
+                self.assertNotIn('本次仅迁移字段结构', fields['条目注释'], item['object_key'])
+                self.assertNotIn('未逐条判断是否存在', fields['条目注释'], item['object_key'])
+                self.assertNotEqual(fields['条目注释'].strip(), fields['定义'].strip(), item['object_key'])
+                self.assertIn('历史用户审阅仅对当时说明有效', fields['关联信息'], item['object_key'])
                 self.assertIn(fields['提炼共同规律。'], fields['结论'], item['object_key'])
                 warrant = fields['连接规则']
                 self.assertTrue(warrant.startswith('推理桥梁：'), item['object_key'])
@@ -730,6 +734,29 @@ class CatalogMaintenanceTest(unittest.TestCase):
                 selection = source['source_selection']
                 self.assertIn(source['text_sha256'], basis, object_key)
                 self.assertIn(f"passages {selection['start']}–{selection['end']}", basis, object_key)
+
+    def test_v2_term_content_preserves_theorem_case_and_runtime_boundaries(self):
+        # 这些边界来自固定来源及CAP原论文，不由生成器或待测定义推导预期。
+        bundles = source_archive.bundles(ROOT)
+        fields = {
+            item['object_key']: {field['name']: field['content'] for field in item['fields']}
+            for kind in ('gongfa', 'faqi')
+            for item in bundles[kind]['data']['explanations_v2']['items']
+        }
+        cap = fields['registry:gongfa-candidate-html96-vc029-6cca304cec@r1']
+        for term in ('网络分区', '异步', '线性一致性', '非故障节点', '最终响应'):
+            self.assertIn(term, cap['定义'])
+        self.assertIn('§3.1', cap['来源'])
+        self.assertIn('BrewersConjecture-SigAct.pdf', cap['来源'])
+        self.assertNotEqual('一个分布式系统最多只能保证一致性、可用性和分区容错性中的两项。', cap['定义'])
+        pi = fields['faqi:dep-pi-cli']
+        self.assertIn('实例', pi['定义'])
+        self.assertIn('1.1.0', pi['条目注释'])
+        self.assertIn('原记录', pi['条目注释'])
+        config = fields['faqi:faqi-oh-my-tmux']
+        self.assertIn('执行', config['定义'])
+        self.assertIn('S65', config['条目注释'])
+        self.assertIn('不能', config['条目注释'])
 
     def test_historical_archive_status_words_are_identified_as_historical(self):
         rows = catalog.merge_rows(deepcopy(self.documents))

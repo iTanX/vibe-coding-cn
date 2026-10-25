@@ -551,7 +551,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "提示词多格式转换入口的程序工件"
           },
           {
             "name": "术语",
@@ -563,7 +563,7 @@
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：六种转换方向是固定README所列能力，不保证任意Excel、Markdown和JSONL数据无损互换；原入口已退役，未执行验证。"
           },
           {
             "name": "来源",
@@ -583,7 +583,7 @@
           },
           {
             "name": "关联信息",
-            "content": "法器对象ID=faqi-prompt-converter；本体类型=software-artifact；版本声明=未声明；本地入口=无（提示词格式转换程序已退役；退役前最后一个已发布主线快照为`b0e3454bb865b95bdc70127a431214c384542dee`）；当前本机及仓外副本状态未知，未据此推断仍在使用或已卸载。\nVibe Coding 重要性暂定：黄阶初级（grade_id=faqi-huang-initial；状态=user_directed_provisional）；范围：Vibe Coding重要性：提示词资产格式迁移的辅助支路；分级依据：只负责格式转换，能维护和复用提示词资产但不参与模型推理或代码执行；替代方式多，属低重要性辅助。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n来源ID：S02, S01。\n历史输入/输出资产由Excel、Markdown、JSONL组成；历史main.py委托`start_convert.py`处理部分模式，README记录当时的默认目录及辅助脚本。原始快照仍保存在data.json；当前树不保留程序实现。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n法器对象ID=faqi-prompt-converter；本体类型=software-artifact；版本声明=未声明；本地入口=无（提示词格式转换程序已退役；退役前最后一个已发布主线快照为`b0e3454bb865b95bdc70127a431214c384542dee`）；当前本机及仓外副本状态未知，未据此推断仍在使用或已卸载。\nVibe Coding 重要性暂定：黄阶初级（grade_id=faqi-huang-initial；状态=user_directed_provisional）；范围：Vibe Coding重要性：提示词资产格式迁移的辅助支路；分级依据：只负责格式转换，能维护和复用提示词资产但不参与模型推理或代码执行；替代方式多，属低重要性辅助。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n来源ID：S02, S01。\n历史输入/输出资产由Excel、Markdown、JSONL组成；历史main.py委托`start_convert.py`处理部分模式，README记录当时的默认目录及辅助脚本。原始快照仍保存在data.json；当前树不保留程序实现。"
           },
           {
             "name": "相关图书",
@@ -636,7 +636,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "对配置资产进行备份安装和恢复的历史脚本工件"
           },
           {
             "name": "术语",
@@ -648,7 +648,7 @@
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：power可能开启更高权限；dry-run仍有临时目录动作，不能解释为零文件系统副作用。"
           },
           {
             "name": "来源",
@@ -668,7 +668,7 @@
           },
           {
             "name": "关联信息",
-            "content": "法器对象ID=faqi-codex-config-installer；本体类型=software-artifact；版本声明=未声明；本地入口=无（Codex配置安装与恢复脚本已退役；历史路径与来源见第5项）；当前运行实例/部署状态未在对象记录中声明。\nVibe Coding 重要性暂定：玄阶初级（grade_id=faqi-xuan-initial；状态=user_directed_provisional）；范围：Vibe Coding重要性：特定Agent接入配置；分级依据：降低特定Agent初始配置成本，但只服务候选运行时且可手工替代；不属于核心模型推理或执行闭环。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n来源ID：S06, S05。\n与Codex CLI配置文件、AGENTS文本和Codex Home有关；配置与Agent指令不是CLI本身，profile不证明账户、安装版本或审批行为。对象及当前绑定已按退役状态记录。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n法器对象ID=faqi-codex-config-installer；本体类型=software-artifact；版本声明=未声明；本地入口=无（Codex配置安装与恢复脚本已退役；历史路径与来源见第5项）；当前运行实例/部署状态未在对象记录中声明。\nVibe Coding 重要性暂定：玄阶初级（grade_id=faqi-xuan-initial；状态=user_directed_provisional）；范围：Vibe Coding重要性：特定Agent接入配置；分级依据：降低特定Agent初始配置成本，但只服务候选运行时且可手工替代；不属于核心模型推理或执行闭环。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n来源ID：S06, S05。\n与Codex CLI配置文件、AGENTS文本和Codex Home有关；配置与Agent指令不是CLI本身，profile不证明账户、安装版本或审批行为。对象及当前绑定已按退役状态记录。"
           },
           {
             "name": "相关图书",
@@ -721,7 +721,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "生成技能目录和模板文件的历史脚本工件"
           },
           {
             "name": "术语",
@@ -729,11 +729,11 @@
           },
           {
             "name": "定义",
-            "content": "现有登记将其界定为软件工件：指渲染Skill模板与建立目录的程序，不是生成出的Skill内容或整个元技能。--force可覆盖目标，未执行。\n此处复述登记边界，不证明当前可安装、可运行或有效。"
+            "content": "工作性定义：一种从固定minimal/full模板建立Skill目录和初始文档的历史生成脚本；指程序内容而非生成后的技能知识，未执行验证。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：--force可覆盖目标；本条程序、输出Skill内容和现存skill指令入口身份不同，退役脚本不因模板补齐重新启用。"
           },
           {
             "name": "来源",
@@ -753,7 +753,7 @@
           },
           {
             "name": "关联信息",
-            "content": "法器对象ID=faqi-auto-skill-create；本体类型=software-artifact；版本声明=未声明；本地入口=无（模板生成脚本已退役；历史路径与来源见第5项）；相关Skill说明=.github/skills/skill（不同对象，不是该脚本）；当前运行实例/部署状态未在对象记录中声明。\nVibe Coding 重要性暂定：玄阶中级（grade_id=faqi-xuan-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：技能资产扩展与复用；分级依据：把操作知识封装为可复用Agent技能，能扩展后续任务能力；属于增益支路，不是最小编码闭环的必需组件。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n来源ID：S08, S07。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n法器对象ID=faqi-auto-skill-create；本体类型=software-artifact；版本声明=未声明；本地入口=无（模板生成脚本已退役；历史路径与来源见第5项）；相关Skill说明=.github/skills/skill（不同对象，不是该脚本）；当前运行实例/部署状态未在对象记录中声明。\nVibe Coding 重要性暂定：玄阶中级（grade_id=faqi-xuan-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：技能资产扩展与复用；分级依据：把操作知识封装为可复用Agent技能，能扩展后续任务能力；属于增益支路，不是最小编码闭环的必需组件。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n来源ID：S08, S07。"
           },
           {
             "name": "相关图书",
@@ -806,7 +806,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "检查技能元数据与文档结构的历史校验程序"
           },
           {
             "name": "术语",
@@ -814,11 +814,11 @@
           },
           {
             "name": "定义",
-            "content": "现有登记将其界定为软件工件：指frontmatter和结构校验程序；成功结构检查不证明Skill语义、执行正确或效果。\n此处复述登记边界，不证明当前可安装、可运行或有效。"
+            "content": "工作性定义：一种对Skill的frontmatter、必要章节和结构执行普通或strict规则检查的历史校验脚本，不提供技能效果判断。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：strict把部分推荐项变成失败条件；结构成功不证明语义、执行正确性或任务效果，退役入口不恢复。"
           },
           {
             "name": "来源",
@@ -838,7 +838,7 @@
           },
           {
             "name": "关联信息",
-            "content": "法器对象ID=faqi-auto-skill-validate；本体类型=software-artifact；版本声明=未声明；本地入口=无（结构校验脚本已退役；历史路径与来源见第5项）；相关Skill说明=.github/skills/skill（不同对象，不是该脚本）；当前运行实例/部署状态未在对象记录中声明。\nVibe Coding 重要性暂定：玄阶中级（grade_id=faqi-xuan-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：技能资产质量与可载入性；分级依据：降低扩展技能结构错误造成的接入阻断；不判断语义正确性，属于能力扩展的质量辅助。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n来源ID：S09, S07。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n法器对象ID=faqi-auto-skill-validate；本体类型=software-artifact；版本声明=未声明；本地入口=无（结构校验脚本已退役；历史路径与来源见第5项）；相关Skill说明=.github/skills/skill（不同对象，不是该脚本）；当前运行实例/部署状态未在对象记录中声明。\nVibe Coding 重要性暂定：玄阶中级（grade_id=faqi-xuan-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：技能资产质量与可载入性；分级依据：降低扩展技能结构错误造成的接入阻断；不判断语义正确性，属于能力扩展的质量辅助。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n来源ID：S09, S07。"
           },
           {
             "name": "相关图书",
@@ -891,7 +891,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "为固定上游CLI设置Python环境并转交执行的适配程序"
           },
           {
             "name": "术语",
@@ -899,11 +899,11 @@
           },
           {
             "name": "定义",
-            "content": "现有登记将其界定为软件工件：设置venv/PYTHONPATH并exec上游CLI的本地适配程序。指令内容不同于上游核心，不能把封装当同一副本，也不因同一用途合并其他生成脚本。\n此处复述登记边界，不证明当前可安装、可运行或有效。"
+            "content": "工作性定义：一种设置虚拟环境或PYTHONPATH并以exec转交固定Skill Seekers CLI的历史本地适配脚本，未执行验证。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：适配脚本自身不联网或安装，但被转交的上游命令可能有相应副作用；封装不等同于上游核心。"
           },
           {
             "name": "来源",
@@ -923,7 +923,7 @@
           },
           {
             "name": "关联信息",
-            "content": "法器对象ID=faqi-skill-seekers-adapter；本体类型=software-artifact；版本声明=未声明；本地入口=无（Skill Seekers本地适配脚本已退役；历史路径与来源见第5项）；相关Skill说明=.github/skills/skill（不同对象，不是该适配脚本）；当前运行实例/部署状态未在对象记录中声明。\nVibe Coding 重要性暂定：玄阶初级（grade_id=faqi-xuan-initial；状态=user_directed_provisional）；范围：Vibe Coding重要性：Skill Seekers本地适配入口；分级依据：便于调用特定知识转技能工具；范围受上游工具限制，可直接调用或人工替代。不代表效能评级、运行结果或质量结论。\n既有关系记录：{\n  \"subject\": \"faqi-skill-seekers-adapter\",\n  \"predicate\": \"requires\",\n  \"target_label\": \"链接源码中的skill_seekers.cli.main\",\n  \"related_object_id\": \"faqi-skill-seekers\",\n  \"evidence\": \"S10\",\n  \"boundary\": \"源码路径确由软链接指到选定submodule；这是静态加载意图，venv实际依赖、Python解析和运行结果未核。\"\n}\n来源ID：S10, S07。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n法器对象ID=faqi-skill-seekers-adapter；本体类型=software-artifact；版本声明=未声明；本地入口=无（Skill Seekers本地适配脚本已退役；历史路径与来源见第5项）；相关Skill说明=.github/skills/skill（不同对象，不是该适配脚本）；当前运行实例/部署状态未在对象记录中声明。\nVibe Coding 重要性暂定：玄阶初级（grade_id=faqi-xuan-initial；状态=user_directed_provisional）；范围：Vibe Coding重要性：Skill Seekers本地适配入口；分级依据：便于调用特定知识转技能工具；范围受上游工具限制，可直接调用或人工替代。不代表效能评级、运行结果或质量结论。\n既有关系记录：{\n  \"subject\": \"faqi-skill-seekers-adapter\",\n  \"predicate\": \"requires\",\n  \"target_label\": \"链接源码中的skill_seekers.cli.main\",\n  \"related_object_id\": \"faqi-skill-seekers\",\n  \"evidence\": \"S10\",\n  \"boundary\": \"源码路径确由软链接指到选定submodule；这是静态加载意图，venv实际依赖、Python解析和运行结果未核。\"\n}\n来源ID：S10, S07。"
           },
           {
             "name": "相关图书",
@@ -976,7 +976,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "统一分派终端巡检与操控子命令的历史封装程序"
           },
           {
             "name": "术语",
@@ -984,11 +984,11 @@
           },
           {
             "name": "定义",
-            "content": "现有登记将其界定为软件工件：指统一操控脚本，不是SKILL.md、tmux二进制、session/pane或某次操作；支持多命令不增加身份。未发送按键、创建会话或读取pane。\n此处复述登记边界，不证明当前可安装、可运行或有效。"
+            "content": "工作性定义：一种集中分派tmux巡检、输出采集及会话操控等子命令的历史脚本工件，不指tmux本身、SKILL.md或某次会话。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：发送按键、广播、救援和清理与只读巡检有不同副作用；没有实际发送、创建会话或读取pane，且当前入口已退役。"
           },
           {
             "name": "来源",
@@ -1008,7 +1008,7 @@
           },
           {
             "name": "关联信息",
-            "content": "法器对象ID=faqi-auto-tmux；本体类型=software-artifact；版本声明=未声明；本地入口=无（auto-tmux命令封装脚本已退役；历史路径与来源见第5项）；相关历史Skill说明原路径=.github/skills/auto-tmux（不同对象，不是该封装脚本；已从GitHub当前树移除，原始来源仍保留在documents和Git历史）；当前运行实例/部署状态未在对象记录中声明。\nVibe Coding 重要性暂定：黄阶高级（grade_id=faqi-huang-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：多会话终端协作自动化；分级依据：多会话与worker协作在复杂并行时有用，但基础单Agent编码有替代路径；本级只表达工作流重要性，不评价实现质量或效能。不代表效能评级、运行结果或质量结论。\n既有关系记录：{\n  \"subject\": \"faqi-auto-tmux\",\n  \"predicate\": \"requires\",\n  \"target_label\": \"tmux程序（运行版本未知）\",\n  \"related_object_id\": \"faqi-tmux\",\n  \"evidence\": \"S13\",\n  \"boundary\": \"脚本调用PATH中的tmux；本地上游源码仅作相关参照，不证明实际安装二进制来自该修订。\"\n}\n来源ID：S12, S11。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n法器对象ID=faqi-auto-tmux；本体类型=software-artifact；版本声明=未声明；本地入口=无（auto-tmux命令封装脚本已退役；历史路径与来源见第5项）；相关历史Skill说明原路径=.github/skills/auto-tmux（不同对象，不是该封装脚本；已从GitHub当前树移除，原始来源仍保留在documents和Git历史）；当前运行实例/部署状态未在对象记录中声明。\nVibe Coding 重要性暂定：黄阶高级（grade_id=faqi-huang-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：多会话终端协作自动化；分级依据：多会话与worker协作在复杂并行时有用，但基础单Agent编码有替代路径；本级只表达工作流重要性，不评价实现质量或效能。不代表效能评级、运行结果或质量结论。\n既有关系记录：{\n  \"subject\": \"faqi-auto-tmux\",\n  \"predicate\": \"requires\",\n  \"target_label\": \"tmux程序（运行版本未知）\",\n  \"related_object_id\": \"faqi-tmux\",\n  \"evidence\": \"S13\",\n  \"boundary\": \"脚本调用PATH中的tmux；本地上游源码仅作相关参照，不证明实际安装二进制来自该修订。\"\n}\n来源ID：S12, S11。"
           },
           {
             "name": "相关图书",
@@ -1061,7 +1061,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "具有命令行及可选MCP接口的固定技能生成程序工件"
           },
           {
             "name": "术语",
@@ -1069,11 +1069,11 @@
           },
           {
             "name": "定义",
-            "content": "现有登记将其界定为软件工件：指固定submodule修订的软件实现；多个CLI入口及可选MCP模块不机械复制产品身份。3.5.1仅为pyproject源码声明，不是已核发布或运行版。MCP头注释34项与静态40个装饰函数、health返回2.1.1均不作为运行清单或身份版本证明。\n此处复述登记边界，不证明当前可安装、可运行或有效。"
+            "content": "工作性定义：一种按固定修订纳入、提供多个CLI入口和可选MCP模块的Skill Seekers软件工件；源码已经从当前树退役，冻结选区不证明当前可安装或运行。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：3.5.1仅为pyproject声明；MCP注释34项、静态40个装饰函数及health文本2.1.1均不代表运行清单或发布版本，未执行上游。"
           },
           {
             "name": "来源",
@@ -1093,7 +1093,7 @@
           },
           {
             "name": "关联信息",
-            "content": "法器对象ID=faqi-skill-seekers；本体类型=software-artifact；版本声明=3.5.1（仅源码声明）；本地入口=无（固定Gitlink已从当前树移除；冻结来源、SHA、初审及重要性记录保留）；当前运行实例/部署状态未在对象记录中声明。；当前资源关联ID=repo-rules-scaffolds-skills-cd973130（关联不等于许可或运行证明）。固定修订许可观察：LICENSE文本标为MIT，但版权行仍为[Your Name/Username]占位符；同修订pyproject.toml的authors字段列为Yusuf Karaaslan。作者元数据不证明版权归属或授权；本项目仍未批准该许可证。\nVibe Coding 重要性暂定：玄阶中级（grade_id=faqi-xuan-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：外部知识转可复用技能；分级依据：增加Agent可复用的领域能力和上下文资产；需特定工作流，不能替代通用推理与工具执行。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n关联资源ID：repo-rules-scaffolds-skills-cd973130。资源链接/本地关联不证明许可、兼容性或功能等价。\n来源ID：S16, S14, S15, S42, S44, S45, S46, S47, S48, S49, S50, S66, S67, S68, S69, S70, S71, S72, S73。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n法器对象ID=faqi-skill-seekers；本体类型=software-artifact；版本声明=3.5.1（仅源码声明）；本地入口=无（固定Gitlink已从当前树移除；冻结来源、SHA、初审及重要性记录保留）；当前运行实例/部署状态未在对象记录中声明。；当前资源关联ID=repo-rules-scaffolds-skills-cd973130（关联不等于许可或运行证明）。固定修订许可观察：LICENSE文本标为MIT，但版权行仍为[Your Name/Username]占位符；同修订pyproject.toml的authors字段列为Yusuf Karaaslan。作者元数据不证明版权归属或授权；本项目仍未批准该许可证。\nVibe Coding 重要性暂定：玄阶中级（grade_id=faqi-xuan-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：外部知识转可复用技能；分级依据：增加Agent可复用的领域能力和上下文资产；需特定工作流，不能替代通用推理与工具执行。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n关联资源ID：repo-rules-scaffolds-skills-cd973130。资源链接/本地关联不证明许可、兼容性或功能等价。\n来源ID：S16, S14, S15, S42, S44, S45, S46, S47, S48, S49, S50, S66, S67, S68, S69, S70, S71, S72, S73。"
           },
           {
             "name": "相关图书",
@@ -1146,7 +1146,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "含Shell执行链的tmux配置型程序工件"
           },
           {
             "name": "术语",
@@ -1154,11 +1154,11 @@
           },
           {
             "name": "定义",
-            "content": "现有登记将其界定为软件工件：配置文件含run、cut|sh调用链及可执行shell指令，按实际程序内容归software-artifact，不能仅因.conf后缀归纯规约；不是tmux本身。仓内.logo许可证另由S65绑定；其指向可变tmux/master路径，具体SVG来源关系与许可覆盖范围未核，不能据此批准仓库整体再分发。\n此处复述登记边界，不证明当前可安装、可运行或有效。"
+            "content": "工作性定义：一种以tmux配置文件呈现、内部含run及cut与Shell执行调用链的固定程序内容；不是纯说明规约，也不是tmux主程序，未加载验证。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：.logo许可仅有S65支持，其引用可变tmux/master资源，具体SVG来源与许可覆盖未核；不能据此批准整个仓库再分发。"
           },
           {
             "name": "来源",
@@ -1178,7 +1178,7 @@
           },
           {
             "name": "关联信息",
-            "content": "法器对象ID=faqi-oh-my-tmux；本体类型=software-artifact；版本声明=未声明；本地入口=.github/extensions/oh-my-tmux；当前运行实例/部署状态未在对象记录中声明。\nVibe Coding 重要性暂定：黄阶中级（grade_id=faqi-huang-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：终端复用器体验配置；分级依据：改善tmux使用便利性，但不提供模型推理或核心代码执行能力，可由其他终端配置替代。不代表效能评级、运行结果或质量结论。\n既有关系记录：{\n  \"subject\": \"faqi-oh-my-tmux\",\n  \"predicate\": \"requires\",\n  \"target_label\": \"tmux>=2.6及awk/perl/grep/sed\",\n  \"related_object_id\": \"faqi-tmux\",\n  \"evidence\": \"S17\",\n  \"boundary\": \"README声明版本下限，不将配置修订误写成tmux版本，也不保证当前环境满足依赖。\"\n}\n来源ID：S18, S17, S19, S37, S38, S39, S65。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n法器对象ID=faqi-oh-my-tmux；本体类型=software-artifact；版本声明=未声明；本地入口=.github/extensions/oh-my-tmux；当前运行实例/部署状态未在对象记录中声明。\nVibe Coding 重要性暂定：黄阶中级（grade_id=faqi-huang-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：终端复用器体验配置；分级依据：改善tmux使用便利性，但不提供模型推理或核心代码执行能力，可由其他终端配置替代。不代表效能评级、运行结果或质量结论。\n既有关系记录：{\n  \"subject\": \"faqi-oh-my-tmux\",\n  \"predicate\": \"requires\",\n  \"target_label\": \"tmux>=2.6及awk/perl/grep/sed\",\n  \"related_object_id\": \"faqi-tmux\",\n  \"evidence\": \"S17\",\n  \"boundary\": \"README声明版本下限，不将配置修订误写成tmux版本，也不保证当前环境满足依赖。\"\n}\n来源ID：S18, S17, S19, S37, S38, S39, S65。"
           },
           {
             "name": "相关图书",
@@ -1231,7 +1231,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "固定源码修订所表达的终端复用程序工件"
           },
           {
             "name": "术语",
@@ -1239,11 +1239,11 @@
           },
           {
             "name": "定义",
-            "content": "现有登记将其界定为软件工件：指固定源码修订的程序内容，不是物理终端、pane、socket地址或一次会话。Git describe的邻近tag不作为已核发布版本。\n此处复述登记边界，不证明当前可安装、可运行或有效。"
+            "content": "工作性定义：一种按固定源码修订纳入、提供终端会话复用功能的tmux程序工件；不指物理终端、单个pane、socket或某次会话，未运行验证。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：Git describe邻近tag不等于已核发布版；本条固定源码与另记的历史本机tmux实例不互相替代。"
           },
           {
             "name": "来源",
@@ -1263,7 +1263,7 @@
           },
           {
             "name": "关联信息",
-            "content": "法器对象ID=faqi-tmux；本体类型=software-artifact；版本声明=未声明；本地入口=.github/extensions/tmux；当前运行实例/部署状态未在对象记录中声明。；当前资源关联ID=repo-rules-scaffolds-tmux-9f36981a（关联不等于许可或运行证明）。\nVibe Coding 重要性暂定：黄阶高级（grade_id=faqi-huang-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：可选的多会话终端复用；分级依据：支持持久终端与多窗口工作流，复杂长任务可受益；普通编码闭环有替代方案，不属定义性核心。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n关联资源ID：repo-rules-scaffolds-tmux-9f36981a。资源链接/本地关联不证明许可、兼容性或功能等价。\n来源ID：S21, S20, S40, S41, S52, S53, S54, S55, S56, S57, S58, S59, S60, S61, S62, S63, S64。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n法器对象ID=faqi-tmux；本体类型=software-artifact；版本声明=未声明；本地入口=.github/extensions/tmux；当前运行实例/部署状态未在对象记录中声明。；当前资源关联ID=repo-rules-scaffolds-tmux-9f36981a（关联不等于许可或运行证明）。\nVibe Coding 重要性暂定：黄阶高级（grade_id=faqi-huang-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：可选的多会话终端复用；分级依据：支持持久终端与多窗口工作流，复杂长任务可受益；普通编码闭环有替代方案，不属定义性核心。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n关联资源ID：repo-rules-scaffolds-tmux-9f36981a。资源链接/本地关联不证明许可、兼容性或功能等价。\n来源ID：S21, S20, S40, S41, S52, S53, S54, S55, S56, S57, S58, S59, S60, S61, S62, S63, S64。"
           },
           {
             "name": "相关图书",
@@ -1316,7 +1316,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "生成单个技能目录与资源骨架的Python程序工件"
           },
           {
             "name": "术语",
@@ -1324,11 +1324,11 @@
           },
           {
             "name": "定义",
-            "content": "现有登记将其界定为软件工件：只纳入skill-creator下生成目录/模板的独立Python程序，不把官方Skill集合、自然语言方法、模板或其他全部辅助脚本称作同一程序。\n此处复述登记边界，不证明当前可安装、可运行或有效。"
+            "content": "工作性定义：一种按name/path参数创建单个Skill目录、模板和资源骨架，并在目标已存在时拒绝创建的固定Python初始化程序，未执行验证。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：仅收skill-creator中的独立初始化脚本，官方技能集合、模板和其他辅助脚本不并入同一身份；当前入口已退役。"
           },
           {
             "name": "来源",
@@ -1348,7 +1348,7 @@
           },
           {
             "name": "关联信息",
-            "content": "法器对象ID=faqi-claude-skill-init；本体类型=software-artifact；版本声明=未声明；本地入口=无；Claude Skills固定Gitlink与独立初始化器已从当前树移除（2026-10-22）；冻结来源字节、修订、SHA和历史初审仍保留于档案。当前运行实例/部署状态未在对象记录中声明。\nVibe Coding 重要性暂定：玄阶初级（grade_id=faqi-xuan-initial；状态=user_directed_provisional）；范围：Vibe Coding重要性：特定Skill模板初始化；分级依据：降低Claude Skill结构初始化成本，作用范围绑定特定生态，可手工完成且不影响其他Agent的基础闭环。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n来源ID：S23, S22, S43, S51。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n法器对象ID=faqi-claude-skill-init；本体类型=software-artifact；版本声明=未声明；本地入口=无；Claude Skills固定Gitlink与独立初始化器已从当前树移除（2026-10-22）；冻结来源字节、修订、SHA和历史初审仍保留于档案。当前运行实例/部署状态未在对象记录中声明。\nVibe Coding 重要性暂定：玄阶初级（grade_id=faqi-xuan-initial；状态=user_directed_provisional）；范围：Vibe Coding重要性：特定Skill模板初始化；分级依据：降低Claude Skill结构初始化成本，作用范围绑定特定生态，可手工完成且不影响其他Agent的基础闭环。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n来源ID：S23, S22, S43, S51。"
           },
           {
             "name": "相关图书",
@@ -1401,7 +1401,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "由历史Shell的PATH选择定位的代理CLI实例"
           },
           {
             "name": "术语",
@@ -1409,11 +1409,11 @@
           },
           {
             "name": "定义",
-            "content": "现有依赖图将其记录为2.1 Agent运行时 / Pi Agent节点；身份状态与证据字段：pi --version 输出 1.1.0；type -a 显示多个同名入口，本记录只绑定当前 shell 选中的入口；先前环境记录为 1.0.4，宿主/路径差异尚未确认，不将此版本绑定到会话服务端。"
+            "content": "工作性定义：依赖图中按一次Shell的PATH解析选中的Pi Agent命令行软件实例记录；原观察为1.1.0，身份范围不覆盖同名其他入口。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：1.1.0是原记录的版本观察；同名入口有多处，较早1.0.4记录的宿主差异未确认，不能替代当前实例或会话服务版本。"
           },
           {
             "name": "来源",
@@ -1433,7 +1433,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖图对象ID=dep-pi-cli；图节点=2.1 Agent运行时 / Pi Agent；身份状态=runtime_observed；观测版本=1.1.0；相关本地对象=未关联。\nVibe Coding 重要性暂定：天阶高级（grade_id=faqi-tian-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：当前核心Agent运行与工具编排；分级依据：直接承接需求、上下文、模型调用和工具执行循环；当前环境的核心交互入口，缺失会改变Vibe Coding核心形态。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖图对象ID=dep-pi-cli；图节点=2.1 Agent运行时 / Pi Agent；身份状态=runtime_observed；观测版本=1.1.0；相关本地对象=未关联。\nVibe Coding 重要性暂定：天阶高级（grade_id=faqi-tian-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：当前核心Agent运行与工具编排；分级依据：直接承接需求、上下文、模型调用和工具执行循环；当前环境的核心交互入口，缺失会改变Vibe Coding核心形态。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
           },
           {
             "name": "相关图书",
@@ -1486,7 +1486,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "作为运行时替代候选登记的具名命令行工具"
           },
           {
             "name": "术语",
@@ -1494,11 +1494,11 @@
           },
           {
             "name": "定义",
-            "content": "现有依赖图将其记录为2.1 Agent运行时 / Codex替代项节点；身份状态与证据字段：依赖图及外部资源行指向 Codex CLI 候选；当前安装身份、可执行入口、版本与来源未核。"
+            "content": "工作性定义：依赖图中作为Pi Agent运行时替代选择而具名登记的Codex CLI软件候选，不表示已经安装或运行。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：只有依赖图及资源线索，当前安装身份、版本、来源和可执行入口均未确认；候选不等于已部署替代实现。"
           },
           {
             "name": "来源",
@@ -1518,7 +1518,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖图对象ID=dep-codex-cli；图节点=2.1 Agent运行时 / Codex替代项；身份状态=named_candidate；观测版本=未记录；相关本地对象=未关联。；关联资源ID=tools-platforms-codex-cli-362bc20a。\nVibe Coding 重要性暂定：天阶中级（grade_id=faqi-tian-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：替代Agent运行时；分级依据：若选用可承担AI代码协作与工具编排核心；当前仅具名候选且可与其他运行时替换，低于已用核心路径。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n关联资源ID：tools-platforms-codex-cli-362bc20a。资源链接/本地关联不证明许可、兼容性或功能等价。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖图对象ID=dep-codex-cli；图节点=2.1 Agent运行时 / Codex替代项；身份状态=named_candidate；观测版本=未记录；相关本地对象=未关联。；关联资源ID=tools-platforms-codex-cli-362bc20a。\nVibe Coding 重要性暂定：天阶中级（grade_id=faqi-tian-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：替代Agent运行时；分级依据：若选用可承担AI代码协作与工具编排核心；当前仅具名候选且可与其他运行时替换，低于已用核心路径。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n关联资源ID：tools-platforms-codex-cli-362bc20a。资源链接/本地关联不证明许可、兼容性或功能等价。"
           },
           {
             "name": "相关图书",
@@ -1571,7 +1571,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "由历史内核标记识别的WSL2兼容承载环境"
           },
           {
             "name": "术语",
@@ -1579,11 +1579,11 @@
           },
           {
             "name": "定义",
-            "content": "现有依赖图将其记录为6.1 Windows主机 / WSL节点；身份状态与证据字段：uname -r 含 microsoft-standard-WSL2，确认当前 Linux 内核运行在 WSL2 兼容环境；Windows宿主版本及 WSL 产品版本未核。"
+            "content": "工作性定义：依赖图中由历史Linux内核的microsoft-standard-WSL2标记识别、用于承载Linux用户空间的WSL2兼容平台环境记录。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：microsoft-standard-WSL2标记支持兼容环境判断，不提供Windows宿主版本或WSL产品版本的完整身份。"
           },
           {
             "name": "来源",
@@ -1603,7 +1603,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖图对象ID=dep-wsl2-platform；图节点=6.1 Windows主机 / WSL；身份状态=runtime_observed；观测版本=未记录；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶初级（grade_id=faqi-di-initial；状态=user_directed_provisional）；范围：Vibe Coding重要性：当前宿主环境实现；分级依据：为当前工具链提供运行宿主，但Linux、macOS或原生Windows等环境可替代，不是Vibe Coding定义性能力。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖图对象ID=dep-wsl2-platform；图节点=6.1 Windows主机 / WSL；身份状态=runtime_observed；观测版本=未记录；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶初级（grade_id=faqi-di-initial；状态=user_directed_provisional）；范围：Vibe Coding重要性：当前宿主环境实现；分级依据：为当前工具链提供运行宿主，但Linux、macOS或原生Windows等环境可替代，不是Vibe Coding定义性能力。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
           },
           {
             "name": "相关图书",
@@ -1656,7 +1656,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "由历史发行版标识定位的Ubuntu用户空间环境"
           },
           {
             "name": "术语",
@@ -1664,11 +1664,11 @@
           },
           {
             "name": "定义",
-            "content": "现有依赖图将其记录为6.1 Linux发行版 / Ubuntu节点；身份状态与证据字段：/etc/os-release 报告 Ubuntu 24.04.3 LTS（VERSION_ID=24.04）。"
+            "content": "工作性定义：依赖图中由历史/etc/os-release标识定位的Ubuntu用户空间发行版环境，区别于其下层Linux内核与Windows宿主。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：原/etc/os-release记录为Ubuntu24.04.3 LTS、VERSION_ID=24.04；不据此推断当前升级状态或对应内核版本。"
           },
           {
             "name": "来源",
@@ -1688,7 +1688,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖图对象ID=dep-ubuntu-userland；图节点=6.1 Linux发行版 / Ubuntu；身份状态=runtime_observed；观测版本=24.04.3 LTS；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶初级（grade_id=faqi-di-initial；状态=user_directed_provisional）；范围：Vibe Coding重要性：当前Linux用户空间；分级依据：承载当前工具链和本地命令，但同类操作系统环境可以替代，重要性来自运行基座而非该发行版身份。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖图对象ID=dep-ubuntu-userland；图节点=6.1 Linux发行版 / Ubuntu；身份状态=runtime_observed；观测版本=24.04.3 LTS；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶初级（grade_id=faqi-di-initial；状态=user_directed_provisional）；范围：Vibe Coding重要性：当前Linux用户空间；分级依据：承载当前工具链和本地命令，但同类操作系统环境可以替代，重要性来自运行基座而非该发行版身份。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
           },
           {
             "name": "相关图书",
@@ -1741,7 +1741,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "由历史uname版本定位的WSL2内核实例"
           },
           {
             "name": "术语",
@@ -1749,11 +1749,11 @@
           },
           {
             "name": "定义",
-            "content": "现有依赖图将其记录为6.1 WSL / 版本对应的Linux内核节点；身份状态与证据字段：uname -r 输出 6.6.87.2-microsoft-standard-WSL2；不据内核版本推断 Windows/WSL 产品版本。"
+            "content": "工作性定义：依赖图中由历史uname观察定位、承担WSL2环境内核层职责的Linux内核实例记录，原版本为6.6.87.2-microsoft-standard-WSL2。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：6.6.87.2-microsoft-standard-WSL2是原内核版本观察；不能由该字符串反推Windows和WSL产品的具体版本。"
           },
           {
             "name": "来源",
@@ -1773,7 +1773,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖图对象ID=dep-wsl2-kernel；图节点=6.1 WSL / 版本对应的Linux内核；身份状态=runtime_observed；观测版本=6.6.87.2-microsoft-standard-WSL2；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶初级（grade_id=faqi-di-initial；状态=user_directed_provisional）；范围：Vibe Coding重要性：当前运行环境内核；分级依据：提供当前WSL用户空间的执行底座，但存在其他内核和宿主替代，不属于AI编程核心能力。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖图对象ID=dep-wsl2-kernel；图节点=6.1 WSL / 版本对应的Linux内核；身份状态=runtime_observed；观测版本=6.6.87.2-microsoft-standard-WSL2；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶初级（grade_id=faqi-di-initial；状态=user_directed_provisional）；范围：Vibe Coding重要性：当前运行环境内核；分级依据：提供当前WSL用户空间的执行底座，但存在其他内核和宿主替代，不属于AI编程核心能力。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
           },
           {
             "name": "相关图书",
@@ -1826,7 +1826,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "由历史命令版本观察定位的Bash解释器实例"
           },
           {
             "name": "术语",
@@ -1834,11 +1834,11 @@
           },
           {
             "name": "定义",
-            "content": "现有依赖图将其记录为6.2 Shell与命令解释器节点；身份状态与证据字段：bash --version 输出 GNU bash 5.2.21。"
+            "content": "工作性定义：依赖图中由历史命令观察定位的GNU Bash Shell与命令解释器实例，原记录版本为5.2.21。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：原bash --version记录为5.2.21；版本观察不证明脚本兼容性，也不能把Bash当作Linux内核或终端模拟器。"
           },
           {
             "name": "来源",
@@ -1858,7 +1858,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖图对象ID=dep-bash；图节点=6.2 Shell与命令解释器；身份状态=runtime_observed；观测版本=5.2.21；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶高级（grade_id=faqi-di-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：Agent命令执行与脚本交互；分级依据：直接承接终端命令、开发脚本和验证操作，是当前Agent落地代码动作的高重要性接口；Shell实现可替代但该角色不可缺。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖图对象ID=dep-bash；图节点=6.2 Shell与命令解释器；身份状态=runtime_observed；观测版本=5.2.21；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶高级（grade_id=faqi-di-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：Agent命令执行与脚本交互；分级依据：直接承接终端命令、开发脚本和验证操作，是当前Agent落地代码动作的高重要性接口；Shell实现可替代但该角色不可缺。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
           },
           {
             "name": "相关图书",
@@ -1911,7 +1911,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "由历史python3入口观察定位的语言运行时实例"
           },
           {
             "name": "术语",
@@ -1919,11 +1919,11 @@
           },
           {
             "name": "定义",
-            "content": "现有依赖图将其记录为4.3 语言与运行时节点；身份状态与证据字段：python3 --version 输出 Python 3.12.3。"
+            "content": "工作性定义：依赖图中由历史python3命令观察定位、承担Python程序解释执行职责的语言运行时实例，原记录版本为3.12.3。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：3.12.3仅对应原python3 --version观察；其他虚拟环境、别名及平台的Python入口需分别判断。"
           },
           {
             "name": "来源",
@@ -1943,7 +1943,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖图对象ID=dep-python-runtime；图节点=4.3 语言与运行时；身份状态=runtime_observed；观测版本=3.12.3；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶中级（grade_id=faqi-di-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：脚本、工具与项目代码运行；分级依据：支撑本仓工具及大量Python项目的执行和验证；语言运行时可按项目替代，重要但非所有Vibe Coding任务必需。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖图对象ID=dep-python-runtime；图节点=4.3 语言与运行时；身份状态=runtime_observed；观测版本=3.12.3；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶中级（grade_id=faqi-di-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：脚本、工具与项目代码运行；分级依据：支撑本仓工具及大量Python项目的执行和验证；语言运行时可按项目替代，重要但非所有Vibe Coding任务必需。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
           },
           {
             "name": "相关图书",
@@ -1996,7 +1996,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "由历史node入口观察定位的JavaScript运行时实例"
           },
           {
             "name": "术语",
@@ -2004,11 +2004,11 @@
           },
           {
             "name": "定义",
-            "content": "现有依赖图将其记录为4.3 语言与运行时节点；身份状态与证据字段：node --version 输出 v22.23.2。"
+            "content": "工作性定义：依赖图中由历史node命令观察定位、承担JavaScript程序执行职责的Node.js运行时实例，原记录版本为v22.23.2。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：v22.23.2是原node --version记录，不是本轮升级声明；包管理器和代理程序版本不由此推导。"
           },
           {
             "name": "来源",
@@ -2028,7 +2028,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖图对象ID=dep-nodejs-runtime；图节点=4.3 语言与运行时；身份状态=runtime_observed；观测版本=22.23.2；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶中级（grade_id=faqi-di-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：前端及工具链代码运行；分级依据：支撑前端、Node项目和本仓Markdown工具链；具体语言环境可替代，重要性低于通用Agent与终端执行核心。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖图对象ID=dep-nodejs-runtime；图节点=4.3 语言与运行时；身份状态=runtime_observed；观测版本=22.23.2；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶中级（grade_id=faqi-di-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：前端及工具链代码运行；分级依据：支撑前端、Node项目和本仓Markdown工具链；具体语言环境可替代，重要性低于通用Agent与终端执行核心。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
           },
           {
             "name": "相关图书",
@@ -2081,7 +2081,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "由历史共同版本观察定位的npm与npx工具链记录"
           },
           {
             "name": "术语",
@@ -2089,11 +2089,11 @@
           },
           {
             "name": "定义",
-            "content": "现有依赖图将其记录为4.2 包管理器与依赖解析器节点；身份状态与证据字段：npm --version 与 npx --version 均输出 10.9.8；登记为同一当前工具链版本观测，不把命令入口重复计数为两件法器。"
+            "content": "工作性定义：依赖图中承担包管理与相关命令调用职责、由npm和npx共同版本10.9.8历史观察定位的工具链记录。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：原两个命令均报告10.9.8；登记为同一工具链观察，不因两个入口重复计成两件独立法器。"
           },
           {
             "name": "来源",
@@ -2113,7 +2113,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖图对象ID=dep-npm-npx；图节点=4.2 包管理器与依赖解析器；身份状态=runtime_observed；观测版本=10.9.8；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶中级（grade_id=faqi-di-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：Node依赖解析与工具调用；分级依据：让Node生态依赖和命令行工具可安装、解析与调用；作用范围依赖项目技术栈，可由其他生态包管理器替代。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖图对象ID=dep-npm-npx；图节点=4.2 包管理器与依赖解析器；身份状态=runtime_observed；观测版本=10.9.8；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶中级（grade_id=faqi-di-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：Node依赖解析与工具调用；分级依据：让Node生态依赖和命令行工具可安装、解析与调用；作用范围依赖项目技术栈，可由其他生态包管理器替代。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
           },
           {
             "name": "相关图书",
@@ -2166,7 +2166,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "由历史版本观察定位的本地Git客户端实例"
           },
           {
             "name": "术语",
@@ -2174,11 +2174,11 @@
           },
           {
             "name": "定义",
-            "content": "现有依赖图将其记录为3.2 文件与代码 / Git本地客户端与工作树节点；身份状态与证据字段：git --version 输出 git version 2.43.0。"
+            "content": "工作性定义：依赖图中由历史git命令版本观察定位、承担本地版本库与工作树操作职责的Git客户端实例，原记录版本为2.43.0。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：原git --version记录为2.43.0；客户端存在不证明远端访问、签名或推送权限已经可用。"
           },
           {
             "name": "来源",
@@ -2198,7 +2198,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖图对象ID=dep-git-client；图节点=3.2 文件与代码 / Git本地客户端与工作树；身份状态=runtime_observed；观测版本=2.43.0；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶高级（grade_id=faqi-di-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：代码变更追踪、比较与恢复；分级依据：支撑审查AI改动、保留版本历史和安全回退，是可维护代码生成闭环的高重要性基础；版本控制实现可替代。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖图对象ID=dep-git-client；图节点=3.2 文件与代码 / Git本地客户端与工作树；身份状态=runtime_observed；观测版本=2.43.0；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶高级（grade_id=faqi-di-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：代码变更追踪、比较与恢复；分级依据：支撑审查AI改动、保留版本历史和安全回退，是可维护代码生成闭环的高重要性基础；版本控制实现可替代。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
           },
           {
             "name": "相关图书",
@@ -2251,7 +2251,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "由历史版本观察定位的GNU Make构建工具实例"
           },
           {
             "name": "术语",
@@ -2259,11 +2259,11 @@
           },
           {
             "name": "定义",
-            "content": "现有依赖图将其记录为4.3 构建系统节点；身份状态与证据字段：make --version 输出 GNU Make 4.3。"
+            "content": "工作性定义：依赖图中由历史make版本观察定位、按构建描述组织目标及依赖执行的GNU Make工具实例，原记录版本为4.3。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：原make --version记录为4.3；读取Makefile和执行其目标具有不同副作用，不能仅凭工具存在运行任意目标。"
           },
           {
             "name": "来源",
@@ -2283,7 +2283,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖图对象ID=dep-gnu-make；图节点=4.3 构建系统；身份状态=runtime_observed；观测版本=4.3；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶初级（grade_id=faqi-di-initial；状态=user_directed_provisional）；范围：Vibe Coding重要性：可重复构建与检查入口；分级依据：把构建和验证命令组织成可重复入口有助于交付，但Make可由其他任务运行器或脚本替代。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖图对象ID=dep-gnu-make；图节点=4.3 构建系统；身份状态=runtime_observed；观测版本=4.3；相关本地对象=未关联。\nVibe Coding 重要性暂定：地阶初级（grade_id=faqi-di-initial；状态=user_directed_provisional）；范围：Vibe Coding重要性：可重复构建与检查入口；分级依据：把构建和验证命令组织成可重复入口有助于交付，但Make可由其他任务运行器或脚本替代。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
           },
           {
             "name": "相关图书",
@@ -2336,7 +2336,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记本体类型为software-artifact；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认独立概念，不能用分类标签代替。"
+            "content": "由路径、包版本和摘要定位的历史tmux二进制实例"
           },
           {
             "name": "术语",
@@ -2348,7 +2348,7 @@
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：该身份只对应2026-10-15的/usr/bin/tmux与3.4-1ubuntu0.1观察；固定源码、配置程序和后来安装状态不能由此继承。"
           },
           {
             "name": "来源",
@@ -2368,7 +2368,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖图对象ID=dep-tmux-runtime；图节点=3.2 命令/终端 / tmux复用支路；身份状态=runtime_observed；观测版本=3.4；相关本地对象=faqi-tmux。\nVibe Coding 重要性暂定：黄阶高级（grade_id=faqi-huang-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：长任务与多会话终端复用；分级依据：可持久化和并行组织终端工作，复杂协作时有价值；普通单会话开发可替代，不属于核心生成链。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n依赖图关联固定源码对象`faqi-tmux`及终端/PTY类别；运行包3.4与固定submodule修订不是同一版本，不能合并身份或相互借用行为结论。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖图对象ID=dep-tmux-runtime；图节点=3.2 命令/终端 / tmux复用支路；身份状态=runtime_observed；观测版本=3.4；相关本地对象=faqi-tmux。\nVibe Coding 重要性暂定：黄阶高级（grade_id=faqi-huang-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：长任务与多会话终端复用；分级依据：可持久化和并行组织终端工作，复杂协作时有价值；普通单会话开发可替代，不属于核心生成链。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n依赖图关联固定源码对象`faqi-tmux`及终端/PTY类别；运行包3.4与固定submodule修订不是同一版本，不能合并身份或相互借用行为结论。"
           },
           {
             "name": "相关图书",
@@ -2421,7 +2421,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记类别为dependency-category；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认本依赖类别的独立概念，不能用分类标签代替。"
+            "content": "由远程模型服务契约及版本构成的抽象依赖类别"
           },
           {
             "name": "术语",
@@ -2433,7 +2433,7 @@
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：服务/API、模型制品与Tokenizer是不同对象层级；类别收录不指向特定账号、供应商或已部署endpoint。"
           },
           {
             "name": "来源",
@@ -2453,7 +2453,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖类别ID=dep-category-cloud-model-api；类别节点=2.2 云端模型服务/API与固定模型版本；纳入状态=user_confirmed_in_scope。这是抽象类别，不是具体产品或运行实例。\nVibe Coding 重要性暂定：天阶高级（grade_id=faqi-tian-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：核心模型推理与代码生成；分级依据：提供理解需求、推理和生成代码的核心智能能力；没有模型推理路径即失去Vibe Coding的定义性特征，供应商与模型可替换。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n与Agent模型请求/响应、固定模型版本、身份认证、配额、网络、服务端模型制品和推理基础设施有关；这些是依赖图关系，不是同一登记对象。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖类别ID=dep-category-cloud-model-api；类别节点=2.2 云端模型服务/API与固定模型版本；纳入状态=user_confirmed_in_scope。这是抽象类别，不是具体产品或运行实例。\nVibe Coding 重要性暂定：天阶高级（grade_id=faqi-tian-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：核心模型推理与代码生成；分级依据：提供理解需求、推理和生成代码的核心智能能力；没有模型推理路径即失去Vibe Coding的定义性特征，供应商与模型可替换。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。\n与Agent模型请求/响应、固定模型版本、身份认证、配额、网络、服务端模型制品和推理基础设施有关；这些是依赖图关系，不是同一登记对象。"
           },
           {
             "name": "相关图书",
@@ -2506,7 +2506,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记类别为dependency-category；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认本依赖类别的独立概念，不能用分类标签代替。"
+            "content": "由模型制品、分词器与推理程序组成的本地推理依赖类别"
           },
           {
             "name": "术语",
@@ -2514,11 +2514,11 @@
           },
           {
             "name": "定义",
-            "content": "依赖图将其作为抽象依赖类别登记：2.2 本地模型权重、Tokenizer与推理引擎；纳入依据：用户确认此依赖类别已核并要求纳入；模型制品、Tokenizer与推理程序分别判断；本次品级按Vibe Coding重要性分组，正式效能评级另行判断。"
+            "content": "工作性定义：一种把本地推理所需模型权重、Tokenizer和推理引擎归入同一依赖层，但分别保留制品与程序身份的抽象类别。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：三个部分需分别核对版本、兼容和许可；“本地”类别不保证所有辅助调用或数据处理都留在本机。"
           },
           {
             "name": "来源",
@@ -2538,7 +2538,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖类别ID=dep-category-local-model-stack；类别节点=2.2 本地模型权重、Tokenizer与推理引擎；纳入状态=user_confirmed_in_scope。这是抽象类别，不是具体产品或运行实例。\nVibe Coding 重要性暂定：天阶中级（grade_id=faqi-tian-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：本地/离线模型推理路径；分级依据：可提供核心模型推理并支持本地化、隐私或离线需求；在通用工作流中可由云端推理替代，故低于定义性核心路径。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖类别ID=dep-category-local-model-stack；类别节点=2.2 本地模型权重、Tokenizer与推理引擎；纳入状态=user_confirmed_in_scope。这是抽象类别，不是具体产品或运行实例。\nVibe Coding 重要性暂定：天阶中级（grade_id=faqi-tian-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：本地/离线模型推理路径；分级依据：可提供核心模型推理并支持本地化、隐私或离线需求；在通用工作流中可由云端推理替代，故低于定义性核心路径。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
           },
           {
             "name": "相关图书",
@@ -2591,7 +2591,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记类别为dependency-category；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认本依赖类别的独立概念，不能用分类标签代替。"
+            "content": "向进程提供终端呈现与伪终端接口的依赖类别"
           },
           {
             "name": "术语",
@@ -2599,11 +2599,11 @@
           },
           {
             "name": "定义",
-            "content": "依赖图将其作为抽象依赖类别登记：3.2 Terminal Emulator / PTY；纳入依据：用户确认此依赖类别已核并要求纳入；终端模拟器与PTY系统接口分开分类；本次品级按Vibe Coding重要性分组，正式效能评级另行判断。"
+            "content": "工作性定义：一种涵盖终端模拟器与PTY接口、用于描述工具进程终端交互边界的抽象依赖类别，不对应单个终端产品或会话。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：终端模拟器是程序，PTY是系统接口；Shell又是独立解释器，不能因共同参与终端交互而合并身份。"
           },
           {
             "name": "来源",
@@ -2623,7 +2623,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖类别ID=dep-category-terminal-pty；类别节点=3.2 Terminal Emulator / PTY；纳入状态=user_confirmed_in_scope。这是抽象类别，不是具体产品或运行实例。\nVibe Coding 重要性暂定：地阶高级（grade_id=faqi-di-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：Agent调用工具与执行开发命令；分级依据：把Agent计划转成真实文件、构建和测试操作的关键执行边界；没有等价工具执行通道，代码闭环无法完成。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖类别ID=dep-category-terminal-pty；类别节点=3.2 Terminal Emulator / PTY；纳入状态=user_confirmed_in_scope。这是抽象类别，不是具体产品或运行实例。\nVibe Coding 重要性暂定：地阶高级（grade_id=faqi-di-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：Agent调用工具与执行开发命令；分级依据：把Agent计划转成真实文件、构建和测试操作的关键执行边界；没有等价工具执行通道，代码闭环无法完成。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
           },
           {
             "name": "相关图书",
@@ -2676,7 +2676,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记类别为dependency-category；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认本依赖类别的独立概念，不能用分类标签代替。"
+            "content": "取得和解析项目依赖的注册表、源码与缓存来源类别"
           },
           {
             "name": "术语",
@@ -2684,11 +2684,11 @@
           },
           {
             "name": "定义",
-            "content": "依赖图将其作为抽象依赖类别登记：4.2 包注册表、Git源与可信缓存；纳入依据：用户确认此依赖类别已核并要求纳入；注册表、Git来源与缓存分开分类；本次品级按Vibe Coding重要性分组，正式效能评级另行判断。"
+            "content": "工作性定义：一种涵盖包注册表、Git源码来源及可信缓存，用于描述项目依赖获取与解析来源的抽象类别，不指某次下载或具体仓库。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：注册表、Git来源和缓存须分别判断可信性与版本；缓存命中不自动证明来源授权或供应链安全。"
           },
           {
             "name": "来源",
@@ -2708,7 +2708,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖类别ID=dep-category-package-sources；类别节点=4.2 包注册表、Git源与可信缓存；纳入状态=user_confirmed_in_scope。这是抽象类别，不是具体产品或运行实例。\nVibe Coding 重要性暂定：地阶中级（grade_id=faqi-di-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：依赖获取、锁定与复现；分级依据：支持安装成熟组件、解析代码依赖和重建开发环境；具体注册表与来源有替代，不直接承担AI生成。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖类别ID=dep-category-package-sources；类别节点=4.2 包注册表、Git源与可信缓存；纳入状态=user_confirmed_in_scope。这是抽象类别，不是具体产品或运行实例。\nVibe Coding 重要性暂定：地阶中级（grade_id=faqi-di-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：依赖获取、锁定与复现；分级依据：支持安装成熟组件、解析代码依赖和重建开发环境；具体注册表与来源有替代，不直接承担AI生成。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
           },
           {
             "name": "相关图书",
@@ -2761,7 +2761,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记类别为dependency-category；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认本依赖类别的独立概念，不能用分类标签代替。"
+            "content": "承载代码协作、流水线执行与自动交付的服务类别"
           },
           {
             "name": "术语",
@@ -2769,11 +2769,11 @@
           },
           {
             "name": "定义",
-            "content": "依赖图将其作为抽象依赖类别登记：7.1 Git托管、CI Runner与CI/CD平台；纳入依据：用户确认此依赖类别已核并要求纳入；托管服务、Runner执行环境与CI/CD平台分开分类；本次品级按Vibe Coding重要性分组，正式效能评级另行判断。"
+            "content": "工作性定义：一种涵盖Git托管、CI Runner与CI/CD平台，用于描述代码协作和自动构建验证交付基础能力的抽象依赖类别。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：托管服务、Runner与CI/CD平台分别承担触发、执行和编排职责；本仓Actions仍停用，收录类别不表示重新启用。"
           },
           {
             "name": "来源",
@@ -2793,7 +2793,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖类别ID=dep-category-ci-platform；类别节点=7.1 Git托管、CI Runner与CI/CD平台；纳入状态=user_confirmed_in_scope。这是抽象类别，不是具体产品或运行实例。\nVibe Coding 重要性暂定：玄阶高级（grade_id=faqi-xuan-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：自动化验证、协作与持续交付；分级依据：把代码生成接入可重复测试、审查和协作交付，显著扩展可靠使用范围；本地闭环可运行但难以替代团队级持续验证。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖类别ID=dep-category-ci-platform；类别节点=7.1 Git托管、CI Runner与CI/CD平台；纳入状态=user_confirmed_in_scope。这是抽象类别，不是具体产品或运行实例。\nVibe Coding 重要性暂定：玄阶高级（grade_id=faqi-xuan-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：自动化验证、协作与持续交付；分级依据：把代码生成接入可重复测试、审查和协作交付，显著扩展可靠使用范围；本地闭环可运行但难以替代团队级持续验证。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
           },
           {
             "name": "相关图书",
@@ -2846,7 +2846,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记类别为dependency-category；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认本依赖类别的独立概念，不能用分类标签代替。"
+            "content": "承载制品交付与上线后应用数据服务的可选依赖类别"
           },
           {
             "name": "术语",
@@ -2854,11 +2854,11 @@
           },
           {
             "name": "定义",
-            "content": "依赖图将其作为抽象依赖类别登记：7.2-7.3 制品注册表、部署目标、产品运行时、数据库与外部API；纳入依据：用户确认此可选依赖类别已核并要求纳入；注册表、部署环境、运行时、数据库与外部API分别分类；本次品级按Vibe Coding重要性分组，正式效能评级另行判断。"
+            "content": "工作性定义：一种按上线交付场景涵盖制品注册表、部署目标、产品运行时、数据库及外部API的可选抽象依赖类别，各组成对象保留独立边界。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：制品注册表、部署目标、产品运行时、数据库和外部API仍分开分类；类别存在不表示当前任务必须部署或已创建服务。"
           },
           {
             "name": "来源",
@@ -2878,7 +2878,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖类别ID=dep-category-deployment-data；类别节点=7.2-7.3 制品注册表、部署目标、产品运行时、数据库与外部API；纳入状态=user_confirmed_in_scope。这是抽象类别，不是具体产品或运行实例。\nVibe Coding 重要性暂定：玄阶中级（grade_id=faqi-xuan-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：从代码到产品运行与外部集成；分级依据：支撑部署、数据库和API集成，使代码进入真实产品场景；并非每次编码必需，故属于重要交付扩展而非核心生成。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖类别ID=dep-category-deployment-data；类别节点=7.2-7.3 制品注册表、部署目标、产品运行时、数据库与外部API；纳入状态=user_confirmed_in_scope。这是抽象类别，不是具体产品或运行实例。\nVibe Coding 重要性暂定：玄阶中级（grade_id=faqi-xuan-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：从代码到产品运行与外部集成；分级依据：支撑部署、数据库和API集成，使代码进入真实产品场景；并非每次编码必需，故属于重要交付扩展而非核心生成。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
           },
           {
             "name": "相关图书",
@@ -2931,7 +2931,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记类别为dependency-category；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认本依赖类别的独立概念，不能用分类标签代替。"
+            "content": "为计算提供硬件、网络及设施供给的资源类别"
           },
           {
             "name": "术语",
@@ -2939,11 +2939,11 @@
           },
           {
             "name": "定义",
-            "content": "依赖图将其作为抽象依赖类别登记：8 CPU/GPU、内存、存储、网络、电力与数据中心；纳入依据：用户确认此资源类别已核并要求纳入；物理设备、基础设施与供给服务按所指分别分类；本次品级按Vibe Coding重要性分组，正式效能评级另行判断。"
+            "content": "工作性定义：一种涵盖CPU/GPU、内存、存储、网络、电力和数据中心等计算承载条件的抽象资源类别，具体设备及供给服务分别判断。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：设备、基础设施和供给服务的对象类型不同；不能把CPU、数据中心和电力服务统称为同一软件工件。"
           },
           {
             "name": "来源",
@@ -2963,7 +2963,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖类别ID=dep-category-infrastructure；类别节点=8 CPU/GPU、内存、存储、网络、电力与数据中心；纳入状态=user_confirmed_in_scope。这是抽象类别，不是具体产品或运行实例。\nVibe Coding 重要性暂定：地阶中级（grade_id=faqi-di-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：计算、存储与网络承载；分级依据：为模型调用、代码执行及数据交换提供资源底座；实现可跨云、主机和本地环境替换，故不是单一核心产品。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖类别ID=dep-category-infrastructure；类别节点=8 CPU/GPU、内存、存储、网络、电力与数据中心；纳入状态=user_confirmed_in_scope。这是抽象类别，不是具体产品或运行实例。\nVibe Coding 重要性暂定：地阶中级（grade_id=faqi-di-intermediate；状态=user_directed_provisional）；范围：Vibe Coding重要性：计算、存储与网络承载；分级依据：为模型调用、代码执行及数据交换提供资源底座；实现可跨云、主机和本地环境替换，故不是单一核心产品。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
           },
           {
             "name": "相关图书",
@@ -3016,7 +3016,7 @@
         "fields": [
           {
             "name": "概念",
-            "content": "待核：原登记类别为dependency-category；迁移前未单独维护概念字段，尚未逐条对照本条定义与固定来源确认本依赖类别的独立概念，不能用分类标签代替。"
+            "content": "为按需信息访问提供检索、索引及记忆存储的依赖类别"
           },
           {
             "name": "术语",
@@ -3024,11 +3024,11 @@
           },
           {
             "name": "定义",
-            "content": "依赖图将其作为抽象依赖类别登记：2.3 检索/索引/记忆与向量库；纳入依据：用户确认此可选依赖类别已核并要求纳入；检索过程、索引、记忆内容与向量存储分别分类；本次品级按Vibe Coding重要性分组，正式效能评级另行判断。"
+            "content": "工作性定义：一种涵盖文档或代码检索、索引、过滤、记忆及向量存储，用于描述按需信息访问能力的可选抽象依赖类别。"
           },
           {
             "name": "条目注释",
-            "content": "待核：本次仅迁移字段结构，未逐条判断是否存在定义之外的必要补充信息；原补充内容仍保留在对应旧说明项。"
+            "content": "编者注（据本条固定来源与既有说明归纳）：检索过程、索引、记忆内容与向量存储分别分类；向量库存在不证明检索相关性、权限隔离或用户记忆效果。"
           },
           {
             "name": "来源",
@@ -3048,7 +3048,7 @@
           },
           {
             "name": "关联信息",
-            "content": "依赖类别ID=dep-category-retrieval-memory；类别节点=2.3 检索/索引/记忆与向量库；纳入状态=user_confirmed_in_scope。这是抽象类别，不是具体产品或运行实例。\nVibe Coding 重要性暂定：玄阶高级（grade_id=faqi-xuan-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：长程上下文、知识检索与记忆；分级依据：支撑跨文件和长任务上下文保持、历史知识复用，提升复杂任务可处理范围；短任务仍可不依赖，且实现可替换。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
+            "content": "本轮v2说明为编辑归纳；历史用户审阅仅对当时说明有效，不自动覆盖此次新增或改写内容。未新增独立审查、运行或效果证据。\n\n原关联记录（含历史意见）：\n依赖类别ID=dep-category-retrieval-memory；类别节点=2.3 检索/索引/记忆与向量库；纳入状态=user_confirmed_in_scope。这是抽象类别，不是具体产品或运行实例。\nVibe Coding 重要性暂定：玄阶高级（grade_id=faqi-xuan-advanced；状态=user_directed_provisional）；范围：Vibe Coding重要性：长程上下文、知识检索与记忆；分级依据：支撑跨文件和长任务上下文保持、历史知识复用，提升复杂任务可处理范围；短任务仍可不依赖，且实现可替换。不代表效能评级、运行结果或质量结论。\n既有关系记录：未记录对象关系。"
           },
           {
             "name": "相关图书",
