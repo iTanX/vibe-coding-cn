@@ -44,12 +44,6 @@
 
 以 Pi Agent 为执行宿主、以 OpenAI GPT 为模型选项，提供按任务取用的知识、指令和工具，并用实际证据验收工作结果。
 
-这三类资源按任务选用，不是必须依次走完的流程：
-
-- [Context](.github/context/README.md)：按需查阅的参考资料，不会默认全部注入。
-- [Skills](.github/skills/README.md)：按需加载的指令；当前保留的是 Skill 制作指南，不会自动加载。
-- [Extensions](.github/extensions/README.md)：固定来源代码和配置，不等同于 Pi 原生扩展，也不要把整个目录交给 `-e`。
-
 <a id="getting-started"></a>
 
 ### 🚀 从零开始
