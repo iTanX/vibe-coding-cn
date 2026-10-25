@@ -23,6 +23,7 @@ ARTIFACTS = None
 catalog = None
 TEMPLATE = Path(__file__).resolve().parents[1] / '.github/tool-explanation-template-v0.md'
 V1_TEMPLATE = Path(__file__).resolve().parents[1] / '.github/tool-explanation-template-v1.md'
+V2_TEMPLATE = Path(__file__).resolve().parents[1] / '.github/tool-explanation-template-v2.md'
 STALE_EXPLANATION_LABELS = (
     '冻结候选', '候选快照', '尚未独立语义复核', '未独立语义复核',
     '尚未独立语义核验', '不代表独立语义批准',
@@ -42,8 +43,8 @@ def v0_field_names():
     return [name for _number, name in template_rows(TEMPLATE)]
 
 
-def v1_field_names():
-    return [name for _number, name in template_rows(V1_TEMPLATE)]
+def v2_field_names():
+    return [name for _number, name in template_rows(V2_TEMPLATE)]
 
 
 def save(path, value):
@@ -81,7 +82,7 @@ class CatalogMaintenanceTest(unittest.TestCase):
         target.mkdir(parents=True)
         shutil.copyfile(ROOT / '.github/context/gongfa/data.json', target / 'data.json')
         context_dir = root / '.github'
-        shutil.copyfile(V1_TEMPLATE, context_dir / V1_TEMPLATE.name)
+        shutil.copyfile(V2_TEMPLATE, context_dir / V2_TEMPLATE.name)
         return root
 
     def command(self, root, *options):
@@ -128,12 +129,12 @@ class CatalogMaintenanceTest(unittest.TestCase):
         self.assertEqual(successor_items['gongfa-input-state-transform-separation', 'r1']['grade_id'],
                          'tian-intermediate')
         self.assertEqual(framework_items[framework['original_id'], 'r1']['grade_id'], 'tian-initial')
-        self.assertIn('用户明确指定', framework['explanation_fields'][5]['content'])
-        self.assertIn('天阶初级', framework['explanation_fields'][5]['content'])
-        self.assertIn('用户明确指定', input_output['explanation_fields'][5]['content'])
-        self.assertIn('天阶中级', input_output['explanation_fields'][5]['content'])
+        self.assertIn('用户明确指定', framework['explanation_fields'][8]['content'])
+        self.assertIn('天阶初级', framework['explanation_fields'][8]['content'])
+        self.assertIn('用户明确指定', input_output['explanation_fields'][8]['content'])
+        self.assertIn('天阶中级', input_output['explanation_fields'][8]['content'])
 
-    def test_experience_pattern_transfer_is_task_level_and_keeps_unresolved_grade_direction(self):
+    def test_experience_pattern_transfer_uses_provisional_tian_initial_and_keeps_prior_opinion(self):
         entry_id = 'gongfa-experience-pattern-transfer-feedback'
         entries = [entry for entry in self.documents['registry']['gongfa'] if entry['id'] == entry_id]
         self.assertEqual(len(entries), 1)
@@ -159,20 +160,32 @@ class CatalogMaintenanceTest(unittest.TestCase):
 
         batches = [batch for batch in self.documents['registry']['grade_proposals']
                    if any(item['gongfa_id'] == entry_id for item in batch['items'])]
-        self.assertEqual(len(batches), 1)
-        proposal = next(item for item in batches[0]['items'] if item['gongfa_id'] == entry_id)
-        self.assertIsNone(proposal['grade_id'])
-        self.assertEqual(proposal['grading_status'], 'undetermined')
+        self.assertEqual(len(batches), 2)
+        previous = next(batch for batch in batches
+                        if batch['id'] == 'gongfa-author-experience-pattern-transfer-feedback-20261025')
+        current = next(batch for batch in batches
+                       if batch['id'] == 'gongfa-user-experience-pattern-transfer-feedback-tian-20261025')
+        previous_proposal = next(item for item in previous['items'] if item['gongfa_id'] == entry_id)
+        proposal = next(item for item in current['items'] if item['gongfa_id'] == entry_id)
+        self.assertIsNone(previous_proposal['grade_id'])
+        self.assertEqual(previous_proposal['grading_status'], 'undetermined')
+        self.assertEqual(current['supersedes'], previous['id'])
+        self.assertEqual(current['application_context'], previous['application_context'])
+        self.assertEqual(current['baseline_assumption'], previous['baseline_assumption'])
+        self.assertEqual(proposal['grade_id'], 'tian-initial')
+        self.assertEqual(proposal['grading_status'], 'provisional')
         self.assertEqual(proposal['confidence'], 'low')
-        self.assertIn('细级待定', proposal['reason'])
+        self.assertIn('天阶初级', proposal['reason'])
+        self.assertIn('暂定分类', proposal['reason'])
         self.assertEqual(self.documents['registry']['assessments'], [])
 
         key = f'registry:{entry_id}@r1'
-        explanation = next(item for item in self.documents['explanations_v1']['items']
+        explanation = next(item for item in self.documents['explanations_v2']['items']
                            if item['object_key'] == key)
         fields = {field['name']: field['content'] for field in explanation['fields']}
-        self.assertEqual(list(fields), v1_field_names())
-        self.assertIn('当前单项任务', fields['是什么'])
+        self.assertEqual(list(fields), v2_field_names())
+        self.assertEqual(fields['概念'], '面向单项任务的跨情境经验迁移与结果反馈校正方法')
+        self.assertIn('当前单项任务', fields['定义'])
         self.assertIn('比较情境差异', fields['怎么做'])
         self.assertIn('比较实际结果', fields['怎么做'])
         self.assertIn('不要求训练模型', fields['扩展'])
@@ -184,8 +197,10 @@ class CatalogMaintenanceTest(unittest.TestCase):
         rows = catalog.merge_rows(deepcopy(self.documents))
         row = next(row for row in rows if row['original_id'] == entry_id)
         self.assertEqual(row['entry_status'], '已登记')
-        self.assertIsNone(row['grade_id'])
-        self.assertEqual(row['grading_status'], 'undetermined')
+        self.assertEqual(row['grade_id'], 'tian-initial')
+        self.assertEqual(row['grading_status'], 'provisional')
+        self.assertIn('天阶初级', fields['关联信息'])
+        self.assertIn('不是正式评级', fields['关联信息'])
         self.assertEqual(row['explanation_fields'], explanation['fields'])
 
     def test_current_all_classified_content_and_two_bad_summaries_keep_original_opinions(self):
@@ -197,8 +212,8 @@ class CatalogMaintenanceTest(unittest.TestCase):
         self.assertEqual(undetermined, {
             'gongfa-candidate-html211-e001-a663456869',
             'gongfa-candidate-html96-vc029-6cca304cec',
-            'gongfa-experience-pattern-transfer-feedback',
         })
+        self.assertEqual(sum(r['grading_status'] == 'provisional' for r in rows), 411)
         by_id = {(r['namespace'], r['original_id']): r for r in rows}
         self.assertEqual(by_id['registry', 'gongfa-first-principles']['grade_id'], 'di-advanced')
         self.assertEqual(by_id['registry', 'gongfa-candidate-solve24-psoa-programming-minimal-reproduction-47a914cf5a']['grade_id'],
@@ -270,15 +285,15 @@ class CatalogMaintenanceTest(unittest.TestCase):
             self.assertEqual(proposal['grading_status'], 'undetermined')
             row = by_id['registry', entry['id']]
             self.assertEqual(row['grading_status'], 'undetermined')
-            self.assertEqual(row['explanation_fields'][5]['content'].split('登记状态：', 1)[1].split('；', 1)[0], '已登记')
+            self.assertEqual(row['explanation_fields'][8]['content'].split('登记状态：', 1)[1].split('；', 1)[0], '已登记')
             self.assertIn('.github/metadata/gongfa/source-classified-candidates-20261007.json',
-                          row['explanation_fields'][6]['content'])
+                          row['explanation_fields'][4]['content'])
         self.assertEqual(self.documents['html211_candidates']['registry_updated'], False)
         self.assertEqual(self.documents['html96_candidates']['registry_updated'], False)
-        self.assertEqual(self.documents['explanations_v1']['template_sha256'], catalog.tool_explanations.template_sha256(ROOT))
-        self.assertEqual(len(self.documents['explanations_v1']['items']), 413)
+        self.assertEqual(self.documents['explanations_v2']['template_sha256'], catalog.tool_explanations.template_sha256(ROOT))
+        self.assertEqual(len(self.documents['explanations_v2']['items']), 413)
         self.assertTrue(all(item['object_key'].startswith('registry:')
-                            for item in self.documents['explanations_v1']['items']))
+                            for item in self.documents['explanations_v2']['items']))
         views = catalog.render_views(ROOT, rows, self.binding)
         markdown = views['README.md']
         self.assertIn('- 共**413条内容记录**；已登记413条，待登记0条，未登记来源条目0条。', markdown)
@@ -291,8 +306,8 @@ class CatalogMaintenanceTest(unittest.TestCase):
         self.assertIn('<a id="doc-glue-coding"></a>', markdown)
         self.assertIn('tian.md#', markdown)
         self.assertIn('huang.md#', markdown)
-        field_names = v1_field_names()
-        self.assertEqual(18, len(field_names))
+        field_names = v2_field_names()
+        self.assertEqual(20, len(field_names))
         total_tables = 0
         for tier in ('tian', 'di', 'xuan', 'huang'):
             page = views[tier + '.md']
@@ -305,14 +320,14 @@ class CatalogMaintenanceTest(unittest.TestCase):
             total_tables += len(starts)
             lines = page.splitlines()
             for row, start in zip(tier_rows, starts):
-                table_rows = lines[start:start + 20]
-                self.assertEqual(20, len(table_rows))
+                table_rows = lines[start:start + 22]
+                self.assertEqual(22, len(table_rows))
                 self.assertEqual('|:---:|:---|:---|', table_rows[1])
                 cells = [parse_pipe_row(line) for line in table_rows]
                 self.assertTrue(all(len(cell) == 3 for cell in cells), '每张表严格为三列')
                 self.assertEqual(field_names, [cell[1] for cell in cells[2:]])
                 display_name = re.sub(r'^\d+(?:\.\d+)+[ \t]+', '', row['name'], count=1)
-                self.assertEqual(display_name, unescape(cells[2][2]))
+                self.assertEqual(display_name, unescape(cells[3][2]))
                 anchor = catalog.tool_explanations.anchor_for(row['key'])
                 self.assertIn(f'{tier}.md#{anchor}', markdown)
                 self.assertIn(f'<a id="{anchor}"></a>', markdown, '旧README对象锚点应保留为跳转入口')
@@ -350,7 +365,7 @@ class CatalogMaintenanceTest(unittest.TestCase):
             section = page.split(f'<a id="{anchor}"></a>', 1)[1].split('<a id="', 1)[0]
             decoded_section = unescape(section)
             self.assertIn(f'### {display_name}', decoded_section)
-            self.assertIn(f'| 1 | 工具的名称 | {display_name} |', decoded_section)
+            self.assertIn(f'| 2 | 术语 | {display_name} |', decoded_section)
             readme_link = next(line for line in views['README.md'].splitlines()
                                if f'{tier}.md#{anchor})' in line)
             decoded_readme_link = unescape(readme_link)
@@ -387,17 +402,17 @@ class CatalogMaintenanceTest(unittest.TestCase):
             self.assertIn(f'[{label}](xuan.md#{anchor})', readme_link)
             section = page.split(f'<a id="{anchor}"></a>', 1)[1].split('<a id="', 1)[0]
             self.assertIn('### 最小惊讶原则', unescape(section))
-            self.assertIn('| 1 | 工具的名称 | 最小惊讶原则 |', unescape(section))
+            self.assertIn('| 2 | 术语 | 最小惊讶原则 |', unescape(section))
 
     def test_user_confirmed_candidate_review_replaces_stale_labels_in_active_views(self):
-        items = [item for item in self.documents['explanations_v1']['items']
+        items = [item for item in self.documents['explanations_v2']['items']
                  if item['object_key'].startswith('registry:gongfa-candidate-')]
         self.assertEqual(len(items), 331)
         stale_labels = STALE_EXPLANATION_LABELS
         semantically_updated_ids = {f'A{number:03}' for number in range(1, 102)}
         for item in items:
             fields = {field['name']: field['content'] for field in item['fields']}
-            self.assertEqual(list(fields), v1_field_names())
+            self.assertEqual(list(fields), v2_field_names())
             match = re.search(r':gongfa-candidate-html211-(a\d{3})-', item['object_key'])
             candidate_id = match.group(1).upper() if match else None
             if candidate_id in semantically_updated_ids:
@@ -428,9 +443,9 @@ class CatalogMaintenanceTest(unittest.TestCase):
         self.assertEqual(expected_ids, set(candidates))
 
         cited = {}
-        for item in self.documents['explanations_v1']['items']:
+        for item in self.documents['explanations_v2']['items']:
             fields = {field['name']: field['content'] for field in item['fields']}
-            provenance = fields['出处']
+            provenance = fields['来源']
             start = provenance.find('{')
             if start < 0:
                 continue
@@ -485,31 +500,31 @@ class CatalogMaintenanceTest(unittest.TestCase):
 
     def test_epub_semantic_corrections_narrow_claims_without_changing_identity_or_grade(self):
         expected = {
-            'A010': {'是什么': ('效果和目的',)},
-            'A019': {'是什么': ('想要什么',), '怎么做': ('规则、配置等载体属于本条编辑扩展',)},
-            'A023': {'是什么': ('相关数据与操作', '信息隐藏'), '怎么做': ('信息隐藏',),
+            'A010': {'定义': ('效果和目的',)},
+            'A019': {'定义': ('想要什么',), '怎么做': ('规则、配置等载体属于本条编辑扩展',)},
+            'A023': {'定义': ('相关数据与操作', '信息隐藏'), '怎么做': ('信息隐藏',),
                      '它要解决什么问题？': ('编辑者暂拟的适用情境', '相关数据与操作分散'),
                      '明确这些规律成立的前提与适用条件。': ('编辑者暂拟情境', '相关数据与操作分散')},
-            'A030': {'是什么': ('初始化后尽量不再改变', '副作用'), '怎么做': ('配置集中管理是编辑者应用',),
+            'A030': {'定义': ('初始化后尽量不再改变', '副作用'), '怎么做': ('配置集中管理是编辑者应用',),
                      '它要解决什么问题？': ('编辑者暂拟的适用情境', '变量初始化后容易被重复改写'),
                      '明确这些规律成立的前提与适用条件。': ('编辑者暂拟情境', '变量初始化后容易被重复改写')},
-            'A036': {'是什么': ('异常或非法使用', '容错', '健壮性')},
-            'A041': {'是什么': ('同类事物采用一致规范',), '怎么做': ('同类事物',),
+            'A036': {'定义': ('异常或非法使用', '容错', '健壮性')},
+            'A041': {'定义': ('同类事物采用一致规范',), '怎么做': ('同类事物',),
                      '它要解决什么问题？': ('编辑者暂拟的适用情境', '同类事物采用不同表达'),
                      '明确这些规律成立的前提与适用条件。': ('编辑者暂拟情境', '同类事物采用不同表达')},
-            'A060': {'是什么': ('珍惜程序员时间', '适当硬件/软件',), '怎么做': ('不是本节主张',),
+            'A060': {'定义': ('珍惜程序员时间', '适当硬件/软件',), '怎么做': ('不是本节主张',),
                      '它要解决什么问题？': ('编辑者暂拟的适用情境', '工具或工作规则不必要地耗费程序员时间'),
                      '明确这些规律成立的前提与适用条件。': ('编辑者暂拟情境', '工具或工作规则不必要地耗费程序员时间')},
-            'A061': {'是什么': ('重复、固定形式的代码',), '怎么做': ('单一高层来源', '不是本节明确内容'),
+            'A061': {'定义': ('重复、固定形式的代码',), '怎么做': ('单一高层来源', '不是本节明确内容'),
                      '它要解决什么问题？': ('编辑者暂拟的适用情境', '存在重复、固定形式的代码'),
                      '明确这些规律成立的前提与适用条件。': ('编辑者暂拟情境', '存在重复、固定形式的代码')},
             'A076': {'相关图书': ('特征耦合', '标记耦合')},
-            'A089': {'是什么': ('正当性', '坚固性')},
+            'A089': {'定义': ('正当性', '坚固性')},
         }
         source_items = {item['candidate_id']: item for item in self.documents['html211_candidates']['candidates']}
         grade_items = {item['candidate_id']: item for item in self.documents['html211_grades']['items']}
         indexed = {}
-        for item in self.documents['explanations_v1']['items']:
+        for item in self.documents['explanations_v2']['items']:
             match = re.search(r':gongfa-candidate-html211-(a\d{3})-', item['object_key'])
             if match:
                 indexed[match.group(1).upper()] = item
@@ -540,7 +555,7 @@ class CatalogMaintenanceTest(unittest.TestCase):
         for candidate_id, stale in stale_summaries.items():
             fields = {field['name']: field['content'] for field in indexed[candidate_id]['fields']}
             active_text = '\\n'.join(value for name, value in fields.items()
-                                     if name not in {'关联信息', '出处', '相关图书'})
+                                     if name not in {'关联信息', '来源', '相关图书'})
             self.assertNotIn(stale, active_text, candidate_id)
         stale_conditions = {
             'A023': '模块内部细节频繁被外部依赖时',
@@ -552,18 +567,18 @@ class CatalogMaintenanceTest(unittest.TestCase):
         for candidate_id, stale in stale_conditions.items():
             fields = {field['name']: field['content'] for field in indexed[candidate_id]['fields']}
             active_text = '\\n'.join(value for name, value in fields.items()
-                                     if name not in {'关联信息', '出处', '相关图书'})
+                                     if name not in {'关联信息', '来源', '相关图书'})
             self.assertNotIn(stale, active_text, candidate_id)
         for candidate_id, forbidden in {
-            'A010': {'是什么': ('副作用',)},
+            'A010': {'定义': ('副作用',)},
             'A019': {'怎么做': ('用表、规则、配置或声明性接口',)},
-            'A023': {'是什么': ('限制外部直接干预内部状态',)},
-            'A030': {'是什么': ('一个权威位置读取或修改',)},
-            'A036': {'是什么': ('预期条件下持续给出正确结果',)},
-            'A041': {'是什么': ('问题结构与解决方案结构',)},
-            'A060': {'是什么': ('优先机器自动化',)},
-            'A061': {'是什么': ('代码或数据',)},
-            'A089': {'是什么': ('正确性/健壮性',)},
+            'A023': {'定义': ('限制外部直接干预内部状态',)},
+            'A030': {'定义': ('一个权威位置读取或修改',)},
+            'A036': {'定义': ('预期条件下持续给出正确结果',)},
+            'A041': {'定义': ('问题结构与解决方案结构',)},
+            'A060': {'定义': ('优先机器自动化',)},
+            'A061': {'定义': ('代码或数据',)},
+            'A089': {'定义': ('正确性/健壮性',)},
         }.items():
             fields = {field['name']: field['content'] for field in indexed[candidate_id]['fields']}
             for field_name, phrases in forbidden.items():
@@ -577,8 +592,8 @@ class CatalogMaintenanceTest(unittest.TestCase):
         hits = []
         total = 0
         for kind, expected_count in expected_counts.items():
-            payload = bundles[kind]['data'].get('explanations_v1')
-            self.assertIsNotNone(payload, f'{kind}缺少当前v1说明载荷')
+            payload = bundles[kind]['data'].get('explanations_v2')
+            self.assertIsNotNone(payload, f'{kind}缺少当前v2说明载荷')
             items = payload['items']
             self.assertEqual(expected_count, len(items), kind)
             total += len(items)
@@ -602,11 +617,31 @@ class CatalogMaintenanceTest(unittest.TestCase):
         self.assertIn('Warrant', contract)
         self.assertIn('仅列字段交叉引用', contract)
 
+    def test_v2_template_explicitly_models_all_five_term_elements(self):
+        rows = template_rows(V2_TEMPLATE)
+        self.assertEqual(list(range(1, 21)), [number for number, _name in rows])
+        self.assertEqual(
+            [
+                '概念', '术语', '定义', '条目注释', '来源', '为什么', '怎么做', '扩展', '关联信息',
+                '相关图书', '它要解决什么问题？', '为什么这样设计？', '内部如何实现？',
+                '付出了什么代价？', '比较不同技术与方法。', '提炼共同规律。',
+                '明确这些规律成立的前提与适用条件。', '结论', '连接规则', '依据',
+            ],
+            [name for _number, name in rows],
+        )
+        contract = V2_TEMPLATE.read_text(encoding='utf-8')
+        for rule in ('概念原子性', '属加种差', '关系方向', '成立条件', '待核', '来源可追溯',
+                     '条目注释不得重复定义', '概念不等同于术语'):
+            with self.subTest(rule=rule):
+                self.assertIn(rule, contract)
+        self.assertIn('每个说明对象都必须包含概念、术语、定义、条目注释和来源', contract)
+        self.assertIn('原提示词中的单代码块纯文本输出格式不适用于本模板', contract)
+
     def test_gongfa_claims_do_not_apply_the_problem_summary_to_itself(self):
         findings = []
         marker = '来源快照记录的主题是“'
         topic_end = '”（上游来源未独立核验）'
-        for item in self.documents['explanations_v1']['items']:
+        for item in self.documents['explanations_v2']['items']:
             fields = {field['name']: field['content'] for field in item['fields']}
             problem = fields['它要解决什么问题？']
             if '未提供单独的问题定义' not in problem:
@@ -625,22 +660,26 @@ class CatalogMaintenanceTest(unittest.TestCase):
                     findings.append(f"{item['object_key']}:{name}")
         self.assertEqual([], findings, '主张不能把同一摘要同时当作方法和问题：' + ', '.join(findings))
 
-    def test_active_v1_payload_migrates_all_443_records_with_toulmin_warrants(self):
+    def test_active_v2_payload_migrates_all_443_records_with_toulmin_warrants(self):
         expected_counts = {'gongfa': 413, 'faqi': 30}
-        expected_names = v0_field_names() + ['结论', '连接规则', '依据']
+        expected_names = v2_field_names()
         bundles = source_archive.bundles(ROOT)
         total = 0
         for kind, expected_count in expected_counts.items():
             data = bundles[kind]['data']
             self.assertNotIn('explanations_v0', data, f'{kind}不得保留双版本活跃载荷')
-            payload = data.get('explanations_v1')
-            self.assertIsNotNone(payload, f'{kind}缺少当前v1说明载荷')
+            payload = data.get('explanations_v2')
+            self.assertIsNotNone(payload, f'{kind}缺少当前v2说明载荷')
             self.assertEqual(expected_count, len(payload['items']), kind)
             self.assertEqual(payload['template_sha256'], catalog.tool_explanations.template_sha256(ROOT))
             total += len(payload['items'])
             for item in payload['items']:
                 fields = {field['name']: field['content'] for field in item['fields']}
                 self.assertEqual(expected_names, list(fields), item['object_key'])
+                self.assertFalse(fields['概念'].startswith(('原登记本体类型：', '原登记类别：')),
+                                 item['object_key'])
+                if fields['概念'].startswith('待核：原登记'):
+                    self.assertIn('不能用分类标签代替', fields['概念'], item['object_key'])
                 self.assertIn(fields['提炼共同规律。'], fields['结论'], item['object_key'])
                 warrant = fields['连接规则']
                 self.assertTrue(warrant.startswith('推理桥梁：'), item['object_key'])
@@ -653,14 +692,14 @@ class CatalogMaintenanceTest(unittest.TestCase):
                 condition = ' '.join(fields['明确这些规律成立的前提与适用条件。'].split()).strip(' ；;，,。\n')
                 boundary = warrant.split('成立边界：', 1)[1].split('不据此外推未观察效果、许可或正式评级。', 1)[0]
                 if condition not in boundary:
-                    self.assertIn('以第15项列出的适用条件、限制及其待核状态为准', boundary, item['object_key'])
-                self.assertNotIn('仅当第18项支持第11项机制适用于第9项问题', warrant, item['object_key'])
-                self.assertIn('第7项', fields['依据'], item['object_key'])
-                self.assertIn('第11项', fields['依据'], item['object_key'])
+                    self.assertIn('以第17项列出的适用条件、限制及其待核状态为准', boundary, item['object_key'])
+                self.assertNotIn('仅当第20项支持第13项机制适用于第11项问题', warrant, item['object_key'])
+                self.assertIn('第5项', fields['依据'], item['object_key'])
+                self.assertIn('第13项', fields['依据'], item['object_key'])
         self.assertEqual(443, total)
         gongfa_items = {
             item['object_key']: {field['name']: field['content'] for field in item['fields']}
-            for item in bundles['gongfa']['data']['explanations_v1']['items']
+            for item in bundles['gongfa']['data']['explanations_v2']['items']
         }
         performance_sources = ('html211:D008', 'html211:D009', 'html211:D010')
         archive_path = '.github/metadata/gongfa/source-classified-candidates-20261007.json'
@@ -797,9 +836,9 @@ class CatalogMaintenanceTest(unittest.TestCase):
         rows = catalog.merge_rows(documents)
         hostile_row = next(row for row in rows if row['namespace'] == 'registry' and row['original_id'] == entry['id'])
         if 'explanation_fields' not in hostile_row:
-            hostile_row['explanation_fields'] = [{'name': label, 'content': item['name'] if index == 0 else '隔离安全测试'}
-                                                 for index, label in enumerate(v1_field_names())]
-        hostile_row['explanation_fields'][0]['content'] = item['name']
+            hostile_row['explanation_fields'] = [{'name': label, 'content': item['name'] if index == 1 else '隔离安全测试'}
+                                                 for index, label in enumerate(v2_field_names())]
+        hostile_row['explanation_fields'][1]['content'] = item['name']
         root = Path(tempfile.mkdtemp(prefix='markdown-', dir=ARTIFACTS))
         target = root / '.github/context/gongfa'
         target.mkdir(parents=True)

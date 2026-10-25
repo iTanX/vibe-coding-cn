@@ -52,6 +52,8 @@ redirects:
     to: .github/tool-explanation-template-v0.md
   - from: .github/context/tool-explanation-template-v1.md
     to: .github/tool-explanation-template-v1.md
+  - from: .github/context/tool-explanation-template-v2.md
+    to: .github/tool-explanation-template-v2.md
 
   # 历史目录迁移；这里只记录路径映射，不提供旧正文副本。
   - from: docs/guides/getting-started/

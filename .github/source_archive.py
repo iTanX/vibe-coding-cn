@@ -85,9 +85,9 @@ def bundles(root):
         archive_fields = {'format', 'kind', 'source_revision', 'documents', 'locations', 'live_sources', 'projections'}
         allowed_fields = {
             frozenset(archive_fields),
-            frozenset(archive_fields | {'explanations_v1'}),
+            frozenset(archive_fields | {'explanations_v2'}),
             frozenset(archive_fields | {'retired_submodules'}),
-            frozenset(archive_fields | {'retired_submodules', 'explanations_v1'}),
+            frozenset(archive_fields | {'retired_submodules', 'explanations_v2'}),
         }
         require(frozenset(data) in allowed_fields and data['format'] == FORMAT and data['kind'] == kind
                 and re.fullmatch('[a-f0-9]{40}', data['source_revision']), '原始数据格式不符')
@@ -99,13 +99,13 @@ def bundles(root):
         for repository in retired_submodules:
             normal(repository)
             require(repository.startswith('.github/tools/external/'), '退役子模块必须保留原始仓库路径身份')
-        if 'explanations_v1' in data:
-            explanations = data['explanations_v1']
+        if 'explanations_v2' in data:
+            explanations = data['explanations_v2']
             require(isinstance(explanations, dict) and set(explanations) == {'template_sha256', 'items'}
                     and isinstance(explanations['template_sha256'], str)
                     and re.fullmatch('[a-f0-9]{64}', explanations['template_sha256'])
                     and isinstance(explanations['items'], list) and len(explanations['items']) <= 1024,
-                    'v1说明载荷格式不符')
+                    'v2说明载荷格式不符')
         require(isinstance(data['documents'], dict) and len(data['documents']) <= 4096, '来源文档数量超限')
         decoded, total = {}, 0
         for key, item in data['documents'].items():

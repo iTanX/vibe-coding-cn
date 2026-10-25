@@ -44,6 +44,7 @@ def relocated(path, fragment=''):
         '.github/docs/getting-started/first-project.md': '.github/how-to-complete-work.md',
         '.github/context/tool-explanation-template-v0.md': '.github/tool-explanation-template-v0.md',
         '.github/context/tool-explanation-template-v1.md': '.github/tool-explanation-template-v1.md',
+        '.github/context/tool-explanation-template-v2.md': '.github/tool-explanation-template-v2.md',
         '.github/metadata/faqi/README.md': '.github/context/faqi/README.md',
         '.github/metadata/faqi/AGENTS.md': '.github/context/AGENTS.md',
         '.github/metadata/gongfa/AGENTS.md': '.github/context/AGENTS.md',

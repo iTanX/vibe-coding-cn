@@ -1516,14 +1516,21 @@ class SourceArchiveTest(unittest.TestCase):
         self.assertFalse((root / 'god.md').exists())
         self.assertFalse((root / 'first-project.md').exists())
 
-    def test_v1_explanations_remain_separate_from_frozen_source_documents(self):
+    def test_v2_explanations_remain_separate_from_frozen_source_documents(self):
         explanation = {'template_sha256': 'a' * 64, 'items': []}
-        self.data['explanations_v1'] = explanation
+        self.data['explanations_v2'] = explanation
         self.save()
         archive.clear_cache()
         bundle = archive.bundles(self.root)['gongfa']
-        self.assertEqual(explanation, bundle['data']['explanations_v1'])
-        self.assertNotIn('explanations_v1', bundle['bytes'])
+        self.assertEqual(explanation, bundle['data']['explanations_v2'])
+        self.assertNotIn('explanations_v2', bundle['bytes'])
+
+    def test_historical_v1_explanation_payload_is_rejected(self):
+        self.data['explanations_v1'] = {'template_sha256': 'a' * 64, 'items': []}
+        self.save()
+        archive.clear_cache()
+        with self.assertRaises(ValueError):
+            archive.bundles(self.root)
 
     def test_retired_v0_explanation_payload_is_rejected(self):
         self.data['explanations_v0'] = {'template_sha256': 'a' * 64, 'items': []}

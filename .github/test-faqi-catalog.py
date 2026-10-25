@@ -20,10 +20,10 @@ import source_archive
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = None
-TEMPLATE = ROOT / ".github/tool-explanation-template-v1.md"
+TEMPLATE = ROOT / ".github/tool-explanation-template-v2.md"
 
 
-def v1_field_names():
+def v2_field_names():
     names = []
     for line in TEMPLATE.read_text(encoding="utf-8").splitlines():
         if line.startswith("| ") and line.split("|")[1].strip().isdigit():
@@ -31,15 +31,15 @@ def v1_field_names():
     return names
 
 
-def v1_payload(subject_names):
-    labels = v1_field_names()
+def v2_payload(subject_names):
+    labels = v2_field_names()
     return {
         "template_sha256": hashlib.sha256(TEMPLATE.read_bytes()).hexdigest(),
         "items": [
             {
                 "object_key": "faqi:" + subject_id,
                 "fields": [
-                    {"name": label, "content": name if index == 0 else "隔离夹具：" + label}
+                    {"name": label, "content": name if index == 1 else "隔离夹具：" + label}
                     for index, label in enumerate(labels)
                 ],
             }
@@ -81,7 +81,7 @@ class FaqiCatalogTest(unittest.TestCase):
         current_skill_associations = {
             item["object_key"]: next(field["content"] for field in item["fields"]
                                      if field["name"] == "关联信息")
-            for item in archive["explanations_v1"]["items"]
+            for item in archive["explanations_v2"]["items"]
             if item["object_key"] in {
                 "faqi:faqi-auto-skill-create",
                 "faqi:faqi-auto-skill-validate",
@@ -105,12 +105,12 @@ class FaqiCatalogTest(unittest.TestCase):
             self.assertEqual(source["sha256"], document["sha256"], source["path"])
             self.assertNotIn(source["path"], archive["locations"])
         explanations = {item["object_key"]: item["fields"]
-                        for item in archive["explanations_v1"]["items"]}
+                        for item in archive["explanations_v2"]["items"]}
         auto_tmux = next(field["content"] for field in explanations["faqi:faqi-auto-tmux"]
                          if field["name"] == "关联信息")
         self.assertIn("已从GitHub当前树移除", auto_tmux)
         self.assertTrue(TEMPLATE.is_file())
-        self.assertEqual(archive["explanations_v1"]["template_sha256"],
+        self.assertEqual(archive["explanations_v2"]["template_sha256"],
                          hashlib.sha256(TEMPLATE.read_bytes()).hexdigest())
 
     def test_current_source_review_is_consumable(self):
@@ -155,7 +155,7 @@ class FaqiCatalogTest(unittest.TestCase):
                  for tier in ("tian", "di", "xuan", "huang")}
         all_views = catalog + "\n" + "\n".join(pages.values())
         active_archive = json.loads((directory / "data.json").read_text(encoding="utf-8"))
-        skill_seekers = next(item for item in active_archive["explanations_v1"]["items"]
+        skill_seekers = next(item for item in active_archive["explanations_v2"]["items"]
                              if item["object_key"] == "faqi:faqi-skill-seekers")
         association = next(field["content"] for field in skill_seekers["fields"]
                            if field["name"] == "关联信息")
@@ -200,9 +200,9 @@ class FaqiCatalogTest(unittest.TestCase):
         }
         for path, digest in claude_source_hashes.items():
             self.assertEqual(digest, active_archive["documents"][path]["sha256"], path)
-        claude_fields = next(item["fields"] for item in active_archive["explanations_v1"]["items"]
+        claude_fields = next(item["fields"] for item in active_archive["explanations_v2"]["items"]
                              if item["object_key"] == "faqi:faqi-claude-skill-init")
-        claude_sources = next(field["content"] for field in claude_fields if field["name"] == "出处")
+        claude_sources = next(field["content"] for field in claude_fields if field["name"] == "来源")
         self.assertIn("1ed29a03dc852d30fa6ef2ca53a67dc2c2c2c563", claude_sources)
         self.assertTrue(all(path in claude_sources for path in claude_source_hashes))
         module_config = configparser.RawConfigParser()
@@ -217,7 +217,7 @@ class FaqiCatalogTest(unittest.TestCase):
         }
         associations = {
             item["object_key"]: next(field["content"] for field in item["fields"] if field["name"] == "关联信息")
-            for item in active_archive["explanations_v1"]["items"]
+            for item in active_archive["explanations_v2"]["items"]
         }
         claude_association = associations["faqi:faqi-claude-skill-init"]
         self.assertIn("本地入口=无", claude_association)
@@ -288,8 +288,8 @@ class FaqiCatalogTest(unittest.TestCase):
         self.assertIn("法器对象ID=faqi-prompt-converter", all_views)
         self.assertIn("依赖图对象ID=dep-pi-cli", all_views)
         self.assertNotIn("依赖图位置", all_views)
-        field_names = v1_field_names()
-        self.assertEqual(18, len(field_names))
+        field_names = v2_field_names()
+        self.assertEqual(20, len(field_names))
         import tool_explanations
         table_count = 0
         tier_counts = Counter(item["grade_id"].split("-")[1] for item in assignments)
@@ -301,11 +301,11 @@ class FaqiCatalogTest(unittest.TestCase):
             for table_index in table_indexes:
                 table_end = next(index for index in range(table_index + 1, len(tokens)) if tokens[index].type == "table_close")
                 table_tokens = tokens[table_index:table_end + 1]
-                self.assertEqual(19, sum(token.type == "tr_open" for token in table_tokens), "一行表头加18项说明")
+                self.assertEqual(21, sum(token.type == "tr_open" for token in table_tokens), "一行表头加20项说明")
                 inline = [token.content for token in table_tokens if token.type == "inline"]
                 self.assertEqual(["序号", "说明项", "内容"], inline[:3])
-                self.assertEqual(field_names, [inline[4 + index * 3] for index in range(18)])
-                self.assertEqual(57, sum(token.type in {"th_open", "td_open"} for token in table_tokens), "每张表严格三列")
+                self.assertEqual(field_names, [inline[4 + index * 3] for index in range(20)])
+                self.assertEqual(63, sum(token.type in {"th_open", "td_open"} for token in table_tokens), "每张表严格三列")
         self.assertEqual(len(assignments), table_count, "每个法器对象恰好出现在一个阶级文档中")
         for item in assignments:
             tier = item["grade_id"].split("-")[1]
@@ -386,6 +386,16 @@ class FaqiCatalogTest(unittest.TestCase):
         )
         expected = sorted({".github/extensions/oh-my-tmux", ".github/extensions/tmux"})
         self.assertEqual(expected, uninitialized)
+        # git clone只包含HEAD；把本次工作树中的v2资料与生成视图复制到隔离副本，避免用旧载荷测试新校验器。
+        for relative in (
+            ".github/context/faqi/data.json", ".github/context/faqi/README.md",
+            ".github/context/faqi/tian.md", ".github/context/faqi/di.md",
+            ".github/context/faqi/xuan.md", ".github/context/faqi/huang.md",
+            ".github/context/gongfa/data.json", ".github/tool-explanation-template-v2.md",
+        ):
+            target = clone / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes((ROOT / relative).read_bytes())
 
         archive = json.loads((clone / ".github/context/faqi/data.json").read_text(encoding="utf-8"))
         metadata = json.loads(source_archive.read_text(clone / ".github/metadata/faqi.json"))
@@ -564,13 +574,13 @@ class FaqiCatalogTest(unittest.TestCase):
                         current_count += 1
                     elif nested.type == "tr_close":
                         row_counts.append(current_count)
-                self.assertEqual(19, len(row_counts), "每个对象表格必须包含表头和18行说明")
+                self.assertEqual(21, len(row_counts), "每个对象表格必须包含表头和20行说明")
                 self.assertEqual({3}, set(row_counts), "表格必须严格为三列")
                 table_column_counts.append(row_counts[0])
         self.assertEqual(30, total_tables)
         self.assertEqual([3] * 30, table_column_counts)
         import tool_explanations
-        hostile_fields = [{"name": label, "content": label} for label in v1_field_names()]
+        hostile_fields = [{"name": label, "content": label} for label in v2_field_names()]
         hostile_fields[1]["content"] = '<script>unexpected</script> ``` [link](javascript:void(0)) |'
         safe_table = tool_explanations.render_table(hostile_fields)
         safe_markup = parser.render(safe_table)
@@ -645,13 +655,13 @@ class FaqiCatalogTest(unittest.TestCase):
             **{item["id"]: item["node"] for item in data["dependency_graph"]["dependency_categories"]},
         }
         (root / ".github/context/faqi").mkdir(parents=True, exist_ok=True)
-        template_copy = root / ".github/tool-explanation-template-v1.md"
+        template_copy = root / ".github/tool-explanation-template-v2.md"
         template_copy.parent.mkdir(parents=True, exist_ok=True)
         template_copy.write_bytes(TEMPLATE.read_bytes())
         archive_data = {
             "format": "vibe-coding-cn/source-archive@1", "kind": "faqi", "source_revision": "a" * 40,
             "documents": {}, "locations": {}, "live_sources": {}, "projections": [],
-            "explanations_v1": v1_payload(subject_names),
+            "explanations_v2": v2_payload(subject_names),
         }
         (root / ".github/context/faqi/data.json").write_text(json.dumps(archive_data, ensure_ascii=False, indent=2), encoding="utf-8")
         source_archive.clear_cache()
@@ -722,8 +732,8 @@ class FaqiCatalogTest(unittest.TestCase):
                         current_count += 1
                     elif nested.type == "tr_close":
                         row_counts.append(current_count)
-                self.assertEqual([3] * 19, row_counts, "每张表严格三列并含18项")
-        self.assertEqual(21, table_count, "隔离对象必须各自进入一张且仅一张阶级页v1表格")
+                self.assertEqual([3] * 21, row_counts, "每张表严格三列并含20项")
+        self.assertEqual(21, table_count, "隔离对象必须各自进入一张且仅一张阶级页v2表格")
         # 只允许已批准的同仓默认分支地址迁移，来源原 SHA 与指令仍固定。
         input_path = self.input_copy("branch-migration", data)
         main_body = b'RAW_BASE="https://raw.githubusercontent.com/tukuaiai/vibe-coding-cn/main/.github/tools/config/.codex"\nprintf "fixture only\\n"\n'

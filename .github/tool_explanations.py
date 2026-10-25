@@ -1,19 +1,21 @@
-"""校验 v1 结构化说明载荷并生成逐对象 Markdown 表格。"""
+"""校验 v2 结构化说明载荷并生成逐对象 Markdown 表格。"""
 from hashlib import sha256
 import html
 from pathlib import Path
 import re
 import source_archive
 
-TEMPLATE_PATH = ".github/tool-explanation-template-v1.md"
+TEMPLATE_PATH = ".github/tool-explanation-template-v2.md"
 FIELD_NAMES = (
-    "工具的名称",
-    "是什么",
+    "概念",
+    "术语",
+    "定义",
+    "条目注释",
+    "来源",
     "为什么",
     "怎么做",
     "扩展",
     "关联信息",
-    "出处",
     "相关图书",
     "它要解决什么问题？",
     "为什么这样设计？",
@@ -38,23 +40,23 @@ def require(condition, message):
 
 def template_bytes(root):
     path = source_archive.checked_path(Path(root), TEMPLATE_PATH)
-    require(path.is_file(), "v1模板缺失或不是普通文件")
+    require(path.is_file(), "v2模板缺失或不是普通文件")
     raw = path.read_bytes()
     text = raw.decode("utf-8")
-    marker = "## 单对象 Markdown 表格模板"
-    require(text.count(marker) == 1, "v1模板表格入口不唯一")
+    marker = "## 单对象Markdown表格模板"
+    require(text.count(marker) == 1, "v2模板表格入口不唯一")
     table_lines = text.split(marker, 1)[1].splitlines()
     require(table_lines.count("| 序号 | 说明项 | 内容 |") == 1 and
-            table_lines.count("|:---:|:---|:---|") == 1, "v1模板表头或三列表格分隔符漂移")
+            table_lines.count("|:---:|:---|:---|") == 1, "v2模板表头或三列表格分隔符漂移")
     rows = []
     for line in table_lines:
         parts = line.split("|")
         if len(parts) != 5 or not parts[1].strip().isdigit():
             continue
         rows.append((int(parts[1].strip()), parts[2].strip()))
-    require([number for number, _ in rows] == list(range(1, 19)), "v1模板序号缺失或重排")
+    require([number for number, _ in rows] == list(range(1, 21)), "v2模板序号缺失或重排")
     names = tuple(name for _, name in rows)
-    require(names == FIELD_NAMES, "v1模板名称或顺序漂移")
+    require(names == FIELD_NAMES, "v2模板名称或顺序漂移")
     return raw
 
 
@@ -63,39 +65,39 @@ def template_sha256(root):
 
 
 def validate_payload(root, payload, expected_objects):
-    """返回 object_key 到18项字段的映射，并绑定模板和全部当前对象。"""
+    """返回 object_key 到20项字段的映射，并绑定模板和全部当前对象。"""
     raw_template = template_bytes(root)
     require(isinstance(payload, dict) and set(payload) == {"template_sha256", "items"},
-            "v1说明载荷字段不符")
-    require(payload["template_sha256"] == sha256(raw_template).hexdigest(), "v1说明与已登记模板版本不匹配")
+            "v2说明载荷字段不符")
+    require(payload["template_sha256"] == sha256(raw_template).hexdigest(), "v2说明与已登记模板版本不匹配")
     items = payload["items"]
-    require(isinstance(items, list) and len(items) <= MAX_ITEMS, "v1说明对象数量超限")
+    require(isinstance(items, list) and len(items) <= MAX_ITEMS, "v2说明对象数量超限")
     require(isinstance(expected_objects, dict) and len(expected_objects) <= MAX_ITEMS and
             all(isinstance(key, str) and key and isinstance(name, str) and name.strip()
                 for key, name in expected_objects.items()), "当前对象集合无效或超限")
     result = {}
     size = 0
     for item in items:
-        require(isinstance(item, dict) and set(item) == {"object_key", "fields"}, "v1说明对象结构不符")
+        require(isinstance(item, dict) and set(item) == {"object_key", "fields"}, "v2说明对象结构不符")
         key = item["object_key"]
-        require(isinstance(key, str) and key and key not in result, "v1说明对象身份为空或重复")
+        require(isinstance(key, str) and key and key not in result, "v2说明对象身份为空或重复")
         fields = item["fields"]
-        require(isinstance(fields, list) and len(fields) == len(FIELD_NAMES), "每个对象必须完整包含18项")
+        require(isinstance(fields, list) and len(fields) == len(FIELD_NAMES), "每个对象必须完整包含20项")
         for expected_name, field in zip(FIELD_NAMES, fields):
-            require(isinstance(field, dict) and set(field) == {"name", "content"}, "v1说明项结构不符")
-            require(field["name"] == expected_name, "v1说明项名称或顺序与模板不符")
+            require(isinstance(field, dict) and set(field) == {"name", "content"}, "v2说明项结构不符")
+            require(field["name"] == expected_name, "v2说明项名称或顺序与模板不符")
             content = field["content"]
-            require(isinstance(content, str) and content.strip(), "v1说明项不得留空")
+            require(isinstance(content, str) and content.strip(), "v2说明项不得留空")
             encoded = content.encode("utf-8")
-            require(len(encoded) <= MAX_FIELD_BYTES, "单个v1说明项超过64KiB")
+            require(len(encoded) <= MAX_FIELD_BYTES, "单个v2说明项超过64KiB")
             require(not re.search(r"[\x00-\x08\x0b-\x0c\x0e-\x1f\ufffe\uffff]", content),
-                    "v1说明项含不支持的控制字符")
+                    "v2说明项含不支持的控制字符")
             size += len(encoded)
-            require(size <= MAX_PAYLOAD_BYTES, "v1说明总量超过16MiB")
+            require(size <= MAX_PAYLOAD_BYTES, "v2说明总量超过16MiB")
         result[key] = fields
-    require(set(result) == set(expected_objects), "v1说明对象与当前登记范围不一致")
+    require(set(result) == set(expected_objects), "v2说明对象与当前登记范围不一致")
     for key, name in expected_objects.items():
-        require(result[key][0]["content"] == name, "v0名称项与对象身份名称不一致")
+        require(result[key][1]["content"] == name, "术语项与对象身份名称不一致")
     return result
 
 
@@ -116,11 +118,11 @@ def anchor_for(object_key):
 
 
 def render_table(fields):
-    require(isinstance(fields, list) and len(fields) == 18, "每张v1表格必须有18项")
+    require(isinstance(fields, list) and len(fields) == 20, "每张v2表格必须有20项")
     require(all(isinstance(field, dict) and set(field) == {"name", "content"} and
                 isinstance(field["name"], str) and isinstance(field["content"], str) for field in fields),
             "表格字段结构不符")
-    require([field["name"] for field in fields] == list(FIELD_NAMES), "表格字段与v1模板不符")
+    require([field["name"] for field in fields] == list(FIELD_NAMES), "表格字段与v2模板不符")
     for field in fields:
         require(field["content"].strip() and len(field["content"].encode("utf-8")) <= MAX_FIELD_BYTES,
                 "表格内容为空或超过64KiB")

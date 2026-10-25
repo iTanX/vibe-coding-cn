@@ -29,6 +29,7 @@ RETIRED_DIRS = (
 RETIRED_FILES = (
     Path('.github/context/tool-explanation-template-v0.md'),
     Path('.github/context/tool-explanation-template-v1.md'),
+    Path('.github/context/tool-explanation-template-v2.md'),
 )
 LEGACY_PROMPT_TOOL = Path('.github/extensions/prompts-library')
 LEGACY_PROMPT_EXPORTS = LEGACY_PROMPT_TOOL / 'prompt_jsonl'

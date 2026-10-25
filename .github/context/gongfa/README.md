@@ -4,19 +4,19 @@
 ## 字多不看
 
 - 共**413条内容记录**；已登记413条，待登记0条，未登记来源条目0条。不是独立功法去重后的总数。
-- 原前瞻初评410条，暂不可判3条；不是正式效果评级，亦不把缺测默认补成黄阶。
+- 原前瞻初评411条，暂不可判2条；不是正式效果评级，亦不把缺测默认补成黄阶。
 - 331条来源迁入说明曾由用户确认正式通过审阅；后续内容更新不自动继承该确认。历史来源快照保留原样，书目/许可核验、实际效果与正式评级仍分别维护。
 - [data.json](data.json)是唯一原始数据源，原始文档、历史来源选区、意见、来源和附件均保留其中。
 
-输入绑定：`c4948f6cde5110f6488cfd0ee751781be4e983a76faa7b308b99f61eb4601836`。
+输入绑定：`1ba93bac670a9f5bb719e2ad11ab0fb9a99ca0e1d3264b11deaa293910f28688`。
 
 ## 快速导航
 
-- [天阶（4条）](tian.md)
+- [天阶（5条）](tian.md)
 - [地阶（76条）](di.md)
 - [玄阶（309条）](xuan.md)
 - [黄阶（21条）](huang.md)
-- [未明确品级（3条；不归属任何阶）](huang.md#未明确品级不归属黄阶)
+- [未明确品级（2条；不归属任何阶）](huang.md#未明确品级不归属黄阶)
 - [全部记录导航](#全部记录)
 - [原文文集](#原文文集)
 - [品级词表](#品级词表)
@@ -1933,6 +1933,8 @@
 - [输入输出与状态变换分离](tian.md#v0-registry-gongfa-input-state-transform-separation-r1-2443d5c8) — 天阶中级
 <a id="v0-registry-gongfa-input-state-transform-output-cross-domain-r1-4b6a54ec"></a>
 - [输入—状态—变换—输出跨领域框架](tian.md#v0-registry-gongfa-input-state-transform-output-cross-domain-r1-4b6a54ec) — 天阶初级
+<a id="v0-registry-gongfa-experience-pattern-transfer-feedback-r1-21c9b633"></a>
+- [经验规律迁移与反馈校正](tian.md#v0-registry-gongfa-experience-pattern-transfer-feedback-r1-21c9b633) — 天阶初级
 
 ### 地阶
 
@@ -2761,8 +2763,6 @@
 - [灾备容量负载放大模型](huang.md#v0-registry-gongfa-candidate-html211-e001-a663456869-r1-5c259ebd) — 暂不可判
 <a id="v0-registry-gongfa-candidate-html96-vc029-6cca304cec-r1-434a756e"></a>
 - [CAP 定理 (CAP Theorem)](huang.md#v0-registry-gongfa-candidate-html96-vc029-6cca304cec-r1-434a756e) — 暂不可判
-<a id="v0-registry-gongfa-experience-pattern-transfer-feedback-r1-21c9b633"></a>
-- [经验规律迁移与反馈校正](huang.md#v0-registry-gongfa-experience-pattern-transfer-feedback-r1-21c9b633) — 暂不可判
 
 ## 原文文集
 

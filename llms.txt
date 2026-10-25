@@ -68,8 +68,9 @@
 - .github/context/gongfa/README.md#doc-development-process
 - .github/skills/README.md#当前保留
 - .github/prompts-README.md#在线提示词库
-- .github/tool-explanation-template-v1.md
-- .github/tool-explanation-template-v0.md
+- .github/tool-explanation-template-v2.md
+- .github/tool-explanation-template-v1.md（历史）
+- .github/tool-explanation-template-v0.md（历史）
 - .github/llms-full.txt
 - .github/recommended-answer.md
 

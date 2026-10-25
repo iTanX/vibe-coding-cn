@@ -13,7 +13,7 @@
 | [法器](faqi/README.md) | 分阶导航：[天](faqi/tian.md)、[地](faqi/di.md)、[玄](faqi/xuan.md)、[黄](faqi/huang.md)；来源与边界见data.json |
 | [从零开始](../getting-started-README.md) | 提供可全文复制给网页版 AI 的 Pi CLI 提示词：先确认系统/终端并检查现有 Pi；必要时按安装路线核对网络、安装并验证 CLI，再连接 OpenAI GPT 并验收本机 Agent 能力；《如何完成工作》是独立可选指南，不是安装前置条件 |
 | [提示词](../prompts-README.md) | 现有云端提示词索引 |
-| [说明模板v1](../tool-explanation-template-v1.md) | 功法、法器逐对象说明的活动模板；[历史v0](../tool-explanation-template-v0.md) |
+| [说明模板v2](../tool-explanation-template-v2.md) | 功法、法器逐对象说明的活动模板；[历史v1](../tool-explanation-template-v1.md)、[历史v0](../tool-explanation-template-v0.md) |
 | [AI引用](../ai-citation-README.md) | 摘要、FAQ与完整AI引用入口 |
 | [机器索引](../metadata-README.md) | 分类、术语和历史路径映射 |
 
@@ -50,10 +50,10 @@
 
 ### 两个资料集合
 
-`gongfa/data.json`、`faqi/data.json`分别是本集合唯一维护源。历史文档身份、文件模式、原始字节、SHA、选择器和既有意见保留在`documents`中；文本用UTF-8，二进制用显式Base64。当前逐对象v1说明独立存于顶层`explanations_v1`，绑定`.github/tool-explanation-template-v1.md`的SHA并包含18项字段，不混入冻结原文载荷。v0模板仅作历史参考。FaQi使用的固定外部资源源快照保存在`faqi/data.json.documents`；通用外部资源集合不再作为当前浏览入口。
+`gongfa/data.json`、`faqi/data.json`分别是本集合唯一维护源。历史文档身份、文件模式、原始字节、SHA、选择器和既有意见保留在`documents`中；文本用UTF-8，二进制用显式Base64。当前逐对象v2说明独立存于顶层`explanations_v2`，绑定`.github/tool-explanation-template-v2.md`的SHA并包含20项字段，不混入冻结原文载荷。v0与v1模板仅作历史参考。FaQi使用的固定外部资源源快照保存在`faqi/data.json.documents`；通用外部资源集合不再作为当前浏览入口。
 `locations`只表达当前物理位置，`live_sources`绑定迁移后的当前实现；它们不代替原始SHA，也不构成重新源审或效果验证。
 
-每个集合以`data.json`为唯一数据源，生成`README.md`导航页及天、地、玄、黄四个阶级正文页；每个对象仍独立生成一张18项严格三列表格，未知信息在相应字段标`待核`并说明原因。未明确分级的功法留在黄阶文档的独立“暂不可判”附录，不视作黄阶。README保留历史锚点供旧链接跳转；冻结原文仍在data.json。功法历史Excel保留为原始载荷，不再产生第二份活动Excel视图。
+每个集合以`data.json`为唯一数据源，生成`README.md`导航页及天、地、玄、黄四个阶级正文页；每个对象按v2模板独立生成一张20项严格三列表格，未知信息在相应字段标`待核`并说明原因。未明确分级的功法留在黄阶文档的独立“暂不可判”附录，不视作黄阶。README保留历史锚点供旧链接跳转；冻结原文仍在data.json。功法历史Excel保留为原始载荷，不再产生第二份活动Excel视图。
 新增或修订登记仍须遵守载荷内既有Schema、稳定ID、内容版本、来源与评级协议，不能把候选、排除项或历史判断自动晋升。
 
 ### 来源与信任边界
