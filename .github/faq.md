@@ -2,7 +2,7 @@
 
 ## vibe-coding-cn 是什么？
 
-`vibe-coding-cn` 是中文 Vibe Coding 从入门到精通教程，用于帮助用户通过 AI 结对编程把想法变成可运行产品。
+以 Pi Agent 为执行宿主、以 OpenAI GPT 为模型选项，提供按任务取用的知识、指令和工具，并用实际证据验收工作结果。
 
 ## 它适合谁？
 

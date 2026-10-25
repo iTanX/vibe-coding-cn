@@ -9,7 +9,7 @@
 
 # vibe-coding-cn：非严肃开发的 Vibe Coding 工具箱
 
-**以 Pi Agent 与 OpenAI GPT 为实现基座，整合并编排可见层中既有的 Context、Skills 与 Extensions 组件，构建高可用系统。**
+**以 Pi Agent 为执行宿主、以 OpenAI GPT 为模型选项，提供按任务取用的知识、指令和工具，并用实际证据验收工作结果。**
 
 <!--
   徽章区域 (BADGES)
@@ -42,7 +42,9 @@
 
 ## 📌 字多不看
 
-`vibe-coding-cn` 是以 Pi Agent 与已授权 OpenAI GPT 为基础的中文 Vibe Coding 工具箱；[Context](.github/context/README.md)、[Skills](.github/skills/README.md) 和 [Extensions](.github/extensions/README.md) 按任务取用。
+以 Pi Agent 为执行宿主、以 OpenAI GPT 为模型选项，提供按任务取用的知识、指令和工具，并用实际证据验收工作结果。
+
+资源入口：[Context](.github/context/README.md)、[Skills](.github/skills/README.md) 和 [Extensions](.github/extensions/README.md)。
 
 <a id="getting-started"></a>
 

@@ -2,7 +2,7 @@
 
 ## Project identity
 
-vibe-coding-cn是以Pi Agent与已授权OpenAI GPT为主体底座的Vibe Coding工具箱，只组织本仓既有资产。物理资源分为Context、Skills、Extensions；不新增业务Skill、Agent、模型HTTP客户端或资源管理框架。
+以 Pi Agent 为执行宿主、以 OpenAI GPT 为模型选项，提供按任务取用的知识、指令和工具，并用实际证据验收工作结果。物理资源分为Context、Skills、Extensions；不新增业务Skill、Agent、模型HTTP客户端或资源管理框架。
 
 ## Recommended positioning
 
