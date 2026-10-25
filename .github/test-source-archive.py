@@ -976,6 +976,29 @@ class SourceArchiveTest(unittest.TestCase):
         )
         self.assertTrue(all(item in acceptance for item in required))
 
+    def test_first_project_completion_requires_all_required_criteria_to_pass(self):
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
+        completion = ' '.join(document.split('## 完成记录', 1)[1].split('## 下一步', 1)[0].split())
+        # 留下失败记录不等于达成目标；核对公开的完成承诺，而非AI是否遵守。
+        self.assertNotIn('或未通过和未验证项已明确记录', completion)
+        self.assertRegex(completion, r'只有.*全部.*可复核证据.*通过.*才.*目标完成')
+        self.assertIn('未通过', completion)
+        self.assertIn('未验证', completion)
+        self.assertRegex(completion, r'未完成.*部分完成')
+
+    def test_god_m42_handles_disabled_tools_before_bash_repair(self):
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
+        m42 = ' '.join(prompt.split('### M4.2：验证实际工具调用', 1)[1]
+                       .split('## 完整配置与使用的完成标准', 1)[0].split())
+        # CLI工具选择和退出方式来自Pi官方接口，不靠重装解决未启用工具。
+        for item in ('--no-tools', '--tools read', '不等于', '未安装', '不重装',
+                     '用户明确同意', 'M4.2 记为未验证', '/quit', '分轮',
+                     'pi --tools bash --no-mcp --no-extensions --no-skills',
+                     '--no-session', '模型', '授权路线', '服务端点', 'M4.1'):
+            with self.subTest(requirement=item):
+                self.assertIn(item, m42)
+        self.assertRegex(m42, r'已启用 Bash.*沿用 M4.1.*不为工具验证重新启动')
+
     def test_god_share_gist_copies_may_persist(self):
         prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m40 = prompt.split('### M4.0：进入 Pi 交互界面', 1)[1].split('### M4.1：验证对话能力', 1)[0]
@@ -1134,6 +1157,11 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_m42_requires_the_exact_command_and_stops_on_extra_calls(self):
         prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
+        m42 = prompt.split('### M4.2：验证实际工具调用', 1)[1].split('## 完整配置与使用的完成标准', 1)[0]
+        self.assertIn('Bash 工具调用记录', m42)
+        for insufficient in ('模型普通文本', '系统终端', '`!命令`'):
+            self.assertIn(insufficient, m42)
+        self.assertIn('不算工具验证通过', m42)
         self.assertIn(
             '只有确认 Pi 本次仅执行上方这条 Bash 只读命令并返回 `local shell OK`，才记为通过。',
             prompt,
@@ -1489,6 +1517,7 @@ class SourceArchiveTest(unittest.TestCase):
                 ('bash', 'curl -fsSL https://pi.dev/install.sh | sh\n'),
                 ('powershell', 'irm https://pi.dev/install.ps1 | iex\n'),
                 ('text', 'pi\n'),
+                ('text', '请只回答 7 + 5 的结果，不调用任何工具。\n'),
                 ('text', "请只通过当前可用的本机 Bash 工具运行这一条只读命令：printf 'local shell OK\\n'\n"
                          '不要运行其他命令、读取文件、创建或修改文件、访问网络。只返回结果；若工具不可用，请直接说明。\n'),
             ],
@@ -1499,7 +1528,7 @@ class SourceArchiveTest(unittest.TestCase):
                          'href="https://pi.dev/docs/latest/termux"'):
             with self.subTest(rendered_markdown=rendered):
                 self.assertIn(rendered, html)
-        self.assertEqual(html.count('<pre>'), 5)
+        self.assertEqual(html.count('<pre>'), 6)
         self.assertTrue({'pi-cli-安装与配置指南', 'm0检查现状', '官方资料'}.issubset(
             book_views._links.markdown_anchors(Path(__file__).with_name('pi-cli-setup.md'))))
         self.assertEqual(book_views.relocated('.github/god.md', 'milestone-2'),
