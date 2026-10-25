@@ -501,6 +501,9 @@ class SourceArchiveTest(unittest.TestCase):
             '先核对实际状态和已产生的改动',
             '无法确认操作是否已生效或重试是否安全时，暂停说明',
             '不自动重跑可能产生副作用的操作',
+            '`Esc`',
+            '不保证立即中断',
+            '停止不等于回滚',
         )
         self.assertTrue(all(item in step2 for item in required))
 
@@ -999,6 +1002,20 @@ class SourceArchiveTest(unittest.TestCase):
                 self.assertIn(item, m42)
         self.assertRegex(m42, r'已启用 Bash.*沿用 M4.1.*不为工具验证重新启动')
 
+    def test_first_project_read_only_prompt_is_not_a_tool_permission_boundary(self):
+        document = Path(__file__).with_name('how-to-complete-work.md').read_text(encoding='utf-8')
+        before_prompt = document.split('## 第 1 步：定义目标与验收', 1)[1].split('```text', 1)[0]
+        for boundary in ('提示词', '不是权限开关', 'M4.0', '不保证逐次询问'):
+            self.assertIn(boundary, before_prompt)
+
+    def test_god_guidance_distinguishes_not_executed_from_failed(self):
+        prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
+        guidance = prompt.split('## 给网页版 Chat AI 的任务', 1)[1].split('## M0：检查现状', 1)[0]
+        # 只核对引导合同，不把字段存在称为模型真的遵守或新手成功。
+        for item in ('操作位置', '当前动作', '如何回报', '未执行', '不记为通过',
+                     '不推断安装失败', '最少的非敏感证据'):
+            self.assertIn(item, guidance)
+
     def test_god_share_gist_copies_may_persist(self):
         prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
         m40 = prompt.split('### M4.0：进入 Pi 交互界面', 1)[1].split('### M4.1：验证对话能力', 1)[0]
@@ -1150,6 +1167,9 @@ class SourceArchiveTest(unittest.TestCase):
 
     def test_god_prompt_warns_about_mcp_connections_before_pi_start(self):
         prompt = Path(__file__).with_name('pi-cli-setup.md').read_text(encoding='utf-8')
+        m40 = prompt.split('### M4.0：进入 Pi 交互界面', 1)[1].split('### M4.1：验证对话能力', 1)[0]
+        for item in ('pi mcp list', '--json', '不是纯配置查看', '不必新建配置', '连接测试'):
+            self.assertIn(item, m40)
         self.assertIn(
             'MCP 是一种让 Pi 连接服务器并把服务器的工具和资源提供给模型的协议。启动普通 Pi 会话时，所有已启用的 MCP 服务器会在后台自动连接。项目配置 `.pi/mcp.json` 只在授予项目信任后读取；用户级配置默认位于 `~/.pi/agent/mcp.json`，可跨项目生效。stdio 服务器可启动本机进程，HTTP 服务器可能连接远端服务。首次在已有目录启动普通 Pi 或更改 MCP 配置后，先在本机检查两处是否有未知启用项；来源或目标不明时暂停，不要把配置或凭据发送给网页版 Chat AI。',
             prompt,
@@ -1162,6 +1182,8 @@ class SourceArchiveTest(unittest.TestCase):
         for insufficient in ('模型普通文本', '系统终端', '`!命令`'):
             self.assertIn(insufficient, m42)
         self.assertIn('不算工具验证通过', m42)
+        for stop_boundary in ('`Esc`', '不保证立即中断', '停止不等于回滚', '`/quit`'):
+            self.assertIn(stop_boundary, m42)
         self.assertIn(
             '只有确认 Pi 本次仅执行上方这条 Bash 只读命令并返回 `local shell OK`，才记为通过。',
             prompt,
