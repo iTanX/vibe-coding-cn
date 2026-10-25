@@ -104,6 +104,32 @@ def git_blob(repository, revision, path):
     return git_output(repository, "show", spec)
 
 
+def submodule_checkout_state(root, repository, revision):
+    current_repository = source_archive.physical_path(root / repository).relative_to(root).as_posix()
+    index = git_output(root, "ls-files", "--stage", "--", current_repository).decode().split()
+    require(len(index) >= 4 and index[0] == "160000" and index[1] == revision,
+            "当前submodule索引指针漂移")
+    status = subprocess.run(
+        ["git", "--no-replace-objects", "-C", str(root), "submodule", "status", "--", current_repository],
+        capture_output=True,
+        timeout=20,
+    )
+    require(status.returncode == 0, "固定Git来源不可读取；请核对修订与submodule初始化")
+    lines = status.stdout.decode("utf-8").splitlines()
+    require(len(lines) == 1 and len(lines[0]) > 1, "当前submodule状态不可读取")
+    marker = lines[0][0]
+    fields = lines[0][1:].split()
+    require(marker in {" ", "-", "+", "U"} and len(fields) >= 2 and fields[1] == current_repository,
+            "当前submodule状态不可读取")
+    if marker == "-":
+        require(fields[0] == revision, "当前submodule索引指针漂移")
+        return "uninitialized"
+    require(marker == " " and fields[0] == revision, "submodule工作树修订漂移")
+    require(git_output(root / repository, "rev-parse", "HEAD").decode().strip() == revision,
+            "submodule工作树修订漂移")
+    return "initialized"
+
+
 def path_at_revision(root, revision, current_path):
     parts = PurePosixPath(current_path).parts
     candidates = [current_path]
@@ -182,6 +208,7 @@ def validate(root, input_path):
     footprints = set()
     source_repositories = {source["repository"] for source in sources.values() if source["repository"] != "."}
     require(retired_submodules <= source_repositories, "退役子模块没有对应的冻结来源记录")
+    submodule_states = {}
     for repository in retired_submodules:
         require(not any(path == repository or path.startswith(repository + "/")
                         for path in archive_data["locations"]), "退役子模块仍有当前位置映射")
@@ -237,16 +264,27 @@ def validate(root, input_path):
                 current = body
                 require(digest(body) == source["sha256"], f"冻结来源文件/SHA漂移：{source['id']}")
             else:
-                require(git_output(repository, "rev-parse", "HEAD").decode().strip() == source["revision"], "submodule工作树修订漂移")
-                body = git_blob(repository, source["revision"], relative)
-                current = bounded_read(path)
-                require(body == current and digest(body) == source["sha256"], f"来源文件/SHA漂移：{source['id']}")
+                state_key = (source["repository"], source["revision"])
+                if state_key not in submodule_states:
+                    submodule_states[state_key] = submodule_checkout_state(
+                        root, source["repository"], source["revision"]
+                    )
+                if submodule_states[state_key] == "uninitialized":
+                    body = source_archive.read_bytes(path)
+                    current = body
+                    require(digest(body) == source["sha256"], f"冻结来源文件/SHA漂移：{source['id']}")
+                else:
+                    body = git_blob(repository, source["revision"], relative)
+                    current = bounded_read(path)
+                    require(body == current and digest(body) == source["sha256"], f"来源文件/SHA漂移：{source['id']}")
         lines = body.decode("utf-8").splitlines(keepends=True)
         start, end = source["lines"]
         require(1 <= start < end <= len(lines) + 1, f"来源半开选区越界：{source['id']}")
         selected = "".join(lines[start - 1:end - 1]).encode("utf-8")
         require(digest(selected) == source["selection_sha256"], f"选区SHA不符：{source['id']}")
-        if source["repository"] not in retired_submodules:
+        if source["repository"] == "." or submodule_states.get(
+            (source["repository"], source["revision"])
+        ) == "initialized":
             bindings[path] = digest(current)
     for obj in objects.values():
         require(obj["type_id"] in type_ids, "引用了不存在的本体类")
@@ -401,7 +439,7 @@ def validate(root, input_path):
                 implementation = sources[objects[related_object_id]["implementation"]]
                 require(implementation["repository"] == target_repository, "引用软链接目标与关联法器来源错配")
             # source_revision保留旧Git状态；当前软链接由登记目标、规范仓内路径和submodule来源共同约束。
-    return data, sources, objects, resources, decisions, bindings
+    return data, sources, objects, resources, decisions, bindings, submodule_states
 
 
 def source_navigation(root):
@@ -499,8 +537,12 @@ def render(data, objects, root, explanations, index_name="README.md"):
     return views
 
 
-def unchanged(bindings, root, data):
-    source_archive.check_live(root)
+def unchanged(bindings, root, data, submodule_states):
+    unavailable_roots = [
+        source_archive.physical_path(root / repository).relative_to(root).as_posix()
+        for (repository, _revision), state in submodule_states.items() if state == "uninitialized"
+    ]
+    source_archive.check_live(root, unavailable_roots_by_kind={"faqi": unavailable_roots})
     archives = source_archive.bundle_bindings(root)
     retired_submodules = set(source_archive.bundles(root)["faqi"]["data"].get("retired_submodules", []))
     for path, expected in bindings.items():
@@ -516,10 +558,8 @@ def unchanged(bindings, root, data):
     repositories = {s["repository"]: s["revision"] for s in data["sources"]
                     if s["repository"] != "." and s["repository"] not in retired_submodules}
     for repository, revision in repositories.items():
-        current_repository = source_archive.physical_path(root / repository).relative_to(root).as_posix()
-        index = git_output(root, "ls-files", "--stage", "--", current_repository).decode().split()
-        require(len(index) >= 3 and index[0] == "160000" and index[1] == revision, "当前submodule索引指针漂移")
-        require(git_output(root / repository, "rev-parse", "HEAD").decode().strip() == revision, "submodule修订被并行修改")
+        state = submodule_checkout_state(root, repository, revision)
+        require(state == submodule_states.get((repository, revision)), "submodule初始化状态在读取期间变化")
 
 
 def main():
@@ -537,7 +577,7 @@ def main():
     try:
         require(not input_path.is_symlink() and input_path.parent.resolve() == input_path.parent and
                 not view.is_symlink() and view.parent.resolve() == view.parent, "输入/输出含软链接")
-        data, _, objects, resources, _, bindings = validate(root, input_path)
+        data, _, objects, resources, _, bindings, submodule_states = validate(root, input_path)
         archive = source_archive.bundles(root).get("faqi")
         require(archive is not None and "explanations_v1" in archive["data"], "法器data.json缺少v1说明载荷")
         require(view.name not in {tier + ".md" for tier, _label in GRADE_TIERS}, "索引文件名不能与阶级文档冲突")
@@ -546,7 +586,7 @@ def main():
         outputs.update({view.parent / (tier + ".md"): rendered[tier + ".md"] for tier, _label in GRADE_TIERS})
         require(all(not path.is_symlink() for path in outputs), "生成目标不能是软链接")
         before = {path: bounded_read(path) if path.exists() else None for path in outputs}
-        unchanged(bindings, root, data)
+        unchanged(bindings, root, data, submodule_states)
         if args.write:
             for path, previous in before.items():
                 require(previous is None or previous.startswith(MARKER.encode()), "拒绝覆盖非本工具生成的文件：" + path.name)
@@ -561,7 +601,7 @@ def main():
                     stream.flush()
                     os.fsync(stream.fileno())
                 temporaries[path] = temporary
-            unchanged(bindings, root, data)
+            unchanged(bindings, root, data, submodule_states)
             for path, temporary in temporaries.items():
                 require(not path.is_symlink() and
                         (bounded_read(path) if path.exists() else None) == before[path],
@@ -572,11 +612,16 @@ def main():
         else:
             for path, raw in outputs.items():
                 require(before[path] == raw.encode("utf-8"), "法器视图缺失/陈旧或手改：" + path.name + "；运行make sync-faqi-catalog")
-        unchanged(bindings, root, data)
+        unchanged(bindings, root, data, submodule_states)
         print(json.dumps({"status": "valid-master-classification-register", "objects": len(objects), "local_entries": len(data['local_entries']),
                           "local_exclusions": len(data['local_exclusions']), "external_resources": len(resources),
                           "dependency_objects": len(data['dependency_graph']['objects']),
                           "dependency_categories": len(data['dependency_graph']['dependency_categories']),
+                          "uninitialized_submodules": sorted(
+                              source_archive.physical_path(root / repository).relative_to(root).as_posix()
+                              for (repository, _revision), state in submodule_states.items()
+                              if state == "uninitialized"
+                          ),
                           "provisional_grade_assignments": len(data['provisional_grade_assignments']),
                           "view_sha256": digest(outputs[view].encode("utf-8")),
                           "grade_view_sha256": {path.name: digest(raw.encode("utf-8")) for path, raw in outputs.items() if path != view},

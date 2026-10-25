@@ -51,6 +51,59 @@ class SourceArchiveTest(unittest.TestCase):
         live.write_bytes(b'unreviewed change')
         with self.assertRaises(ValueError): archive.check_live(self.root)
 
+    def test_unavailable_roots_skip_only_explicit_live_bindings(self):
+        inside = '.github/metadata/gongfa/source-inside.txt'
+        outside = '.github/metadata/gongfa/source-outside.txt'
+        current_root = self.root / '.github/extensions/uninitialized'
+        current_root.mkdir(parents=True)
+        current_file = self.root / '.github/extensions/live.txt'
+        current_file.write_bytes(b'current implementation')
+        self.data['documents'] = {
+            inside: document(b'archived inside'),
+            outside: document(b'archived outside'),
+        }
+        self.data['locations'] = {
+            inside: '.github/extensions/uninitialized',
+            outside: '.github/extensions/live.txt',
+        }
+        self.data['live_sources'] = {
+            inside: {'path': '.github/extensions/uninitialized/source.txt',
+                     'sha256': hashlib.sha256(b'unavailable implementation').hexdigest()},
+            outside: {'path': '.github/extensions/live.txt',
+                      'sha256': hashlib.sha256(b'current implementation').hexdigest()},
+        }
+        self.save()
+        faqi_path = self.root / '.github/context/faqi/data.json'
+        faqi_path.parent.mkdir(parents=True)
+        faqi_path.write_text(json.dumps({
+            'format': 'vibe-coding-cn/source-archive@1', 'kind': 'faqi',
+            'source_revision': 'b' * 40,
+            'documents': {'.github/metadata/faqi/source.txt': document(b'archived faqi')},
+            'locations': {'.github/metadata/faqi/source.txt': '.github/extensions/uninitialized'},
+            'live_sources': {'.github/metadata/faqi/source.txt': {
+                'path': '.github/extensions/uninitialized/faqi-source.txt',
+                'sha256': hashlib.sha256(b'unavailable faqi').hexdigest(),
+            }},
+            'projections': [],
+        }), encoding='utf-8')
+
+        with self.assertRaises(FileNotFoundError):
+            archive.check_live(self.root)
+        gongfa_only = {'gongfa': ('.github/extensions/uninitialized',)}
+        with self.assertRaises(FileNotFoundError):
+            archive.check_live(self.root, unavailable_roots_by_kind=gongfa_only)
+        unavailable = {
+            **gongfa_only, 'faqi': ('.github/extensions/uninitialized',),
+        }
+        archive.check_live(self.root, unavailable_roots_by_kind=unavailable)
+        current_file.write_bytes(b'unreviewed change')
+        with self.assertRaisesRegex(ValueError, '当前实现已变化'):
+            archive.check_live(self.root, unavailable_roots_by_kind=unavailable)
+        with self.assertRaisesRegex(ValueError, '来源路径越界'):
+            archive.check_live(self.root, unavailable_roots_by_kind={
+                'gongfa': ('../outside',),
+            })
+
     def test_binary_and_symlink_payloads_roundtrip_without_dereference(self):
         self.data['documents'] = {'.github/metadata/gongfa/history.xlsx': document(b'\x00\xff\x01'),
                                   '.github/skills/original-ref': document(b'../fixed-source', '120000')}

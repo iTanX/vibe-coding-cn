@@ -213,12 +213,21 @@ def check_unchanged(root):
         require(hashlib.sha256(raw_read(path)).hexdigest() == digest, '原始数据在读取期间变化')
 
 
-def check_live(root):
+def check_live(root, *, unavailable_roots_by_kind=None):
+    """核对当前实现；仅对调用方已验证不可用的仓库子树跳过实时绑定。"""
     root = Path(root)
     check_unchanged(root)
-    for bundle in bundles(root).values():
+    archives = bundles(root)
+    unavailable_roots_by_kind = unavailable_roots_by_kind or {}
+    require(isinstance(unavailable_roots_by_kind, dict) and set(unavailable_roots_by_kind) <= set(archives),
+            '当前来源排除范围不符')
+    for kind, bundle in archives.items():
+        unavailable = tuple(checked_path(root, path)
+                            for path in unavailable_roots_by_kind.get(kind, ()))
         for binding in bundle['data']['live_sources'].values():
             path = checked_path(root, binding['path'])
+            if any(path == blocked or path.is_relative_to(blocked) for blocked in unavailable):
+                continue
             require(hashlib.sha256(raw_read(path)).hexdigest() == binding['sha256'], '当前实现已变化；迁移绑定不再适用')
         for ref in bundle['data']['projections']:
             path = root / ref['path']

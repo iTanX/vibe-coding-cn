@@ -36,5 +36,6 @@
 
 - 运行对应`make sync-gongfa-catalog`或`make sync-faqi-catalog`生成阅读视图；只读检查用`make check-gongfa-catalog`、`make check-faqi-catalog`。
 - 公开资料变更运行相关协议、内链、索引与结构检查；已有本机研究副本可显式运行`make test-local-research`，该目标不属于默认`make test`，也不应要求新克隆具备研究档案。
+- 法器来源Gitlink未初始化时，检查器仍核对父仓库固定指针及`data.json`中的冻结字节、SHA和选区，并报告未初始化路径；不把快照称为当前工作树核验。已初始化时仍逐文件检查固定修订与当前文件。
 - 最终完整`make test`绑定实际代码和工件，不冒称生产或效果验证。
 - 根`README.md`仍是唯一主页；文集和Context入口只负责阅读导航，维护者规则写本文件或既有子域`AGENTS.md`。

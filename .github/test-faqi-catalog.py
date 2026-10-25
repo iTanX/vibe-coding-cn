@@ -372,6 +372,41 @@ class FaqiCatalogTest(unittest.TestCase):
             aliases[".github/skills/auto-tmux/assets/oh-my-tmux"]["related_object_id"],
         ))
 
+    def test_uninitialized_gitlinks_use_archived_sources_and_preserve_index_gate(self):
+        clone = ARTIFACTS / "uninitialized-gitlink-clone"
+        cloned = subprocess.run(["git", "clone", "--quiet", "--local", str(ROOT), str(clone)],
+                                capture_output=True, timeout=60)
+        self.assertEqual(0, cloned.returncode, cloned.stderr.decode())
+        status = subprocess.run(["git", "-C", str(clone), "submodule", "status"],
+                                capture_output=True, timeout=20)
+        self.assertEqual(0, status.returncode, status.stderr.decode())
+        uninitialized = sorted(
+            line[1:].split()[1] for line in status.stdout.decode().splitlines()
+            if line.startswith("-")
+        )
+        expected = sorted({".github/extensions/oh-my-tmux", ".github/extensions/tmux"})
+        self.assertEqual(expected, uninitialized)
+
+        archive = json.loads((clone / ".github/context/faqi/data.json").read_text(encoding="utf-8"))
+        metadata = json.loads(source_archive.read_text(clone / ".github/metadata/faqi.json"))
+        archived_sources = [source for source in metadata["sources"] if source["repository"] != "."]
+        for source in archived_sources:
+            self.assertEqual(source["sha256"], archive["documents"][source["path"]]["sha256"], source["id"])
+
+        result = self.invoke("uninitialized-gitlinks", "--root", clone, "--check")
+        self.assertEqual(0, result.returncode, result.stderr.decode())
+        report = json.loads(result.stdout)
+        self.assertEqual(expected, report["uninitialized_submodules"])
+
+        drifted = subprocess.run([
+            "git", "-C", str(clone), "update-index", "--add", "--cacheinfo",
+            f"160000,{'1' * 40},.github/extensions/tmux",
+        ], capture_output=True, timeout=20)
+        self.assertEqual(0, drifted.returncode, drifted.stderr.decode())
+        result = self.invoke("drifted-uninitialized-gitlink-index", "--root", clone, "--check")
+        self.assertNotEqual(0, result.returncode)
+        self.assertIn("当前submodule索引指针漂移", result.stderr.decode())
+
     def test_license_evidence_sources_are_support_only(self):
         data = json.loads(source_archive.read_text(ROOT / ".github/metadata/faqi.json"))
         implementation = next(source for source in data["sources"] if source["id"] == "S18")

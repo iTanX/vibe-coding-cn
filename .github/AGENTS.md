@@ -46,7 +46,7 @@
 |---|---|
 | [source_boundaries.py](source_boundaries.py) | 原lib/__init__中的第三方、镜像与研究缓存边界；保留各检查器范围差异 |
 | [taxonomy.py](taxonomy.py) | 读取原轻量YAML子集中的分类与文档导航 |
-| [source_archive.py](source_archive.py) | 严格读取JSON载荷，核对字节、模式、SHA、当前位置、当前绑定与隔离复原 |
+| [source_archive.py](source_archive.py) | 严格读取JSON载荷，核对字节、模式、SHA、当前位置、当前绑定与隔离复原；调用方可显式标记已验证不可用的Gitlink子树，仅跳过其实时文件绑定，原始载荷与其他绑定仍核对 |
 | [book_views.py](book_views.py) | 复用既有链接规则及markdown-it-py，生成文集锚点、历史导航及目录，代码示例不改写 |
 | [tool_explanations.py](tool_explanations.py) | 绑定登记v1模板SHA，校验对象覆盖与18项顺序，安全渲染每对象独立三列表格 |
 
